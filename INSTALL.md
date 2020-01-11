@@ -6,9 +6,9 @@
 # Contributing to DEVELOPMENT
 - To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`    
 ## Front-End only 
-- run `npm run client` in your terminal to start react server
+- run `npm run client` in your terminal to start the React server without the backend
 ## Back-End only 
-- run `npm run server` in your terminal to only start up the server
+- run `npm run server` in your terminal to only start up the server without the front-end React server launching
 ## Other useful scripts
 - `npm run format` to format code and ensure the same style is maintained
 -  `npm run lint` to lint your code in case your syntax checker is not working or you just want to double check your code.
