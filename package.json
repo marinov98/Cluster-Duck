@@ -11,7 +11,7 @@
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "clean": "rimraf dist",
-    "server-build": "npm run clean && babel server -d -w -s dist",
+    "server-build": "npm run clean && babel server -d dist",
     "client-build": "npm run build --prefix client",
     "heroku-postbuild": "npm run app-install && npm run client-build && npm run server-build",
     "start": "node dist/server.js"
@@ -41,6 +41,7 @@
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/node": "^7.7.7",
     "concurrently": "^5.0.2",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.17.0",

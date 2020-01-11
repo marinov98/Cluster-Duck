@@ -4,7 +4,6 @@ import logger from "morgan";
 import path from "path";
 import { config } from "dotenv";
 
-console.log(path.resolve(__dirname, "../", "client", "build", "index.html"));
 // dotenv config made for later
 config();
 
