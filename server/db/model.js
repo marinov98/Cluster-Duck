@@ -47,11 +47,11 @@ export const PostSchema = new mongoose.Schema({
     type: Boolean
   },
   /** Array of users that like the comment or found it helpful */
-  upvotes: {
+  upVotes: {
     type: Array
   },
   /** Array of users that dislike the comment or found it unhelpful */
-  downvotes: {
+  downVotes: {
     type: Array
   }
 });
