@@ -20,7 +20,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Connect to database (UNCOMMENT URL IS KNOWN)
+// Connect to database (UNCOMMENT WHEN URL IS KNOWN)
 /*mongoose.connect("mongodb://localhost/friends", {
   useNewUrlParser: true,
   useUnifiedTopology: true
