@@ -28,7 +28,7 @@ export const UserSchema = new mongoose.Schema({
 export const PostSchema = new mongoose.Schema({
   /** The user that created the post */
   poster: {
-    type: Schema.Types.ObjectId
+    type: mongoose.Schema.Types.ObjectId
   },
   /** The text string of the post message */
   text: {

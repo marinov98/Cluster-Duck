@@ -21,9 +21,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect to database (UNCOMMENT WHEN URL IS KNOWN)
-/*mongoose.connect("mongodb://localhost/friends", {
+/*
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log(`Database connected to ${process.env.MONGODB_URL}`)
 });
 */
 
