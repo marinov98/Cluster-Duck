@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import logger from "morgan";
+import mongoose from "mongoose";
 import path from "path";
 import { config } from "dotenv";
 
@@ -18,6 +19,13 @@ app.set("port", port);
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+// Connect to database (UNCOMMENT URL IS KNOWN)
+/*mongoose.connect("mongodb://localhost/friends", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+*/
 
 // Connect front and back-end when in PRODUCTION
 if (process.env.NODE_ENV === "production") {
