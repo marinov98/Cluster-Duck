@@ -27,6 +27,8 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, () => `📡 Server up! 📡 Listening on  http://localhost:${port}`);
+app.listen(port, () =>
+  console.log(`📡 Server up! 📡 Listening on  http://localhost:${port}`)
+);
 
 export default app;
