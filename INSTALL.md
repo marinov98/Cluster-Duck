@@ -13,7 +13,7 @@
 - `npm run format` to format code and ensure the same style is maintained
 -  `npm run lint` to lint your code in case your syntax checker is not working or you just want to double check your code.
 ## Environment Variables
-- the  `.env.sample` file is there to show you what to put in your `.env ` which you will create yourselves. The value of vertain variables is not put in for security reasons. The `.env` is also ignored just like the `node_modules` for security reasons. 
+- the  `.env.sample` file is there to show you what to put in your `.env ` which you will create yourselves. The value of certain variables is not put in for security reasons. The `.env` is also ignored just like the `node_modules` for security reasons. 
 - The uses of the `.env` will become more apparent as we figure how to set up our database.
 
 # PRODUCTION
