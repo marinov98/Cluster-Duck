@@ -16,4 +16,4 @@
 - the  `.env.sample` file is there to show you what to put in your `.env ` which you will create yourselves. The value of vertain variables is not put in for security reasons. The `.env` is also ignored just like the node_modules for security reasons
 
 # PRODUCTION
-- Any script containing "build or heroku" is for production only and should therefore not be run while developing this project
+- Any scripts containing `build` or `clean` in their name are for PRODUCTION only and will therefore be used by Heroku and not by us. Use only the above scripts mentioned while developing.
