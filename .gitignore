@@ -1,0 +1,7 @@
+# node ignore
+node_modules/
+.env
+
+# babel ignore
+build/
+dist/
