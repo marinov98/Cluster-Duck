@@ -4,7 +4,17 @@
   "description": "Codefest project",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "app-install": "npm i && cd client && npm i && cd ..",
+    "lint": "eslint ./server --fix",
+    "format": "prettier --write \"./**/*.{js,jsx}\"",
+    "server": "nodemon server/server.js --exec babel-node",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "clean": "rimraf dist",
+    "server-build": "npm run clean && babel server -d -w -s dist",
+    "client-build": "npm run build --prefix client",
+    "heroku-postbuild": "npm run app-install && npm run client-build && npm run server-build",
+    "start": "node dist/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,13 +27,24 @@
   },
   "homepage": "https://github.com/hunter-classes/winter-2020-codefest-submissions-hunterscript#readme",
   "dependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "axios": "^0.19.1",
     "body-parser": "^1.19.0",
     "bootstrap": "^4.4.1",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.8.7",
-    "reactstrap": "^8.2.0"
+    "morgan": "^1.9.1",
+    "reactstrap": "^8.2.0",
+    "rimraf": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "concurrently": "^5.0.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.17.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
   }
 }
