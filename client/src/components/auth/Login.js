@@ -2,6 +2,6 @@ import React, { Component } from "react";
 
 export default class Login extends Component {
   render() {
-    return <div>Swag</div>;
+    return <div>Login Page</div>;
   }
 }
