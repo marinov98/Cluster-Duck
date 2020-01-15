@@ -37,6 +37,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.8.7",
     "morgan": "^1.9.1",
+    "react-google-login": "^5.0.7",
     "react-router-dom": "^5.1.2",
     "reactstrap": "^8.2.0",
     "rimraf": "^3.0.0",
