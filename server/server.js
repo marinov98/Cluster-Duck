@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import { config } from "dotenv";
 
-// dotenv config made for later
+// Initialize environment variables
 config();
 
 // intialize express and ports
