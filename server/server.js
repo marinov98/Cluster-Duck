@@ -11,7 +11,7 @@ config();
 // intialize express and ports
 const app = express();
 
-const port = parseInt(process.env.PORT, 10) || 5000;
+const port = parseInt(process.env.PORT, 10) || 3001;
 
 app.set("port", port);
 
