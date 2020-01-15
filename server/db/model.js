@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 // experimental , not to be used yet
 
 export const UserSchema = new mongoose.Schema({
+  id: {
+    type: String
+  },
   /** The user's first name */
   firstName: {
     type: String

@@ -21,18 +21,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Connect to database (UNCOMMENT WHEN URL IS KNOWN)
-/*
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   // we're connected!
   console.log(`Database connected to ${process.env.MONGODB_URL}`)
 });
-*/
 
 // Connect front and back-end when in PRODUCTION
 if (process.env.NODE_ENV === "production") {
