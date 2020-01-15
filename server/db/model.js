@@ -2,10 +2,7 @@ import mongoose from "mongoose";
 
 // experimental , not to be used yet
 
-export const UserSchema = new mongoose.Schema({
-  id: {
-    type: String
-  },
+const UserSchema = new mongoose.Schema({
   /** The user's first name */
   firstName: {
     type: String
@@ -28,7 +25,7 @@ export const UserSchema = new mongoose.Schema({
   }
 });
 
-export const PostSchema = new mongoose.Schema({
+const PostSchema = new mongoose.Schema({
   /** The user that created the post */
   poster: {
     type: mongoose.Schema.Types.ObjectId
@@ -58,3 +55,8 @@ export const PostSchema = new mongoose.Schema({
     type: Array
   }
 });
+
+const User = mongoose.model("User", UserSchema);
+const Post = mongoose.model("Post", PostSchema);
+
+export { User, Post };
