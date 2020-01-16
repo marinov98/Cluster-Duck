@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import { config } from "dotenv";
 
-// dotenv config made for later
+// Initialize environment variables
 config();
 
 // intialize express and ports
@@ -20,12 +20,18 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Connect to database (UNCOMMENT WHEN URL IS KNOWN)
-/*mongoose.connect("mongodb://localhost/friends", {
+// Connect to database
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-*/
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function() {
+  // we're connected!
+  console.log(`Database connected to ${process.env.MONGODB_URL}`);
+});
 
 // Connect front and back-end when in PRODUCTION
 if (process.env.NODE_ENV === "production") {
