@@ -1,14 +1,29 @@
 import React, { Component } from "react";
 import { GoogleLogin } from 'react-google-login';
 import { Container, Jumbotron, Button } from 'reactstrap';
-import '../../App.css'
+import '../../App.css';
+const axios = require('axios').default;
 
 const responseGoogleGood = (response) => {
   // Send web token to backend
   console.log("Successful login!", response);
+  let tokenStr = response.Zi.id_token
+  let webApiUrl = '??'
+  axios.get(webApiUrl, {
+    headers: {
+      'Authorization' : `Bearer ${tokenStr}`
+    }
+  })
+  .then((response) => {
+    var response = response.data;
+  },
+  (error) => {
+    var status = error.response.status
+  });
 }
 
 const responseGoogleBad = (response) => {
+  alert("Login failed!");
   console.log("Something is wrong with login...", response);
 }
 
