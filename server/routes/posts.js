@@ -4,8 +4,17 @@ import { Post } from "./../db/models";
 const router = express.Router();
 
 /**
+ *
+ *
+ * POST
+ *
+ *
+ *
+ */
+
+/**
  * CreatePost endpoint
- * @route POST /p
+ * @route POST /api/posts
  * @desc Create a post
  * @access Public
  */
@@ -20,7 +29,7 @@ router.post("/", async (req, res, next) => {
 
 /**
  * FindAllPosts endpoint
- * @route GET /p
+ * @route GET api/posts
  * Find all posts
  * @access Public
  */
@@ -35,7 +44,7 @@ router.get("/", async (req, res, next) => {
 
 /**
  * Get Single Post endpoint
- * @route GET /p
+ * @route GET api/posts/:id
  * @access Public
  */
 router.get("/:id", async (req, res, next) => {
@@ -49,7 +58,7 @@ router.get("/:id", async (req, res, next) => {
 
 /**
  * DeletePost endpoint
- * @route DELETE /p/:postId
+ * @route DELETE api/posts/:id
  * @desc Delete a post
  * @access Public
  */
@@ -61,5 +70,13 @@ router.delete("/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+/**
+ *
+ *
+ * POST LIKES
+ *
+ *
+ */
 
 export default router;
