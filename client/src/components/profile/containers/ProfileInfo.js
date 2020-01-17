@@ -14,7 +14,7 @@ export default class ProfileInfo extends Component {
 	console.log("pInfo");
 
 		return (
-			<div>
+			<div style={{fontSize:"14px"}}>
 				<div>Name: {this.state.name} </div>
 				<div>Lastname: {this.state.lastname} </div>
 				<div>Year: {this.state.year} </div>
