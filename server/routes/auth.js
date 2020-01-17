@@ -26,3 +26,5 @@ router.post("/login", (req, res, next) => {});
  *  @access Public
  */
 router.get("/logout", (req, res, next) => {});
+
+export default router;
