@@ -4,23 +4,42 @@ import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
 import { config } from "dotenv";
+import { users, posts, auth } from "./routes/index";
 
-// Initialize environment variables
+/**
+ *
+ * EXPRESS AND ENVIRONMENT CONFIG INITIALIZATION
+ *
+ */
+
 config();
-
-// intialize express and ports
 const app = express();
 
-const port = parseInt(process.env.PORT, 10) || 3001;
+/**
+ *
+ * PORT
+ *
+ */
 
+const port = parseInt(process.env.PORT, 10) || 3001;
 app.set("port", port);
 
-// middleware
+/**
+ *
+ * MIDDLEWARE
+ *
+ */
+
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Connect to database
+/**
+ *
+ * DATABASE CONNECTION
+ *
+ */
+
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -32,6 +51,16 @@ db.once("open", function() {
   // we're connected!
   console.log(`Database connected to ${process.env.MONGODB_URL}`);
 });
+
+/**
+ *
+ * ROUTES
+ *
+ */
+
+app.use("/api/users", users);
+app.use("/api/posts", posts);
+app.use("/api/auth", auth);
 
 // Connect front and back-end when in PRODUCTION
 if (process.env.NODE_ENV === "production") {
