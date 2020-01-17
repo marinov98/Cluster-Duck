@@ -14,7 +14,7 @@ function ProfileClasses(props) {
 		  	</div>
 	  	</div>
   		<div style={{
-    		marginLeft: "60px"
+    		marginLeft: "70px"
     		}}>
 		    <div style={{ 
 		    	fontSize: "14px",
