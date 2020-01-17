@@ -14,12 +14,19 @@ export default class ProfileInfo extends Component {
     console.log("pInfo");
 
     return (
-      <div style={{ fontSize: "14px", align: "left" }}>
+    <div style={{
+    		marginLeft: "50px"
+    	}}>
+      <div style={{ 
+      		fontSize: "14px", 
+      		textAlign: "left"
+      		}}>
         <div>Name: {this.state.name} </div>
         <div>Lastname: {this.state.lastname} </div>
         <div>Year: {this.state.year} </div>
         <div>Major: {this.state.major} </div>
       </div>
+    </div>
     );
   }
 }
