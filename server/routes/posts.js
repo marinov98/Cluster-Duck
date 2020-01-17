@@ -79,12 +79,11 @@ router.post("/:id/:userId/like", async (req, res, next) => {
     const found = post.upVotes.find(function(element) {
       return element === user_id;
     });
-    if(found) {
+    if (found) {
       post.upVotes = post.upVotes.filter(function(element) {
         return !(element === user_id);
       });
-    }
-    else {
+    } else {
       post.upVotes.push(user_id);
       post.downVotes = post.downVotes.filter(function(element) {
         return !(element === user_id);
@@ -105,12 +104,11 @@ router.post("/:id/:userId/dislike", async (req, res, next) => {
     const found = post.downVotes.find(function(element) {
       return element === user_id;
     });
-    if(found) {
+    if (found) {
       post.downVotes = post.downVotes.filter(function(element) {
         return !(element === user_id);
       });
-    }
-    else {
+    } else {
       post.downVotes.push(user_id);
       post.upVotes = post.upVotes.filter(function(element) {
         return !(element === user_id);
@@ -122,6 +120,5 @@ router.post("/:id/:userId/dislike", async (req, res, next) => {
     next(err);
   }
 });
-
 
 export default router;
