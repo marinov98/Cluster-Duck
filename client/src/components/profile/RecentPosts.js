@@ -13,8 +13,9 @@ export default class RecentPosts extends Component {
 		console.log(this.state.posts)
 
 		return(
-			<div />
-		
+			<div>
+				<div>Recent Posts</div>
+			</div>
 		);
 	}
 }
