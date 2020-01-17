@@ -21,7 +21,8 @@ const UserSchema = new mongoose.Schema({
   },
   /** User is treated as an administrator if true */
   isAdmin: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 });
 
@@ -32,7 +33,8 @@ const PostSchema = new mongoose.Schema({
   },
   /** The text string of the post message */
   text: {
-    type: String
+    type: String,
+    default: ""
   },
   /** Array of replied messages */
   replies: {
@@ -40,11 +42,13 @@ const PostSchema = new mongoose.Schema({
   },
   /** Only visible to administrators if true */
   private: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   /** Poster's name is replaced with 'anonymous' if true */
   anonymity: {
-    type: Boolean
+    type: Boolean,
+    default: false
   },
   /** Array of users that like the comment or found it helpful */
   upVotes: {
