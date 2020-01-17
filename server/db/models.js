@@ -68,7 +68,31 @@ const PostSchema = new mongoose.Schema({
   }
 });
 
+const ChatSchema = new mongoose.Schema({
+  /** Array of users that are apart of the chat */
+  chatters: {
+    type: Array
+  },
+  /** Array of chat messages that were sent to the chat */
+  messages: {
+    type: Array
+  }
+});
+
+const ChatMsgSchema = new mongoose.Schema({
+  /** The user that created the message */
+  poster: {
+    type: mongoose.Schema.Types.ObjectId
+  },
+  /** The text string of the chat message */
+  text: {
+    type: String
+  }
+});
+
 const User = mongoose.model("User", UserSchema);
 const Post = mongoose.model("Post", PostSchema);
+const Chat = mongoose.model("Chat", ChatSchema);
+const ChatMsg = mongoose.model("ChatMsg", ChatMsgSchema);
 
-export { User, Post };
+export { User, Post, Chat, ChatMsg };
