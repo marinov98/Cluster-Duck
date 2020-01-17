@@ -30,40 +30,52 @@ export default class UserProfile extends Component {
     return (
       <div>
         {/* Navbar */}
-        <RecentPosts posts={sample_posts} />
-
+        <RecentPosts 
+        	posts={sample_posts}
+        	 />
+       	<div
+       		style={{
+            padding: "100px",
+        }}>
         <div
           style={{
             paddingTop: "20px",
-            paddingLeft: "70px",
-            marginLeft: "-84vw",
-            position: "relative"
+            paddingBottom: "20px",
+            border: "50px",
+            marginLeft: "-50vw",
+            position: "relative",
+            backgroundColor: "#ffffff",
+            width: "200px"
           }}
         >
           {/* Profile image 
 					input: image object retrieved from remote file storage into image tag
 					output: image */}
           <img src={sampleImage} alt={"DuckImg"} height={"75px"} width={"100px"} />
-          <div style={{ backgroundColor: "#ffffff" }}>
+          <div style={{ 
+          	color: "black" }}>
             {/* Profile Info 
 					input: object
 					output: column + row with identifiers points */}
             <ProfileInfo data={sample_profile_data} />
           </div>
 
-          <div>
+          <div style={{
+          	color: "black" }}>
             {/* Current Classes 
 					input: object
 					output: column + row with bulleted points */}
             <ProfileClasses classType={"Current"} classes={sample_current_data} />
           </div>
 
-          <div>
+          <div style={{
+          	color: "black" }}>
             {/* Past Classes 
 					input: object
 					output: column + row with bulleted points */}
             <ProfileClasses classType={"Past"} classes={sample_past_data} />
           </div>
+        </div>
         </div>
         {/* Recent Posts
 				input: object
@@ -72,5 +84,3 @@ export default class UserProfile extends Component {
     );
   }
 }
-
-// create containers
