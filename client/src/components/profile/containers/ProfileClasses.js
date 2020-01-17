@@ -1,10 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 
-function ProfileClasses(){
-	console.log("Pclasses");
-	return (
-		<div/>
-	);
+export default class ProfileClasses extends Component {
+
+	constructor(props){
+	super(props);
+		this.state={
+			classtype: this.props.classType
+		}
+	}
+	render(){
+		console.log("Pclasses");
+
+		return (
+			<div>
+				<div>{this.props.classType} classes</div>
+			</div>
+		);
+	}
 }
-
-export default ProfileClasses;
