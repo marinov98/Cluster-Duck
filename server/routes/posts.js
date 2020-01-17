@@ -1,5 +1,6 @@
 // posts routes
 import express from "express";
+import mongoose from "mongoose";
 import { User, Post } from "./../db/models";
 const router = express.Router();
 
@@ -75,18 +76,18 @@ router.post("/:id/:userId/like", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     const user = await User.findById(req.params.userId);
-    const user_id = user.id;
+    const user_id = new mongoose.Types.ObjectId(user.id);
     const found = post.upVotes.find(function(element) {
-      return element === user_id;
+      return element.toString() === user_id.toString();
     });
     if (found) {
       post.upVotes = post.upVotes.filter(function(element) {
-        return !(element === user_id);
+        return !(element.toString() === user_id.toString());
       });
     } else {
       post.upVotes.push(user_id);
       post.downVotes = post.downVotes.filter(function(element) {
-        return !(element === user_id);
+        return !(element.toString() === user_id.toString());
       });
     }
     post.save();
@@ -100,18 +101,18 @@ router.post("/:id/:userId/dislike", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
     const user = await User.findById(req.params.userId);
-    const user_id = user.id;
+    const user_id = new mongoose.Types.ObjectId(user.id);
     const found = post.downVotes.find(function(element) {
-      return element === user_id;
+      return element.toString() === user_id.toString();
     });
     if (found) {
       post.downVotes = post.downVotes.filter(function(element) {
-        return !(element === user_id);
+        return !(element.toString() === user_id.toString());
       });
     } else {
       post.downVotes.push(user_id);
       post.upVotes = post.upVotes.filter(function(element) {
-        return !(element === user_id);
+        return !(element.toString() === user_id.toString());
       });
     }
     post.save();
