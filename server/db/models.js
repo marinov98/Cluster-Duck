@@ -3,6 +3,14 @@ import mongoose from "mongoose";
 // experimental , not to be used yet
 
 const UserSchema = new mongoose.Schema({
+  /** Username used for logging in */
+  username: {
+    type: String
+  },
+  /** Password */
+  password: {
+    type: String
+  },
   /** The user's first name */
   firstName: {
     type: String
