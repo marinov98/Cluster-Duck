@@ -2,8 +2,8 @@
 import express from "express";
 import jwt from "jsonwebtoken";
 import { User } from "./../db/models";
-import { validateLogin, validateRegister } from "./../validation/validate";
-import { hashPasswordAndSave, comparePasswords } from "../validation/bcrypt";
+import { validateLogin, validateRegister } from "./../utils/validation/validate";
+import { hashPasswordAndSave, comparePasswords } from "./../utils/validation/bcrypt";
 const router = express.Router();
 
 /**

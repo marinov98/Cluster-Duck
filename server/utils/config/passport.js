@@ -1,5 +1,5 @@
 import { Strategy, ExtractJwt } from "passport-jwt";
-import { User } from "./../db/models";
+import { User } from "../../db/models";
 import config from "./config";
 
 // show the strategy the token and how to decode it

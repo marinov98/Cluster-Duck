@@ -4,8 +4,8 @@ import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
 import passport from "passport";
-import { executeStrategy } from "./utils/passport";
-import config from "./utils/config";
+import { executeStrategy } from "./utils/config/passport";
+import config from "./utils/config/config";
 import { users, posts, auth } from "./routes/index";
 
 /**

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { User } from "../db/models";
+import { User } from "./../../db/models";
 /**
  *
  * Hashing utility functions
