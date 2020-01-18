@@ -3,7 +3,7 @@ import { User } from "../../db/models";
 import config from "./config";
 
 // show the strategy the token and how to decode it
-const opts = {
+const options = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwtToken"),
   secretOrKey: config.jwt_secret
 };
@@ -11,7 +11,7 @@ const opts = {
 export function executeStrategy(passport) {
   try {
     passport.use(
-      new Strategy(opts, async (payload, done) => {
+      new Strategy(options, async (payload, done) => {
         // find an existing user
         const user = await User.findById(payload.id);
 
