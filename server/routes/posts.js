@@ -21,7 +21,7 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   try {
     const newPost = await Post.create(req.body);
-    return res.status(200).json(newPost);
+    return res.status(201).json(newPost);
   } catch (err) {
     next(err);
   }
@@ -50,6 +50,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
+
+    if (!post) return res.sendStatus(401);
+
     return res.status(200).json(post);
   } catch (err) {
     next(err);

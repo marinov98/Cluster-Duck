@@ -29,7 +29,8 @@ const UserSchema = new mongoose.Schema({
   },
   /** Array of the user's posted messages */
   posts: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** User is treated as an administrator if true */
   isAdmin: {
@@ -57,7 +58,8 @@ const PostSchema = new mongoose.Schema({
   },
   /** Array of replied messages */
   replies: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** Only visible to administrators if true */
   private: {
@@ -71,11 +73,13 @@ const PostSchema = new mongoose.Schema({
   },
   /** Array of users that like the comment or found it helpful */
   upVotes: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** Array of users that dislike the comment or found it unhelpful */
   downVotes: {
-    type: Array
+    type: Array,
+    default: []
   }
 });
 
