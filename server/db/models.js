@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-// experimental , not to be used yet
+/**
+ *
+ * USER SCHEMA
+ *
+ */
 
 const UserSchema = new mongoose.Schema({
   /** Username used for logging in */
@@ -25,7 +29,8 @@ const UserSchema = new mongoose.Schema({
   },
   /** Array of the user's posted messages */
   posts: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** User is treated as an administrator if true */
   isAdmin: {
@@ -33,6 +38,13 @@ const UserSchema = new mongoose.Schema({
     default: false
   }
 });
+
+/**
+ *
+ * POST SCHEMA
+ *
+ *
+ */
 
 const PostSchema = new mongoose.Schema({
   /** The user that created the post */
@@ -46,7 +58,8 @@ const PostSchema = new mongoose.Schema({
   },
   /** Array of replied messages */
   replies: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** Only visible to administrators if true */
   private: {
@@ -60,11 +73,13 @@ const PostSchema = new mongoose.Schema({
   },
   /** Array of users that like the comment or found it helpful */
   upVotes: {
-    type: Array
+    type: Array,
+    default: []
   },
   /** Array of users that dislike the comment or found it unhelpful */
   downVotes: {
-    type: Array
+    type: Array,
+    default: []
   }
 });
 
@@ -89,6 +104,12 @@ const ChatMsgSchema = new mongoose.Schema({
     type: String
   }
 });
+
+/**
+ *
+ * Models
+ *
+ */
 
 const User = mongoose.model("User", UserSchema);
 const Post = mongoose.model("Post", PostSchema);

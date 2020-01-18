@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
-import { config } from "dotenv";
+import config from "./utils/config";
 import { users, posts, auth } from "./routes/index";
 
 /**
@@ -12,7 +12,6 @@ import { users, posts, auth } from "./routes/index";
  *
  */
 
-config();
 const app = express();
 
 /**
@@ -21,8 +20,7 @@ const app = express();
  *
  */
 
-const port = parseInt(process.env.PORT, 10) || 3001;
-app.set("port", port);
+app.set("port", config.PORT);
 
 /**
  *
@@ -40,7 +38,7 @@ app.use(bodyParser.json());
  *
  */
 
-mongoose.connect(process.env.MONGODB_URL, {
+mongoose.connect(config.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -81,8 +79,8 @@ if (process.env.NODE_ENV === "production") {
  *
  */
 
-app.listen(port, () =>
-  console.log(`📡 Server up! 📡 Listening on  http://localhost:${port}`)
+app.listen(config.PORT, () =>
+  console.log(`📡 Server up! 📡 Listening on  http://localhost:${config.PORT}`)
 );
 
 export default app;
