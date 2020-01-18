@@ -20,7 +20,7 @@ const app = express();
  *
  */
 
-app.set("port", config.PORT);
+app.set("port", config.port);
 
 /**
  *
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
  *
  */
 
-mongoose.connect(config.MONGODB_URI, {
+mongoose.connect(config.db_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -79,8 +79,8 @@ if (process.env.NODE_ENV === "production") {
  *
  */
 
-app.listen(config.PORT, () =>
-  console.log(`📡 Server up! 📡 Listening on  http://localhost:${config.PORT}`)
+app.listen(config.port, () =>
+  console.log(`📡 Server up! 📡 Listening on  http://localhost:${config.port}`)
 );
 
 export default app;

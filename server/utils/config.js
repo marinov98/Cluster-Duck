@@ -2,8 +2,14 @@ import { config } from "dotenv";
 
 config();
 
-const PORT = process.env.PORT;
-const MONGODB_URI = process.env.MONGODB_URL;
-const JWT_SECRET = process.env.JWT_SECRET;
+const port = process.env.PORT;
+const db_url = process.env.MONGODB_URL;
+const jwt_secret = process.env.JWT_SECRET;
 
-export { PORT, MONGODB_URI, JWT_SECRET };
+const configuration = {
+  port,
+  db_url,
+  jwt_secret
+};
+
+export default configuration;
