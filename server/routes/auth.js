@@ -66,7 +66,7 @@ router.post("/login", async (req, res, next) => {
     // find user if input is valid
     const user = await User.findOne({ email: req.body.email });
 
-    if (!user) return res.sendStatus(404);
+    if (!user) return res.status(404).json({ message: "Invalid email" });
 
     const isMatch = await comparePasswords(req.body.password, user.password);
 
