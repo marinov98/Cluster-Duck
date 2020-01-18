@@ -9,16 +9,18 @@ const opts = {
 };
 
 export function executeStrategy(passport) {
-  passport.use(
-    new Strategy(opts, (payload, done) => {
-      // find an existing user
-      User.findById(payload.id)
-        .then(user => {
-          if (!user) return done(null, false);
-          // return user if validation goes through
-          return done(null, user);
-        })
-        .catch(err => console.error(err));
-    })
-  );
+  try {
+    passport.use(
+      new Strategy(opts, async (payload, done) => {
+        // find an existing user
+        const user = await User.findById(payload.id);
+
+        if (!user) return done(null, false);
+        // return user if validation goes through
+        return done(null, user);
+      })
+    );
+  } catch (err) {
+    console.error(err);
+  }
 }
