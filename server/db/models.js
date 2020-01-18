@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-// experimental , not to be used yet
+/**
+ *
+ * USER SCHEMA
+ *
+ */
 
 const UserSchema = new mongoose.Schema({
   /** Username used for logging in */
@@ -33,6 +37,13 @@ const UserSchema = new mongoose.Schema({
     default: false
   }
 });
+
+/**
+ *
+ * POST SCHEMA
+ *
+ *
+ */
 
 const PostSchema = new mongoose.Schema({
   /** The user that created the post */
@@ -67,6 +78,12 @@ const PostSchema = new mongoose.Schema({
     type: Array
   }
 });
+
+/**
+ *
+ * Models
+ *
+ */
 
 const User = mongoose.model("User", UserSchema);
 const Post = mongoose.model("Post", PostSchema);
