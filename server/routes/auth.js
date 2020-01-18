@@ -1,6 +1,7 @@
 // Authentication routes
 import express from "express";
 import jwt from "jsonwebtoken";
+import config from "./../utils/config/config";
 import { User } from "./../db/models";
 import { validateLogin, validateRegister } from "./../utils/validation/validate";
 import { hashPasswordAndSave, comparePasswords } from "./../utils/validation/bcrypt";
@@ -83,7 +84,7 @@ router.post("/login", async (req, res, next) => {
       posts: user.posts
     };
 
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+    const accessToken = jwt.sign(payload, config.jwt_secret, {
       expiresIn: 31556926 // 1 year
     });
     res.status(200).json({ accessToken });
