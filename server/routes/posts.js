@@ -1,6 +1,7 @@
 // posts routes
 import express from "express";
-import { Post } from "./../db/models";
+import mongoose from "mongoose";
+import { User, Post } from "./../db/models";
 const router = express.Router();
 
 /**
@@ -21,7 +22,7 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   try {
     const newPost = await Post.create(req.body);
-    return res.status(200).json(newPost);
+    return res.status(201).json(newPost);
   } catch (err) {
     next(err);
   }
@@ -50,6 +51,9 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
+
+    if (!post) return res.sendStatus(401);
+
     return res.status(200).json(post);
   } catch (err) {
     next(err);
@@ -71,12 +75,54 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
-/**
- *
- *
- * POST LIKES
- *
- *
- */
+router.post("/:id/:userId/like", async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
+    const user_id = new mongoose.Types.ObjectId(user.id);
+    const found = post.upVotes.find(function(element) {
+      return element.toString() === user_id.toString();
+    });
+    if (found) {
+      post.upVotes = post.upVotes.filter(function(element) {
+        return !(element.toString() === user_id.toString());
+      });
+    } else {
+      post.upVotes.push(user_id);
+      post.downVotes = post.downVotes.filter(function(element) {
+        return !(element.toString() === user_id.toString());
+      });
+    }
+    post.save();
+    return res.status(200).json(post);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.post("/:id/:userId/dislike", async (req, res, next) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
+    const user_id = new mongoose.Types.ObjectId(user.id);
+    const found = post.downVotes.find(function(element) {
+      return element.toString() === user_id.toString();
+    });
+    if (found) {
+      post.downVotes = post.downVotes.filter(function(element) {
+        return !(element.toString() === user_id.toString());
+      });
+    } else {
+      post.downVotes.push(user_id);
+      post.upVotes = post.upVotes.filter(function(element) {
+        return !(element.toString() === user_id.toString());
+      });
+    }
+    post.save();
+    return res.status(200).json(post);
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default router;
