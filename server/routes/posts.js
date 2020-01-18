@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
  */
 router.get("/", async (req, res, next) => {
   try {
-    const allPosts = await Post.find();
+    const allPosts = await Post.find().sort({dateCreated: 'desc'});
     return res.status(200).json(allPosts);
   } catch (err) {
     next(err);
@@ -75,6 +75,19 @@ router.delete("/:id", async (req, res, next) => {
   }
 });
 
+/**
+ * 
+ * POST LIKE AND DISLIKE
+ * 
+ */
+
+/**
+ * like Post endpoint
+ * @route POST api/posts/:id/:userId/like
+ * @desc like a post
+ * @access Public
+ */
+
 router.post("/:id/:userId/like", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -100,6 +113,13 @@ router.post("/:id/:userId/like", async (req, res, next) => {
   }
 });
 
+
+/**
+ * dislike Post endpoint
+ * @route POST api/posts/:id/:userId/dislike
+ * @desc dislike a post
+ * @access Public
+ */
 router.post("/:id/:userId/dislike", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);

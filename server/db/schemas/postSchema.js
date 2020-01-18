@@ -34,5 +34,9 @@ export const PostSchema = new Schema({
   downVotes: {
     type: Array,
     default: []
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now()
   }
 });

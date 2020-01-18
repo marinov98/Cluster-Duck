@@ -24,12 +24,12 @@ router.post("/register", async (req, res, next) => {
     const userWithSameEmail = await User.findOne({ email: req.body.email });
 
     if (userWithSameEmail)
-      return res.status(409).json({ message: "Email already exists!" });
+      return res.status(409).json({ error : "Email already exists!" });
 
     const userWithSameUsername = await User.findOne({ username: req.body.username });
 
     if (userWithSameUsername)
-      return res.status(409).json({ message: "Username already exists!" });
+      return res.status(409).json({ error : "Username already exists!" });
 
     // check to see if user is admin or not
     const isAdmin = req.body.isAdmin ? true : false;
@@ -39,7 +39,9 @@ router.post("/register", async (req, res, next) => {
       username: req.body.username,
       password: req.body.password,
       email: req.body.email,
-      isAdmin
+      isAdmin,
+      firstName : req.body.firstName,
+      lastName: req.body.lastName
     };
 
     await hashPasswordAndSave(userToBeCreated);
@@ -66,17 +68,16 @@ router.post("/login", async (req, res, next) => {
     // find user if input is valid
     const user = await User.findOne({ email: req.body.email });
 
-    if (!user) return res.status(404).json({ message: "Invalid email" });
+    if (!user) return res.status(404).json({ error : "Invalid email!" });
 
     const isMatch = await comparePasswords(req.body.password, user.password);
 
-    if (!isMatch) return res.status(404).json({ message: "Invalid password!" });
+    if (!isMatch) return res.status(404).json({ error : "Invalid password!" });
 
     // if passwords match, create payload and sign JWT token
     const payload = {
       id: user._id,
       username: user.username,
-      password: user.password,
       email: user.email,
       isAdmin: user.isAdmin,
       firstName: user.firstName,
@@ -87,7 +88,7 @@ router.post("/login", async (req, res, next) => {
     const accessToken = jwt.sign(payload, config.jwt_secret, {
       expiresIn: 31556926 // 1 year
     });
-    res.status(200).json({ accessToken });
+    return res.status(200).json({ accessToken });
   } catch (err) {
     next(err);
   }
