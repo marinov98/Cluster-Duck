@@ -3,7 +3,9 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
-import { config } from "dotenv";
+import passport from "passport";
+import { executeStrategy } from "./utils/config/passport";
+import config from "./utils/config/config";
 import { users, posts, auth } from "./routes/index";
 
 /**
@@ -12,7 +14,6 @@ import { users, posts, auth } from "./routes/index";
  *
  */
 
-config();
 const app = express();
 
 /**
@@ -21,18 +22,7 @@ const app = express();
  *
  */
 
-const port = parseInt(process.env.PORT, 10) || 3001;
-app.set("port", port);
-
-/**
- *
- * MIDDLEWARE
- *
- */
-
-app.use(logger("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.set("port", config.port);
 
 /**
  *
@@ -40,7 +30,7 @@ app.use(bodyParser.json());
  *
  */
 
-mongoose.connect(process.env.MONGODB_URL, {
+mongoose.connect(config.db_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -51,6 +41,18 @@ db.once("open", function() {
   // we're connected!
   console.log(`Database connected to ${process.env.MONGODB_URL}`);
 });
+
+/**
+ *
+ * MIDDLEWARE
+ *
+ */
+
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+executeStrategy(passport);
 
 /**
  *
@@ -81,8 +83,8 @@ if (process.env.NODE_ENV === "production") {
  *
  */
 
-app.listen(port, () =>
-  console.log(`📡 Server up! 📡 Listening on  http://localhost:${port}`)
+app.listen(config.port, () =>
+  console.log(`📡 Server up! 📡 Listening on  http://localhost:${config.port}`)
 );
 
 export default app;
