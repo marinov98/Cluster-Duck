@@ -3,6 +3,8 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
+import passport from "passport";
+import { executeStrategy } from "./utils/passport";
 import config from "./utils/config";
 import { users, posts, auth } from "./routes/index";
 
@@ -24,16 +26,6 @@ app.set("port", config.port);
 
 /**
  *
- * MIDDLEWARE
- *
- */
-
-app.use(logger("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
-/**
- *
  * DATABASE CONNECTION
  *
  */
@@ -49,6 +41,18 @@ db.once("open", function() {
   // we're connected!
   console.log(`Database connected to ${process.env.MONGODB_URL}`);
 });
+
+/**
+ *
+ * MIDDLEWARE
+ *
+ */
+
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+executeStrategy(passport);
 
 /**
  *

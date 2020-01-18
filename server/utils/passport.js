@@ -1,0 +1,24 @@
+import { Strategy, ExtractJwt } from "passport-jwt";
+import { User } from "./../db/models";
+import config from "./config";
+
+// show the strategy the token and how to decode it
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwtToken"),
+  secretOrKey: config.jwt_secret
+};
+
+export function executeStrategy(passport) {
+  passport.use(
+    new Strategy(opts, (payload, done) => {
+      // find an existing user
+      User.findById(payload.id)
+        .then(user => {
+          if (!user) return done(null, false);
+          // return user if validation goes through
+          return done(null, user);
+        })
+        .catch(err => console.error(err));
+    })
+  );
+}
