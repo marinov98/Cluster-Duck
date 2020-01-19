@@ -30,7 +30,7 @@ export const PostSchema = new Schema({
       "CSCI-265",
       "CSCI-340",
       "CSCI-Electives",
-      "general"
+      "General"
     ],
     default: "general"
   },
