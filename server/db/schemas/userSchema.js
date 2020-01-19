@@ -3,23 +3,28 @@ import { Schema } from "mongoose";
 export const UserSchema = new Schema({
   /** Username used for logging in */
   username: {
-    type: String
+    type: String,
+    required: true
   },
   /** Password */
   password: {
-    type: String
+    type: String,
+    required: true
   },
   /** The user's first name */
   firstName: {
-    type: String
+    type: String,
+    required: true
   },
   /** The user's last name */
   lastName: {
-    type: String
+    type: String,
+    required: true
   },
   /** The user's email address */
   email: {
-    type: String
+    type: String,
+    required: true
   },
   /** Array of the user's posted messages */
   posts: {
