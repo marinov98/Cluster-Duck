@@ -36,8 +36,23 @@ router.post("/", async (req, res, next) => {
  */
 router.get("/", async (req, res, next) => {
   try {
-    const allPosts = await Post.find().sort({dateCreated: 'desc'});
+    const allPosts = await Post.find().sort({ created: "desc" });
     return res.status(200).json(allPosts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * FindAllPosts with related CS topic endpoint
+ * @route GET api/posts/:topic
+ * Find all posts
+ * @access Public
+ */
+router.get("/:topic", async (req, res, next) => {
+  try {
+    const targetPosts = await Post.find({ csTopic: req.params.topic });
+    return res.status(200).json(targetPosts);
   } catch (err) {
     next(err);
   }
@@ -76,9 +91,9 @@ router.delete("/:id", async (req, res, next) => {
 });
 
 /**
- * 
+ *
  * POST LIKE AND DISLIKE
- * 
+ *
  */
 
 /**
@@ -112,7 +127,6 @@ router.post("/:id/:userId/like", async (req, res, next) => {
     next(err);
   }
 });
-
 
 /**
  * dislike Post endpoint

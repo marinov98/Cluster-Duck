@@ -14,7 +14,8 @@ export const ChatSchema = new Schema({
 export const ChatMsgSchema = new Schema({
   /** The user that created the message */
   poster: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId,
+    required: true
   },
   /** The text string of the chat message */
   text: {
