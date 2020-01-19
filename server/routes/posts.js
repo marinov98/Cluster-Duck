@@ -102,7 +102,6 @@ router.delete("/:id", async (req, res, next) => {
  * @desc like a post
  * @access Public
  */
-
 router.post("/:id/:userId/like", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
