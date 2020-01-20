@@ -40,7 +40,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
   // we're connected!
-  console.log(`Database connected to ${process.env.MONGODB_URL}`);
+  console.log(`Database connected to ${config.db_url}`);
 });
 
 /**
