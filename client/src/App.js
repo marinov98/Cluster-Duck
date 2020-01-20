@@ -28,39 +28,33 @@ class App extends Component {
     try {
       // get all users and posts to pass down to other components
       const usersResponse = await axios.get("/api/users/");
-      this.setState({users: usersResponse.data});
+      this.setState({ users: usersResponse.data });
 
       const postsResponse = await axios.get("/api/posts/");
-      this.setState({posts: postsResponse});
-
+      this.setState({ posts: postsResponse });
+    } catch (err) {
+      console.error(err);
     }
-    catch(err) {
-     console.error(err) 
-    }
-
-  }
+  };
 
   componentDidMount = () => {
     const res = authenticate();
-    if (!res.authenticated)
-      window.location.href = "/login"; // redirect to login if authentication is unsuccessful
+    if (!res.authenticated) window.location.href = "/login";
+    // redirect to login if authentication is unsuccessful
     else {
       this.setState({ auth: res.user });
     }
-  }
+  };
 
   shouldComponentUpdate = (nextProps, nextState) => {
     let should = false;
 
-    if (this.state.auth !== nextState.auth)
-      should = true;
-    else if (this.state.users !== nextState.users)
-      should = true;
-    else if (this.state.posts !== nextState)
-      should = true;
+    if (this.state.auth !== nextState.auth) should = true;
+    else if (this.state.users !== nextState.users) should = true;
+    else if (this.state.posts !== nextState) should = true;
 
     return should;
-  }
+  };
 
   render() {
     return (
