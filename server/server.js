@@ -3,25 +3,34 @@ import bodyParser from "body-parser";
 import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
-import { config } from "dotenv";
+import passport from "passport";
+import { executeStrategy } from "./utils/config/passport-jwt";
+import config from "./utils/config/config";
+import { users, posts, auth } from "./routes/index";
 
-// Initialize environment variables
-config();
+/**
+ *
+ * EXPRESS AND ENVIRONMENT CONFIG INITIALIZATION
+ *
+ */
 
-// intialize express and ports
 const app = express();
 
-const port = parseInt(process.env.PORT, 10) || 5000;
+/**
+ *
+ * PORT
+ *
+ */
 
-app.set("port", port);
+app.set("port", config.port);
 
-// middleware
-app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+/**
+ *
+ * DATABASE CONNECTION
+ *
+ */
 
-// Connect to database
-mongoose.connect(process.env.MONGODB_URL, {
+mongoose.connect(config.db_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -33,7 +42,34 @@ db.once("open", function() {
   console.log(`Database connected to ${process.env.MONGODB_URL}`);
 });
 
-// Connect front and back-end when in PRODUCTION
+/**
+ *
+ * MIDDLEWARE
+ *
+ */
+
+app.use(logger("dev"));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(passport.initialize());
+executeStrategy(passport);
+
+/**
+ *
+ * ROUTES
+ *
+ */
+
+app.use("/api/users", users);
+app.use("/api/posts", posts);
+app.use("/api/auth", auth);
+
+/**
+ *
+ * PRODUCTION BUILD
+ *
+ */
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
@@ -41,8 +77,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, () =>
-  console.log(`📡 Server up! 📡 Listening on  http://localhost:${port}`)
+/**
+ *
+ * LAUNCH SERVER
+ *
+ */
+
+app.listen(config.port, () =>
+  console.log(`📡 Server up! 📡 Listening on  http://localhost:${config.port}`)
 );
 
 export default app;
