@@ -4,7 +4,7 @@ const router = express.Router();
 
 /**
  * Get all admins endpoint
- * @route GET /api/users/adnins
+ * @route GET /api/users/admins
  * @desc get admins
  * @access Public
  */

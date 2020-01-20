@@ -18,7 +18,7 @@ router.post("/register", async (req, res, next) => {
     // validate user input from registration form
     const { error } = validateRegister(req.body);
 
-    if (error) return res.status(404).json(error.details);
+    if (error) return res.status(404).json(error.details[0].message);
 
     // if validated, make sure email has not already been used
     const userWithSameEmail = await User.findOne({ email: req.body.email });
@@ -46,7 +46,7 @@ router.post("/register", async (req, res, next) => {
 
     await hashPasswordAndSave(userToBeCreated);
 
-    return res.sendStatus(201);
+    return res.status(201).json({ message: "New user created" });
   } catch (err) {
     next(err);
   }
@@ -63,7 +63,7 @@ router.post("/login", async (req, res, next) => {
     // validate input
     const { error } = validateLogin(req.body);
 
-    if (error) return res.status(400).json(error.details);
+    if (error) return res.status(400).json(error.details[0].message);
 
     // find user if input is valid
     const user = await User.findOne({ email: req.body.email });
@@ -88,7 +88,7 @@ router.post("/login", async (req, res, next) => {
     const accessToken = jwt.sign(payload, config.jwt_secret, {
       expiresIn: 31556926 // 1 year
     });
-    return res.status(200).json({ token: accessToken, id: user._id.toString() });
+    return res.status(200).json({ authenticated: true, token: accessToken });
   } catch (err) {
     next(err);
   }
