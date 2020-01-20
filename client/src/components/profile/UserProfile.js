@@ -31,59 +31,67 @@ export default class UserProfile extends Component {
       <div>
         {/* Navbar */}
         <div
-        	style={{
-        		marginTop: "-150px"
-        	}}>
-	        <RecentPosts 
-	        	posts={sample_posts}
-	        	 />
-       	</div>
+          style={{
+            marginTop: "-150px"
+          }}
+        >
+          <RecentPosts posts={sample_posts} />
+        </div>
 
-       	<div
-       		style={{
-            paddingLeft: "90px",
-        }}>
-	        <div
-	          style={{
-	            paddingTop: "20px",
-	            paddingBottom: "20px",
-	            border: "50px",
-	            marginLeft: "-50vw",
-	            position: "relative",
-	            backgroundColor: "#ffffff",
-	            width: "200px"
-	          }}
-	        >
-	          {/* Profile image 
+        <div
+          style={{
+            paddingLeft: "90px"
+          }}
+        >
+          <div
+            style={{
+              paddingTop: "20px",
+              paddingBottom: "20px",
+              border: "50px",
+              marginLeft: "-50vw",
+              position: "relative",
+              backgroundColor: "#ffffff",
+              width: "200px"
+            }}
+          >
+            {/* Profile image 
 						input: image object retrieved from remote file storage into image tag
 						output: image */}
-	          <img src={sampleImage} alt={"DuckImg"} height={"75px"} width={"100px"} />
-	          <div style={{ 
-	          	color: "black" }}>
-	            {/* Profile Info 
+            <img src={sampleImage} alt={"DuckImg"} height={"75px"} width={"100px"} />
+            <div
+              style={{
+                color: "black"
+              }}
+            >
+              {/* Profile Info 
 						input: object
 						output: column + row with identifiers points */}
-	            <ProfileInfo data={sample_profile_data} />
-	          </div>
+              <ProfileInfo data={sample_profile_data} />
+            </div>
 
-	          <div style={{
-	          	color: "black" }}>
-	            {/* Current Classes 
+            <div
+              style={{
+                color: "black"
+              }}
+            >
+              {/* Current Classes 
 						input: object
 						output: column + row with bulleted points */}
-	            <ProfileClasses classType={"Current"} classes={sample_current_data} />
-	          </div>
+              <ProfileClasses classType={"Current"} classes={sample_current_data} />
+            </div>
 
-	          <div style={{
-	          	color: "black" }}>
-	            {/* Past Classes 
+            <div
+              style={{
+                color: "black"
+              }}
+            >
+              {/* Past Classes 
 						input: object
 						output: column + row with bulleted points */}
-	            <ProfileClasses classType={"Past"} classes={sample_past_data} />
-	          </div>
-	        </div>
-	    </div>
-
+              <ProfileClasses classType={"Past"} classes={sample_past_data} />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
