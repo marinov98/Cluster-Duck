@@ -25,14 +25,12 @@ const registrationSchema = Joi.object({
     })
     .required(),
   firstName: Joi.string()
-    .min(2) // names should only contain alphabetical letters and be between 2 and 30 letters
     .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
     .required(),
   lastName: Joi.string()
-    .min(2)
     .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
     .required(),
-    isAdmin: Joi.boolean()
+  isAdmin: Joi.boolean()
 });
 
 /**
