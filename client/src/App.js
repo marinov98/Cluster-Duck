@@ -43,6 +43,7 @@ class App extends Component {
     // redirect to login if authentication is unsuccessful
     else {
       this.setState({ auth: res.user });
+      this.fecthData();
     }
   };
 
