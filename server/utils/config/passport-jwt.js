@@ -1,5 +1,6 @@
 import { Strategy, ExtractJwt } from "passport-jwt";
 import { User } from "../../db/models";
+import passport from "passport";
 import config from "./config";
 
 // show the strategy the token and how to decode it
@@ -8,19 +9,16 @@ const options = {
   secretOrKey: config.jwt_secret
 };
 
-export function executeStrategy(passport) {
-  try {
-    passport.use(
-      new Strategy(options, async (payload, done) => {
-        // find an existing user
-        const user = await User.findById(payload.id);
+passport.use(
+  new Strategy(options, async (payload, done) => {
+    try {
+      // find an existing user
+      const user = await User.findById(payload.id);
 
-        if (!user) return done(null, false);
-        // return user if validation goes through
-        return done(null, user);
-      })
-    );
-  } catch (err) {
-    console.error(err);
-  }
-}
+      if (!user) done(null, false);
+      else done(null, user);
+    } catch (err) {
+      done(err);
+    }
+  })
+);

@@ -4,17 +4,17 @@ import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
 import passport from "passport";
-import { executeStrategy } from "./utils/config/passport-jwt";
 import config from "./utils/config/config";
 import { users, posts, auth } from "./routes/index";
 
 /**
  *
- * EXPRESS AND ENVIRONMENT CONFIG INITIALIZATION
+ * EXPRESS AND PASSPORT STRATEGY
  *
  */
 
 const app = express();
+require("./utils/config/passport-jwt");
 
 /**
  *
@@ -52,7 +52,6 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-executeStrategy(passport);
 
 /**
  *

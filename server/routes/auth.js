@@ -46,7 +46,7 @@ router.post("/register", async (req, res, next) => {
 
     await hashPasswordAndSave(userToBeCreated);
 
-    return res.sendStatus(201);
+    return res.status(201).json({ message: "New user created" });
   } catch (err) {
     next(err);
   }
@@ -88,7 +88,7 @@ router.post("/login", async (req, res, next) => {
     const accessToken = jwt.sign(payload, config.jwt_secret, {
       expiresIn: 31556926 // 1 year
     });
-    return res.status(200).json({ token: accessToken, id: user._id.toString() });
+    return res.status(200).json({ authenticated: true, token: accessToken });
   } catch (err) {
     next(err);
   }
