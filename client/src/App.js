@@ -14,7 +14,7 @@ function App() {
     <Router>
     <Switch>
       <Route path="/login">
-        <DuckNavbar />
+        <DuckNavbar loggedIn={true}/>
         <Login />
       </Route>
       <Route path="/register">
