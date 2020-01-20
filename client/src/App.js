@@ -42,7 +42,7 @@ class App extends Component {
     if (!res.authenticated) window.location.href = "/login";
     // redirect to login if authentication is unsuccessful
     else {
-      this.setState({ auth: res.user });
+      this.setState({ auth: res });
       this.fecthData();
     }
   };

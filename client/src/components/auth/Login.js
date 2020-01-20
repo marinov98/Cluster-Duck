@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import { Container, Jumbotron, Button } from "reactstrap";
+import { loginUser } from "./../../utils/auth"
 import "../../App.css";
 const axios = require("axios").default;
 
@@ -31,6 +32,22 @@ const responseGoogleBad = response => {
 };
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: "",
+      password: "",
+    }
+  }
+
+  componentDidMount = () => {
+    // redirect user to homepage if authenticated
+    if (this.props.auth.authenticated)
+      this.props.history.push("/");
+  }
+
+
   render() {
     return (
       <Container>
