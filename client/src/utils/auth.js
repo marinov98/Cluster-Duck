@@ -1,6 +1,5 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { setRandomFallback } from "bcryptjs";
 
 /**
  * @desc takes in token, if its valid, apply token to every request
