@@ -56,9 +56,9 @@ export default class Login extends Component {
     if (this.props.auth.authenticated) this.props.history.push("/");
   };
 
-  static getDerivedStateFromProps = nextProps => {
+  static getDerivedStateFromProps = (nextProps, nextState) => {
     // onSuccessful login redirect to homepage
-    if (nextProps.auth.authenticated) nextProps.history.push("/");
+    if (nextState.auth.authenticated) nextProps.history.push("/");
 
     if (nextProps.error) return { error: nextProps.error };
     else return null;

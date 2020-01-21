@@ -10,6 +10,7 @@ import { authenticate } from "./utils/auth";
 import Login from "./components/auth/Login.js";
 import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
+import ProtectedRoute from "./components/protected/ProtectedRoute";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,7 +21,8 @@ class App extends Component {
     this.state = {
       auth: {},
       users: [],
-      posts: []
+      posts: [],
+      href: "/"
     };
   }
 
@@ -39,7 +41,10 @@ class App extends Component {
 
   componentDidMount = () => {
     const res = authenticate();
-    if (!res.authenticated) window.location.href = "/login";
+    if (!res.authenticated)
+      this.setState({
+        href: "/login"
+      });
     // redirect to login if authentication is unsuccessful
     else {
       this.setState({ auth: res });
@@ -60,15 +65,13 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path="/login">
-            <DuckNavbar />
-            <Login auth={this.state.auth} />
-          </Route>
-          <Route path="/register">
-            <Register auth={this.state.auth} />
-          </Route>
-        </Switch>
+        <ProtectedRoute path="/" component={DuckNavbar} auth={this.state.auth} />
+        <Route exact path="/login">
+          <Login auth={this.state.auth} />
+        </Route>
+        <Route exact path="/register">
+          <Register auth={this.state.auth} />
+        </Route>
       </Router>
     );
   }
