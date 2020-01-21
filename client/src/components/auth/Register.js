@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 import { registerUser } from "./../../utils/auth";
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,8 @@ export default class Register extends Component {
       firstName: "",
       lastName: "",
       password: "",
-      confirmedPassword: ""
+      confirmedPassword: "",
+      isAdmin: false
     };
   }
 
@@ -36,10 +37,16 @@ export default class Register extends Component {
       confirmedPassword: this.state.confirmedPassword,
       username: this.state.username,
       firstName: this.state.firstName,
-      lastName: this.state.lastName
+      lastName: this.state.lastName,
+      isAdmin: this.state.isAdmin
     };
 
     registerUser(userToBeCreated, this.props.history);
+  };
+
+  handleAdmin = event => {
+    if (event.target.value === "Yes") this.setState({ isAdmin: true });
+    else this.setState({ isAdmin: false });
   };
 
   render() {
@@ -105,6 +112,10 @@ export default class Register extends Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
+            <select defaultValue="No" onChange={this.handleAdmin}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
             <FormText className="form-box-error"></FormText>
             <Button className="submit" type="submit">
               Sign Up
@@ -127,3 +138,5 @@ Register.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string
 };
+
+export default withRouter(Register);

@@ -18,7 +18,7 @@ router.post("/register", async (req, res, next) => {
     // validate user input from registration form
     const { error } = validateRegister(req.body);
 
-    if (error) return res.status(404).json(error.details[0].message);
+    if (error) return res.status(404).json({ error: error.details[0].message });
 
     // if validated, make sure email has not already been used
     const userWithSameEmail = await User.findOne({ email: req.body.email });

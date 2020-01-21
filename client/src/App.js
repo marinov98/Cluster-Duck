@@ -1,6 +1,6 @@
 // Libraries
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import axios from "axios";
 
 // Utility
@@ -21,8 +21,7 @@ class App extends Component {
     this.state = {
       auth: {},
       users: [],
-      posts: [],
-      href: "/"
+      posts: []
     };
   }
 
@@ -41,12 +40,8 @@ class App extends Component {
 
   componentDidMount = () => {
     const res = authenticate();
-    if (!res.authenticated)
-      this.setState({
-        href: "/login"
-      });
     // redirect to login if authentication is unsuccessful
-    else {
+    if (res.authenticated) {
       this.setState({ auth: res });
       this.fecthData();
     }

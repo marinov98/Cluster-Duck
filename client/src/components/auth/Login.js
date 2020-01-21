@@ -11,7 +11,7 @@ import {
   Input,
   FormGroup
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
 
 const responseGoogleGood = response => {
@@ -40,28 +40,21 @@ const responseGoogleBad = response => {
   console.log("Something is wrong with login...", response);
 };
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       auth: {},
       email: "",
-      password: ""
+      password: "",
+      errors: {}
     };
   }
 
   componentDidMount = () => {
     // redirect user to homepage if authenticated
     if (this.props.auth.authenticated) this.props.history.push("/");
-  };
-
-  static getDerivedStateFromProps = (nextProps, nextState) => {
-    // onSuccessful login redirect to homepage
-    if (nextState.auth.authenticated) nextProps.history.push("/");
-
-    if (nextProps.error) return { error: nextProps.error };
-    else return null;
   };
 
   handleChange = event => {
@@ -81,6 +74,7 @@ export default class Login extends Component {
 
       const userInfo = await loginUser(user);
       this.setState({ auth: userInfo });
+      this.props.history.push("/");
     } catch (err) {
       console.error(err);
     }
@@ -140,3 +134,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default withRouter(Login);

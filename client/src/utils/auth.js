@@ -23,7 +23,8 @@ export async function registerUser(user, history) {
     // if the status is 201, it means user was successfully registered
     if (status === 201) history.push("/login"); // redirect to login
   } catch (err) {
-    console.error(err);
+    if (err.response) console.error(err.response.data);
+    else console.error(err);
   }
 }
 
@@ -35,7 +36,7 @@ export async function registerUser(user, history) {
 export async function loginUser(user) {
   try {
     const { data } = await axios.post("http://localhost:555/api/auth/login", user);
-
+    console.log(data);
     // set in Local storage, then in headers
     localStorage.setItem("jwtToken", data.token);
 
@@ -43,10 +44,11 @@ export async function loginUser(user) {
 
     // decode to get user data
     const userInfo = jwt_decode(data.token);
-
+    console.log(userInfo);
     return { authenticated: true, user: userInfo };
   } catch (err) {
-    console.error(err);
+    if (err.response) console.error(err.response.data);
+    else console.error(err);
   }
 }
 
@@ -54,7 +56,7 @@ export async function loginUser(user) {
  * @desc Logout the user
  * @return Empty object to nullify user
  */
-export function logoutUser() {
+export function logoutUser(history) {
   // ensure local storage is supported
   if (typeof Storage === "undefined")
     throw new Error("Browser does not support local storage!");
@@ -64,8 +66,7 @@ export function logoutUser() {
 
   // remove from headers
   setToken(false);
-
-  return {};
+  history.push("/login");
 }
 
 /**
