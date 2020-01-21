@@ -37,7 +37,7 @@ export async function loginUser(user) {
     const { data } = await axios.post("/api/auth/login", user);
 
     // set in Local storage, then in headers
-    localStorage.setItem("jwtToken", token);
+    localStorage.setItem("jwtToken", data.token);
 
     setToken(data.token);
 
