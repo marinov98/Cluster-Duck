@@ -86,11 +86,6 @@ export default class Login extends Component {
     }
   };
 
-  componentDidUpdate = () => {
-    // redirect to login since updating means auth object was changed
-    this.props.history.push("/");
-  };
-
   render() {
     return (
       <Container>
@@ -106,8 +101,9 @@ export default class Login extends Component {
               color="primary"
               onClick={renderProps.onClick}
               disabled={renderProps.disabled}
+              style={{ marginBottom: "15px" }}
             >
-              Login to ClusterDuck
+              Login with Google
             </Button>
           )}
           buttonText="Login"
