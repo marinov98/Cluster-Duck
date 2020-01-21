@@ -63,10 +63,10 @@ class App extends Component {
         <Switch>
           <Route path="/login">
             <DuckNavbar />
-            <Login />
+            <Login auth={this.state.auth} />
           </Route>
           <Route path="/register">
-            <Register />
+            <Register auth={this.state.auth} />
           </Route>
         </Switch>
       </Router>
