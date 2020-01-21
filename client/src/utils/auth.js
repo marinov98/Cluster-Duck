@@ -44,7 +44,7 @@ export async function loginUser(user) {
     // decode to get user data
     const userInfo = jwt_decode(data.token);
 
-    return userInfo;
+    return { authenticated: true, user: userInfo };
   } catch (err) {
     console.error(err);
   }
