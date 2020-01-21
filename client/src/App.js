@@ -31,7 +31,7 @@ class App extends Component {
       this.setState({ users: usersResponse.data });
 
       const postsResponse = await axios.get("/api/posts/");
-      this.setState({ posts: postsResponse });
+      this.setState({ posts: postsResponse.data });
     } catch (err) {
       console.error(err);
     }
