@@ -4,9 +4,31 @@ import Login from "./components/auth/Login.js";
 import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
 import "bootstrap/dist/css/bootstrap.min.css";
+const backendPort = "localhost:3000";
+const axios = require('axios').default;
+
+const userId = "5e264d7302caf6abc735d32d";
 
 class App extends Component {
-  
+  constructor(props){
+    super(props);
+    this.state = {
+      userId: userId,
+      loggedIn: False
+    };
+  }
+
+  getUserInfo() {
+    axios.get(`${backendPort}/api/user/${this.state.userId}`)
+    .then((res) => {
+      console.log(res);
+    });
+  }
+
+  componentDidMount(){
+    this.getUserInfo();
+  }
+
   render(){
     return (
       <Router>
@@ -17,6 +39,8 @@ class App extends Component {
           </Route>
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/">
           </Route>
         </Switch>
       </Router>
