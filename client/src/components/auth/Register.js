@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
+import { Button, Form, FormGroup, Input, FormText, Alert } from "reactstrap";
 import { registerUser } from "./../../utils/auth";
 
 class Register extends Component {
@@ -14,12 +14,19 @@ class Register extends Component {
       lastName: "",
       password: "",
       confirmedPassword: "",
-      isAdmin: false
+      isAdmin: false,
+      errors: ""
     };
   }
 
   componentDidMount = () => {
     if (this.props.auth.authenticated) this.props.history.push("/"); // redirect to homepage if already registered
+  };
+
+  displayErrors = () => {
+    if (this.state.errors !== "")
+      return <Alert color="danger">{this.state.errors}</Alert>;
+    else return <h5></h5>;
   };
 
   handleChange = event => {
@@ -28,7 +35,7 @@ class Register extends Component {
     });
   };
 
-  handleSubmit = event => {
+  handleSubmit = async event => {
     event.preventDefault();
 
     const userToBeCreated = {
@@ -41,7 +48,10 @@ class Register extends Component {
       isAdmin: this.state.isAdmin
     };
 
-    registerUser(userToBeCreated, this.props.history);
+    const { error } = await registerUser(userToBeCreated, this.props.history);
+    console.log(error);
+
+    if (error) this.setState({ errors: error });
   };
 
   handleAdmin = event => {
@@ -116,7 +126,7 @@ class Register extends Component {
               <option value="Yes">Yes</option>
               <option value="No">No</option>
             </select>
-            <FormText className="form-box-error"></FormText>
+            <FormText className="form-box-error">{this.displayErrors()}</FormText>
             <Button className="submit" type="submit">
               Sign Up
             </Button>

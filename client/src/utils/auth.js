@@ -19,12 +19,13 @@ export function setToken(token) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post("http://localhost:555/api/auth/register", user);
+    const { status } = await axios.post("http://localhost:3007/api/auth/register", user);
     // if the status is 201, it means user was successfully registered
-    if (status === 201) history.push("/login"); // redirect to login
+    if (status === 201) history.push("/login"); // redirect to login upon successful registration
   } catch (err) {
-    if (err.response) console.error(err.response.data);
-    else console.error(err);
+    if (err.response) {
+      return err.response.data;
+    } else console.err(err);
   }
 }
 
@@ -35,8 +36,8 @@ export async function registerUser(user, history) {
  */
 export async function loginUser(user) {
   try {
-    const { data } = await axios.post("http://localhost:555/api/auth/login", user);
-    console.log(data);
+    const { data } = await axios.post("http://localhost:3007/api/auth/login", user);
+
     // set in Local storage, then in headers
     localStorage.setItem("jwtToken", data.token);
 
@@ -44,11 +45,11 @@ export async function loginUser(user) {
 
     // decode to get user data
     const userInfo = jwt_decode(data.token);
-    console.log(userInfo);
     return { authenticated: true, user: userInfo };
   } catch (err) {
-    if (err.response) console.error(err.response.data);
-    else console.error(err);
+    if (err.response) {
+      return err.response.data;
+    } else console.error(err);
   }
 }
 

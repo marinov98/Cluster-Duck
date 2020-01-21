@@ -9,7 +9,8 @@ import {
   Form,
   FormText,
   Input,
-  FormGroup
+  FormGroup,
+  Alert
 } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
@@ -48,13 +49,19 @@ class Login extends Component {
       auth: {},
       email: "",
       password: "",
-      errors: {}
+      errors: ""
     };
   }
 
   componentDidMount = () => {
     // redirect user to homepage if authenticated
     if (this.props.auth.authenticated) this.props.history.push("/");
+  };
+
+  displayErrors = () => {
+    if (this.state.errors !== "")
+      return <Alert color="danger">{this.state.errors}</Alert>;
+    else return <h3></h3>;
   };
 
   handleChange = event => {
@@ -64,19 +71,20 @@ class Login extends Component {
   };
 
   handleSubmit = async event => {
-    try {
-      event.preventDefault();
+    event.preventDefault();
 
-      const user = {
-        email: this.state.email,
-        password: this.state.password
-      };
+    const user = {
+      email: this.state.email,
+      password: this.state.password
+    };
 
-      const userInfo = await loginUser(user);
+    const userInfo = await loginUser(user);
+    console.log({ userInfo });
+    if (userInfo.error || !userInfo.authenticated)
+      this.setState({ errors: userInfo.error });
+    else {
       this.setState({ auth: userInfo });
       this.props.history.push("/");
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -124,7 +132,7 @@ class Login extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormText className="form-box-error"></FormText>
+          <FormText className="form-box-error">{this.displayErrors()}</FormText>
           <Button>Log In</Button>
         </Form>
         <div className="register-box">
