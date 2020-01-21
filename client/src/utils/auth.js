@@ -19,7 +19,7 @@ export function setToken(token) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post("/api/auth/register", user);
+    const { status } = await axios.post("http://localhost:555/api/auth/register", user);
     // if the status is 201, it means user was successfully registered
     if (status === 201) history.push("/login"); // redirect to login
   } catch (err) {
@@ -34,7 +34,7 @@ export async function registerUser(user, history) {
  */
 export async function loginUser(user) {
   try {
-    const { data } = await axios.post("/api/auth/login", user);
+    const { data } = await axios.post("http://localhost:555/api/auth/login", user);
 
     // set in Local storage, then in headers
     localStorage.setItem("jwtToken", data.token);

@@ -111,7 +111,7 @@ export default class Register extends Component {
             </Button>
           </Form>
           <div className="signed-box">
-            Already Registered? <Link to="profile/login">Login</Link>
+            Already Registered? <Link to="/login">Login</Link>
           </div>
         </div>
       </div>
