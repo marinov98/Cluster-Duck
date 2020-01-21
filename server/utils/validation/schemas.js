@@ -14,7 +14,7 @@ const registrationSchema = Joi.object({
   password: Joi.string()
     .pattern(
       // password must contain at least: one lowercase, one uppcase,one digit, and one special character and be between 6 - 24 characters.
-      new RegExp("^(?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*s).{6,24}$")
+      new RegExp("^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{6,24}$")
     )
     .required(),
   confirmedPassword: Joi.ref("password"),
