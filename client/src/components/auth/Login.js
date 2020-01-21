@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-import { Container, Jumbotron, Button } from "reactstrap";
 import "../../App.css";
+import { loginUser } from "./../../utils/auth";
+import "../../App.css";
+import {
+  Container,
+  Jumbotron,
+  Button,
+  Form,
+  FormText,
+  Input,
+  FormGroup
+} from "reactstrap";
+import { Link } from "react-router-dom";
 const axios = require("axios").default;
 
 const responseGoogleGood = response => {
@@ -31,6 +42,56 @@ const responseGoogleBad = response => {
 };
 
 export default class Login extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      auth: {},
+      email: "",
+      password: ""
+    };
+  }
+
+  componentDidMount = () => {
+    // redirect user to homepage if authenticated
+    if (this.props.auth.authenticated) this.props.history.push("/");
+  };
+
+  static getDerivedStateFromProps = nextProps => {
+    // onSuccessful login redirect to homepage
+    if (nextProps.auth.authenticated) nextProps.history.push("/");
+
+    if (nextProps.error) return { error: nextProps.error };
+    else return null;
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  };
+
+  handleSubmit = async event => {
+    try {
+      event.preventDefault();
+
+      const user = {
+        email: this.state.email,
+        password: this.state.password
+      };
+
+      const userInfo = await loginUser(user);
+      this.setState({ auth: userInfo });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  componentDidUpdate = () => {
+    // redirect to login since updating means auth object was changed
+    this.props.history.push("/");
+  };
+
   render() {
     return (
       <Container>
@@ -55,6 +116,31 @@ export default class Login extends Component {
           onFailure={responseGoogleBad}
           cookiePolicy={"single_host_origin"}
         />
+        <Form className="form" onSubmit={this.handleSubmit}>
+          <FormGroup className="form-box">
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email@email"
+              className="form-box-input"
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormGroup className="form-box">
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="form-box-input"
+              onChange={this.handleChange}
+            />
+          </FormGroup>
+          <FormText className="form-box-error"></FormText>
+          <Button>Log In</Button>
+        </Form>
+        <div className="register-box">
+          Don't have an account? <Link to="/register">Register</Link>
+        </div>
       </Container>
     );
   }
