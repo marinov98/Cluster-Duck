@@ -4,17 +4,18 @@ import logger from "morgan";
 import mongoose from "mongoose";
 import path from "path";
 import passport from "passport";
-import { executeStrategy } from "./utils/config/passport-jwt";
 import config from "./utils/config/config";
+import executeStrategy from "./utils/config/passport-jwt";
 import { users, posts, auth } from "./routes/index";
 
 /**
  *
- * EXPRESS AND ENVIRONMENT CONFIG INITIALIZATION
+ * EXPRESS AND PASSPORT STRATEGY
  *
  */
 
 const app = express();
+executeStrategy(passport);
 
 /**
  *
@@ -39,7 +40,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
   // we're connected!
-  console.log(`Database connected to ${process.env.MONGODB_URL}`);
+  console.log(`Database connected to ${config.db_url}`);
 });
 
 /**
@@ -52,7 +53,6 @@ app.use(logger("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
-executeStrategy(passport);
 
 /**
  *
