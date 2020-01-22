@@ -21,7 +21,7 @@ const responseGoogleGood = response => {
   // Send web token to backend
   console.log("Successful login!", response);
   let tokenStr = response.Zi.id_token;
-  let webApiUrl = "??";
+  let webApiUrl = `${process.env.backend_url}/api`;
   axios
     .get(webApiUrl, {
       headers: {
