@@ -41,15 +41,6 @@ class App extends Component {
     if (authInfo) this.setState({ auth: authInfo });
   };
 
-  // componentDidMount = () => {
-  //   const res = authenticate();
-  //   // redirect to login if authentication is unsuccessful
-  //   if (res.authenticated) {
-  //     this.setState({ auth: res });
-  //     this.fecthData();
-  //   }
-  // };
-
   shouldComponentUpdate = (nextProps, nextState) => {
     let should = false;
 

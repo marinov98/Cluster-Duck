@@ -7,8 +7,9 @@ import jwt_decode from "jwt-decode";
  * @return none
  */
 export function setToken(token) {
+  // set all requests to have the jwt in the Authorization header if the jwt is valid
   if (token) axios.defaults.headers.common["Authorization"] = token;
-  else delete axios.defaults.headers.common["Authorization"];
+  else delete axios.defaults.headers.common["Authorization"]; // remove token from all requests if invalid
 }
 
 /**
