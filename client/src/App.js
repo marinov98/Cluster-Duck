@@ -62,19 +62,20 @@ class App extends Component {
   };
 
   render() {
+    const isAuth = authenticate();
     return (
       <Router>
         <ProtectedRoute
           path="/"
           getAuth={this.getAuth}
           component={DuckNavbar}
-          auth={this.state.auth}
+          auth={isAuth}
         />
         <Route exact path="/login">
-          <Login getAuth={this.getAuth} auth={this.state.auth} />
+          <Login getAuth={this.getAuth} auth={isAuth} />
         </Route>
         <Route exact path="/register">
-          <Register auth={this.state.auth} />
+          <Register auth={isAuth} />
         </Route>
       </Router>
     );
