@@ -4,8 +4,10 @@ import { logoutUser } from "./../utils/auth";
 
 class LogOut extends Component {
   handleLogout = () => {
-    this.props.logoutUser();
-    this.props.getAuth({ authenticated: false });
+    if (window.confirm("Are you sure you want to log out?")) {
+      this.props.logoutUser();
+      this.props.getAuth({ authenticated: false });
+    }
   };
 
   render() {
