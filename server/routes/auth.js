@@ -94,4 +94,40 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+/**
+ *  Google login endpoint
+ *  @route POST api/auth/google-login
+ *  @desc Login user if they exist, if not, create new user and login
+ *  @access Public
+ */
+router.post("/google-login", async (req, res, next) => {
+  // Check whether user in db based on email
+  const user await = User.findOne({email: req.body.email});
+
+  try {
+    // if user in db...
+    if(user){
+      // send back success and token
+      return res.status(200).json({success: true, token: req.body.Zi.access_token})
+    } else {
+      // some of these probably need to be changed, depending on what i actually send
+      // #######################
+      const userToBeCreated = {
+        username: req.body.profileObj.email,
+        password: req.body.Zi.login_hint,
+        email: req.body.profileObj.email,
+        firstName: req.body.givenName,
+        lastName: req.body.familyName,
+        isAdmin,
+      }
+
+      await User.create(userToBeCreated);
+
+      return res.status(201).json({success: true, token: req.body.Zi.access_token})
+    }
+  } catch (err) {
+    return res.status(400).json({err: "Error while signing in with Google, please try again."})
+  }
+})
+
 export default router;
