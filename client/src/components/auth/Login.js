@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import { loginUser } from "./../../utils/auth";
 import "../../App.css";
+import "./Login.css";
 import {
   Container,
   Jumbotron,
@@ -97,24 +98,6 @@ class Login extends Component {
           <h1 className="display-3">Welcome to ClusterDuck!</h1>
           <p>This is literally the coolest website in existence atm.</p>
         </Jumbotron>
-        <GoogleLogin
-          clientId="1041011900309-oaq4n0svcmrocdf4q3q9hdgpudlfllfs.apps.googleusercontent.com"
-          render={renderProps => (
-            <Button
-              className="login-button"
-              color="primary"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-              style={{ marginBottom: "15px" }}
-            >
-              Login with Google
-            </Button>
-          )}
-          buttonText="Login"
-          onSuccess={responseGoogleGood}
-          onFailure={responseGoogleBad}
-          cookiePolicy={"single_host_origin"}
-        />
         <Form className="form" onSubmit={this.handleSubmit}>
           <FormGroup className="form-box">
             <Label for="email">Email</Label>
@@ -137,9 +120,27 @@ class Login extends Component {
             />
           </FormGroup>
           <FormText className="form-box-error">{this.displayErrors()}</FormText>
-          <Button size="lg" style={{ textAlign: "center" }}>
-            Log In
-          </Button>
+          <div className="form-button">
+            <Button size="lg">Log In</Button>
+          </div>
+          <GoogleLogin
+            clientId="1041011900309-oaq4n0svcmrocdf4q3q9hdgpudlfllfs.apps.googleusercontent.com"
+            render={renderProps => (
+              <Button
+                className="login-button"
+                color="primary"
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                style={{ margin: "10px", textAlign: "center" }}
+              >
+                Login with Google
+              </Button>
+            )}
+            buttonText="Login"
+            onSuccess={responseGoogleGood}
+            onFailure={responseGoogleBad}
+            cookiePolicy={"single_host_origin"}
+          />
         </Form>
         <div className="register-box">
           Don't have an account? <Link to="/register">Register</Link>

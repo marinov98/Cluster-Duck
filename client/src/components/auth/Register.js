@@ -104,7 +104,7 @@ class Register extends Component {
                 type="email"
                 name="email"
                 className="form-box-input"
-                placeholder="email@email"
+                placeholder="example@example.com"
                 onChange={this.handleChange}
               />
             </FormGroup>
@@ -114,7 +114,7 @@ class Register extends Component {
                 type="password"
                 name="password"
                 className="form-box-input"
-                placeholder="password"
+                placeholder="*************"
                 onChange={this.handleChange}
               />
             </FormGroup>
@@ -124,7 +124,7 @@ class Register extends Component {
                 type="password"
                 name="confirmedPassword"
                 className="form-box-input"
-                placeholder="password"
+                placeholder="*************"
                 onChange={this.handleChange}
               />
             </FormGroup>
