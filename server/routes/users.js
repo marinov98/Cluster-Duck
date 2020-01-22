@@ -1,5 +1,6 @@
 import express from "express";
 import { User } from "./../db/models";
+import passport from "passport";
 const router = express.Router();
 
 /**
@@ -45,6 +46,28 @@ router.get("/:id", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+// passport check testing, might be used
+router.get("/authUser", (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, user, info) => {
+    if (err) console.error(err);
+
+    if (info) {
+      res.json({ error: info.message });
+    } else {
+      return res.status(200).json({
+        authenticated: true,
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          password: user.password,
+          email: user.email,
+          username: user.username
+        }
+      });
+    }
+  })(req, res, next);
 });
 
 export default router;

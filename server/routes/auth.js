@@ -65,13 +65,11 @@ router.post("/login", async (req, res, next) => {
 
     if (error) return res.status(404).json({ error: error.details[0].message });
 
-    console.log("finding User's email....");
     // find user if input is valid
     const user = await User.findOne({ email: req.body.email });
 
     if (!user) return res.status(404).json({ error: "Invalid email!" });
 
-    console.log("comparing user's passwords....");
     const isMatch = await comparePasswords(req.body.password, user.password);
 
     if (!isMatch) return res.status(404).json({ error: "Invalid password!" });
