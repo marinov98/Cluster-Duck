@@ -28,10 +28,10 @@ class App extends Component {
   fecthData = async () => {
     try {
       // get all users and posts to pass down to other components
-      const usersResponse = await axios.get("/api/users/");
+      const usersResponse = await axios.get("http://localhost:555/api/users/");
       this.setState({ users: usersResponse.data });
 
-      const postsResponse = await axios.get("/api/posts/");
+      const postsResponse = await axios.get("http://localhost:555/api/posts/");
       this.setState({ posts: postsResponse.data });
     } catch (err) {
       console.error(err);

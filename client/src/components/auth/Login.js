@@ -10,6 +10,7 @@ import {
   FormText,
   Input,
   FormGroup,
+  Label,
   Alert
 } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
@@ -79,12 +80,13 @@ class Login extends Component {
     };
 
     const userInfo = await loginUser(user);
-    console.log({ userInfo });
-    if (userInfo.error || !userInfo.authenticated)
-      this.setState({ errors: userInfo.error });
-    else {
-      this.setState({ auth: userInfo });
-      this.props.history.push("/");
+    // check for errors or redirect to home if authenticated
+    if (userInfo) {
+      if (userInfo.error) this.setState({ errors: userInfo.error });
+      else if (userInfo.authenticated) {
+        this.setState({ auth: userInfo });
+        this.props.history.push("/");
+      }
     }
   };
 
@@ -115,25 +117,29 @@ class Login extends Component {
         />
         <Form className="form" onSubmit={this.handleSubmit}>
           <FormGroup className="form-box">
+            <Label for="email">Email</Label>
             <Input
               type="email"
               name="email"
-              placeholder="Email@email"
+              placeholder="example@example.com"
               className="form-box-input"
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormGroup className="form-box">
+            <Label for="password">Password</Label>
             <Input
               type="password"
               name="password"
-              placeholder="Password"
+              placeholder="**********"
               className="form-box-input"
               onChange={this.handleChange}
             />
           </FormGroup>
           <FormText className="form-box-error">{this.displayErrors()}</FormText>
-          <Button>Log In</Button>
+          <Button size="lg" style={{ textAlign: "center" }}>
+            Log In
+          </Button>
         </Form>
         <div className="register-box">
           Don't have an account? <Link to="/register">Register</Link>

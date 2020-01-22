@@ -27,7 +27,4 @@
             "version" : "detect"
         }
     },
-    "rules": {
-        "no-useless-escape": 0
-    }
 }

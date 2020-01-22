@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Input, FormText, Alert } from "reactstrap";
+import { Button, Form, FormGroup, Input, FormText, Alert, Label } from "reactstrap";
 import { registerUser } from "./../../utils/auth";
+import "./Register.css";
 
 class Register extends Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class Register extends Component {
   displayErrors = () => {
     if (this.state.errors !== "")
       return <Alert color="danger">{this.state.errors}</Alert>;
-    else return <h5></h5>;
   };
 
   handleChange = event => {
@@ -69,6 +69,7 @@ class Register extends Component {
           </h3>
           <Form className="form" onSubmit={this.handleSubmit}>
             <FormGroup className="form-box">
+              <Label for="firsName">First Name</Label>
               <Input
                 type="text"
                 name="firstName"
@@ -78,6 +79,7 @@ class Register extends Component {
               />
             </FormGroup>
             <FormGroup className="form-box">
+              <Label for="lastName">Last Name</Label>
               <Input
                 type="text"
                 name="lastName"
@@ -87,6 +89,7 @@ class Register extends Component {
               />
             </FormGroup>
             <FormGroup className="form-box">
+              <Label for="username">Username</Label>
               <Input
                 type="text"
                 name="username"
@@ -96,6 +99,7 @@ class Register extends Component {
               />
             </FormGroup>
             <FormGroup className="form-box">
+              <Label for="email">Email</Label>
               <Input
                 type="email"
                 name="email"
@@ -105,6 +109,7 @@ class Register extends Component {
               />
             </FormGroup>
             <FormGroup className="form-box">
+              <Label for="password">Password</Label>
               <Input
                 type="password"
                 name="password"
@@ -114,6 +119,7 @@ class Register extends Component {
               />
             </FormGroup>
             <FormGroup className="form-box">
+              <Label for="confirmedPassword">Re-type Password</Label>
               <Input
                 type="password"
                 name="confirmedPassword"
@@ -122,12 +128,25 @@ class Register extends Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
-            <select defaultValue="No" onChange={this.handleAdmin}>
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
+            <FormGroup className="form-box">
+              <Label for="isAdmin">Are you applying to be an Admin? </Label>
+              <select
+                id="register-selector"
+                defaultValue="No"
+                onChange={this.handleAdmin}
+                style={{ margin: "8px" }}
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </FormGroup>
             <FormText className="form-box-error">{this.displayErrors()}</FormText>
-            <Button className="submit" type="submit">
+            <Button
+              className="submit form-box"
+              size="lg"
+              style={{ align: "center" }}
+              type="submit"
+            >
               Sign Up
             </Button>
           </Form>
