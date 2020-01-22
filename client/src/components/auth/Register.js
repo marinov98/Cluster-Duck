@@ -48,10 +48,14 @@ class Register extends Component {
       isAdmin: this.state.isAdmin
     };
 
-    const { error } = await registerUser(userToBeCreated, this.props.history);
-    console.log(error);
-
-    if (error) this.setState({ errors: error });
+    // attempt to add to database
+    try {
+      const response = await registerUser(userToBeCreated, this.props.history);
+      // unsuccessful registration, show errors to client
+      if (response && response.error) this.setState({ errors: response.error });
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   handleAdmin = event => {

@@ -38,6 +38,10 @@ class App extends Component {
     }
   };
 
+  getAuth = authInfo => {
+    if (authInfo) this.setState({ auth: authInfo });
+  };
+
   componentDidMount = () => {
     const res = authenticate();
     // redirect to login if authentication is unsuccessful
@@ -60,9 +64,14 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <ProtectedRoute path="/" component={DuckNavbar} auth={this.state.auth} />
+        <ProtectedRoute
+          path="/"
+          getAuth={this.getAuth}
+          component={DuckNavbar}
+          auth={this.state.auth}
+        />
         <Route exact path="/login">
-          <Login auth={this.state.auth} />
+          <Login getAuth={this.getAuth} auth={this.state.auth} />
         </Route>
         <Route exact path="/register">
           <Register auth={this.state.auth} />

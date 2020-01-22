@@ -57,7 +57,7 @@ export async function loginUser(user) {
  * @desc Logout the user
  * @return Empty object to nullify user
  */
-export function logoutUser(history) {
+export function logoutUser() {
   // ensure local storage is supported
   if (typeof Storage === "undefined")
     throw new Error("Browser does not support local storage!");
@@ -67,7 +67,6 @@ export function logoutUser(history) {
 
   // remove from headers
   setToken(false);
-  history.push("/login");
 }
 
 /**

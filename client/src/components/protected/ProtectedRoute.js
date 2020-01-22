@@ -16,11 +16,15 @@ import PropTypes from "prop-types";
  *        And if so, renders the component, passing along all props
  *        Otherwise, does not render the component and redirects to "/login"
  */
-const ProtectedRoute = ({ component: Component, auth, ...props }) => (
+const ProtectedRoute = ({ component: Component, auth, getAuth, ...props }) => (
   <Route
     {...props}
     render={props =>
-      auth.authenticated === true ? <Component {...props} /> : <Redirect to="/login" />
+      auth.authenticated === true ? (
+        <Component {...props} auth={auth} getAuth={getAuth} />
+      ) : (
+        <Redirect to="/login" />
+      )
     }
   />
 );

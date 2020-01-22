@@ -86,6 +86,7 @@ class Login extends Component {
       if (userInfo.error) this.setState({ errors: userInfo.error });
       else if (userInfo.authenticated) {
         this.setState({ auth: userInfo });
+        this.props.getAuth(userInfo);
         this.props.history.push("/");
       }
     }
@@ -120,31 +121,34 @@ class Login extends Component {
             />
           </FormGroup>
           <FormText className="form-box-error">{this.displayErrors()}</FormText>
+          <div>
+            Don't have an account? <Link to="/register">Register</Link>
+          </div>
           <div className="form-button">
             <Button size="lg">Log In</Button>
           </div>
-          <GoogleLogin
-            clientId="1041011900309-oaq4n0svcmrocdf4q3q9hdgpudlfllfs.apps.googleusercontent.com"
-            render={renderProps => (
-              <Button
-                className="login-button"
-                color="primary"
-                onClick={renderProps.onClick}
-                disabled={renderProps.disabled}
-                style={{ margin: "10px", textAlign: "center" }}
-              >
-                Login with Google
-              </Button>
-            )}
-            buttonText="Login"
-            onSuccess={responseGoogleGood}
-            onFailure={responseGoogleBad}
-            cookiePolicy={"single_host_origin"}
-          />
+          <div className="google-login">
+            <GoogleLogin
+              clientId="1041011900309-oaq4n0svcmrocdf4q3q9hdgpudlfllfs.apps.googleusercontent.com"
+              render={renderProps => (
+                <Button
+                  className="login-button"
+                  color="primary"
+                  onClick={renderProps.onClick}
+                  disabled={renderProps.disabled}
+                  style={{ margin: "10px", textAlign: "center" }}
+                >
+                  Login with Google
+                </Button>
+              )}
+              buttonText="Login"
+              className="google-login"
+              onSuccess={responseGoogleGood}
+              onFailure={responseGoogleBad}
+              cookiePolicy={"single_host_origin"}
+            />
+          </div>
         </Form>
-        <div className="register-box">
-          Don't have an account? <Link to="/register">Register</Link>
-        </div>
       </Container>
     );
   }

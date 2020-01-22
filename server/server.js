@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-// allow React to access this server while in development
+// allow this server to access React while in development
 if (process.env.NODE_ENV !== "production") {
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", `http://localhost:3000`);

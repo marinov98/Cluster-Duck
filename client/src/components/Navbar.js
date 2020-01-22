@@ -1,6 +1,21 @@
-import React from "react";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Button } from "reactstrap";
+import React, { Component } from "react";
+import { Navbar, NavbarBrand, NavItem, NavLink, Button } from "reactstrap";
 import { logoutUser } from "./../utils/auth";
+
+class LogOut extends Component {
+  handleLogout = () => {
+    this.props.logoutUser();
+    this.props.getAuth({ authenticated: false });
+  };
+
+  render() {
+    return (
+      <Button color="primary" onClick={this.handleLogout}>
+        Log Out
+      </Button>
+    );
+  }
+}
 
 export default function DuckNavbar(props) {
   return (
@@ -11,20 +26,16 @@ export default function DuckNavbar(props) {
           🦆
         </span>
       </NavbarBrand>
-      <Nav>
-        <NavItem>
-          <NavLink href="/profile">Profile</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/leaderboard">Leaderboard</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/chat">Chat</NavLink>
-        </NavItem>
-        <NavItem>
-          <Button onClick={logoutUser(props.history)}>Log Out</Button>
-        </NavItem>
-      </Nav>
+      <NavItem>
+        <NavLink href="/profile">Profile</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/leaderboard">Leaderboard</NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink href="/chat">Chat</NavLink>
+      </NavItem>
+      <LogOut getAuth={props.getAuth} logoutUser={logoutUser} />
     </Navbar>
   );
 }
