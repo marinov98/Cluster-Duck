@@ -48,7 +48,7 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-// passport check testing, might be used
+// passport check example for reference
 router.get("/authUser", (req, res, next) => {
   passport.authenticate("jwt", { session: false }, (err, user, info) => {
     if (err) console.error(err);
