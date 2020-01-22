@@ -17,7 +17,7 @@ const registrationSchema = Joi.object({
       new RegExp(`^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{7,25}$`)
     )
     .message(
-      "Passwords must be between 7-25 characters and contain at least: one lowercase, one uppercase, one, digit, and one special charcater"
+      "Passwords must be between 7-25 characters and contain at least: one lowercase, one uppercase, one digit, and one special charcater"
     )
     .required(),
   confirmedPassword: Joi.ref("password"),
