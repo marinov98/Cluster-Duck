@@ -38,6 +38,9 @@ class Register extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    // check if email is valid
+
+    // if its valid, register the user
     const userToBeCreated = {
       email: this.state.email,
       password: this.state.password,
@@ -73,6 +76,16 @@ class Register extends Component {
           </h3>
           <Form className="form" onSubmit={this.handleSubmit}>
             <FormGroup className="form-box">
+              <Label for="email">Email</Label>
+              <Input
+                type="email"
+                name="email"
+                className="form-box-input"
+                placeholder="example@example.com"
+                onChange={this.handleChange}
+              />
+            </FormGroup>
+            <FormGroup className="form-box">
               <Label for="firsName">First Name</Label>
               <Input
                 type="text"
@@ -99,16 +112,6 @@ class Register extends Component {
                 name="username"
                 className="form-box-input"
                 placeholder="Username"
-                onChange={this.handleChange}
-              />
-            </FormGroup>
-            <FormGroup className="form-box">
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                className="form-box-input"
-                placeholder="example@example.com"
                 onChange={this.handleChange}
               />
             </FormGroup>

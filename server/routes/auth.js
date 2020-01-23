@@ -28,6 +28,7 @@ router.post("/register", async (req, res, next) => {
 
     const userWithSameUsername = await User.findOne({ username: req.body.username });
 
+
     if (userWithSameUsername)
       return res.status(409).json({ error: "Username already exists!" });
 

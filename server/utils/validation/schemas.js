@@ -6,6 +6,18 @@ import Joi from "@hapi/joi";
  */
 
 const registrationSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      minDomainSegments: 2,
+      tlds: { allow: ["com", "net", "edu"] }
+    })
+    .required(),
+  firstName: Joi.string()
+    .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
+    .required(),
+  lastName: Joi.string()
+    .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
+    .required(),
   username: Joi.string()
     .alphanum()
     .min(5)
@@ -21,18 +33,6 @@ const registrationSchema = Joi.object({
     )
     .required(),
   confirmedPassword: Joi.ref("password"),
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-      tlds: { allow: ["com", "net", "edu"] }
-    })
-    .required(),
-  firstName: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
-    .required(),
-  lastName: Joi.string()
-    .pattern(new RegExp("^[a-zA-Z]{2,30}$"))
-    .required(),
   isAdmin: Joi.boolean()
 });
 
