@@ -29,7 +29,7 @@ export async function registerUser(user, history) {
   } catch (err) {
     if (err.response) {
       return err.response.data;
-    } else console.err(err);
+    } else console.error(err);
   }
 }
 
