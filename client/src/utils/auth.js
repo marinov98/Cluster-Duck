@@ -55,6 +55,30 @@ export async function loginUser(user) {
 }
 
 /**
+ * @desc Login the user
+ * @return User object
+ * @param {*} user
+ */
+export async function loginUserGoogle(user) {
+  try {
+    const { data } = await axios.post("http://localhost:3999/api/auth/login", user);
+
+    // set in Local storage, then in headers
+    localStorage.setItem("jwtToken", data.token);
+
+    setToken(data.token);
+
+    // decode to get user data
+    const userInfo = jwt_decode(data.token);
+    return { authenticated: true, user: userInfo };
+  } catch (err) {
+    if (err.response) {
+      return err.response.data;
+    } else console.error(err);
+  }
+}
+
+/**
  * @desc Logout the user
  * @return Empty object to nullify user
  */
