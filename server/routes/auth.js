@@ -100,7 +100,7 @@ router.post("/login", async (req, res, next) => {
  *  @desc Login user if they exist, if not, create new user and login
  *  @access Public
  */
-router.post("/google-login", async (req, res, next) => {
+router.post("/googlelogin", async (req, res, next) => {
   // Check whether user in db based on email
   const user await = User.findOne({email: req.body.email});
 
