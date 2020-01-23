@@ -18,15 +18,18 @@ import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
 
 const responseGoogleGood = response => {
-  // Send web token to backend
-  console.log("Successful login!", response);
+  // Send user info to backend
   let tokenStr = response.Zi.id_token;
-  let webApiUrl = `${process.env.backend_url}/api`;
+  const user = {
+
+  }
+  let webApiUrl = `${process.env.backend_url}/api/googlelogin`;
   axios
-    .get(webApiUrl, {
+    .post(webApiUrl, {
       headers: {
         Authorization: `Bearer ${tokenStr}`
-      }
+      },
+
     })
     .then(
       response => {
