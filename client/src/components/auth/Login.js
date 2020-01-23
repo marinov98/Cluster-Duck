@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-import { loginUser } from "./../../utils/auth";
+import { loginUser, loginUserGoogle } from "./../../utils/auth";
 import "../../App.css";
 import "./Login.css";
 import {
@@ -17,28 +17,25 @@ import {
 import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
 
-const responseGoogleGood = response => {
+const responseGoogleGood = async (response) => {
   // Send user info to backend
   let tokenStr = response.Zi.id_token;
+  // not sure if password should stay as access token
   const user = {
-
+    email: response.profileObj.email,
+    password: response.accessToken,
+    username: response.profileObj.email,
+    firstName: response.profileObj.givenName,
+    lastName: response.profileObj.familyName,
+    token: tokenStr
   }
-  let webApiUrl = `${process.env.backend_url}/api/googlelogin`;
-  axios
-    .post(webApiUrl, {
-      headers: {
-        Authorization: `Bearer ${tokenStr}`
-      },
 
-    })
-    .then(
-      response => {
-        var response = response.data;
-      },
-      error => {
-        var status = error.response.status;
-      }
-    );
+  try {
+    // might also want to push history
+    const response = await loginUserGoogle(user);
+  } catch (err) {
+    console.error(err)
+  }
 };
 
 const responseGoogleBad = response => {
