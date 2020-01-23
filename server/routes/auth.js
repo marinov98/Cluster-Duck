@@ -96,37 +96,38 @@ router.post("/login", async (req, res, next) => {
 
 /**
  *  Google login endpoint
- *  @route POST api/auth/google-login
+ *  @route POST api/auth/googlelogin
  *  @desc Login user if they exist, if not, create new user and login
  *  @access Public
  */
 router.post("/googlelogin", async (req, res, next) => {
   // Check whether user in db based on email
-  const user await = User.findOne({email: req.body.email});
-
+  console.log(req.body.email)
+  const user = await User.findOne({email: req.body.email});
+  console.log("user", user)
   try {
     // if user in db...
     if(user){
+      console.log("user found")
       // send back success and token
-      return res.status(200).json({success: true, token: req.body.Zi.access_token})
+      return res.status(200).json({success: true, token: req.body.token})
     } else {
       // some of these probably need to be changed, depending on what i actually send
       // #######################
       const userToBeCreated = {
-        username: req.body.profileObj.email,
-        password: req.body.Zi.login_hint,
-        email: req.body.profileObj.email,
-        firstName: req.body.givenName,
-        lastName: req.body.familyName,
-        isAdmin,
+        username: req.body.email,
+        password: req.body.password,
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
       }
 
       await User.create(userToBeCreated);
-
-      return res.status(201).json({success: true, token: req.body.Zi.access_token})
+      console.log("no user found")
+      return res.status(201).json({success: true, token: req.body.accessToken})
     }
   } catch (err) {
-    return res.status(400).json({err: "Error while signing in with Google, please try again."})
+    next(err);
   }
 })
 
