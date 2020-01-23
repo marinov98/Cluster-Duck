@@ -55,22 +55,32 @@ export async function loginUser(user) {
 }
 
 /**
- * @desc Login the user
+ * @desc Login the user with google
  * @return User object
  * @param {*} user
  */
 export async function loginUserGoogle(user) {
   try {
-    const { data } = await axios.post("http://localhost:3999/api/auth/login", user);
+    let webApiUrl = `/api/auth/googlelogin`;
+    axios
+      .post(webApiUrl, user)
+      .then(
+        response => {
+          console.log(response)
+          // var response = response.data;
+        },
+        error => {
+          console.log(error)
+          // var status = error.response.status;
+        }
+      );
 
-    // set in Local storage, then in headers
-    localStorage.setItem("jwtToken", data.token);
+    // set in Local storage
+    localStorage.setItem("googleToken", user.token);
 
-    setToken(data.token);
+    setToken(user.token);
 
-    // decode to get user data
-    const userInfo = jwt_decode(data.token);
-    return { authenticated: true, user: userInfo };
+    return { authenticated: true, user: user };
   } catch (err) {
     if (err.response) {
       return err.response.data;
