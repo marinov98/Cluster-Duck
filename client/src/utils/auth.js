@@ -40,7 +40,7 @@ export async function loginUser(user) {
     const { data } = await axios.post("http://localhost:3999/api/auth/login", user);
 
     // set in Local storage, then in headers
-    localStorage.setItem("jwtToken", data.token);
+    localStorage.setItem("accessToken", data.token);
 
     setToken(data.token);
 
@@ -61,24 +61,13 @@ export async function loginUser(user) {
  */
 export async function loginUserGoogle(user) {
   try {
-    let webApiUrl = `/api/auth/googlelogin`;
-    axios
-      .post(webApiUrl, user)
-      .then(
-        response => {
-          console.log(response)
-          // var response = response.data;
-        },
-        error => {
-          console.log(error)
-          // var status = error.response.status;
-        }
-      );
+    let webApiUrl = `http://localhost:3999/api/auth/googlelogin`;
+    const { data } = await axios.post(webApiUrl, user);
 
     // set in Local storage
-    localStorage.setItem("googleToken", user.token);
+    localStorage.setItem("accessToken", data.token);
 
-    setToken(user.token);
+    setToken(data.token);
 
     return { authenticated: true, user: user };
   } catch (err) {
@@ -98,7 +87,7 @@ export function logoutUser() {
     throw new Error("Browser does not support local storage!");
 
   // remove item token from local storage
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("accessToken");
 
   // remove from headers
   setToken(false);
@@ -114,8 +103,8 @@ export function authenticate() {
 
   let res = { authenticated: false };
 
-  if (localStorage["jwtToken"]) {
-    const token = localStorage["jwtToken"];
+  if (localStorage["accessToken"]) {
+    const token = localStorage["accessToken"];
 
     // set token in headers
     setToken(token);

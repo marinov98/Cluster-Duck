@@ -102,15 +102,12 @@ router.post("/login", async (req, res, next) => {
  */
 router.post("/googlelogin", async (req, res, next) => {
   // Check whether user in db based on email
-  console.log(req.body.email)
-  const user = await User.findOne({email: req.body.email});
-  console.log("user", user)
   try {
+    const user = await User.findOne({ email: req.body.email });
     // if user in db...
-    if(user){
-      console.log("user found")
+    if (user) {
       // send back success and token
-      return res.status(200).json({success: true, token: req.body.token})
+      return res.status(200).json({ success: true, token: req.body.token });
     } else {
       // some of these probably need to be changed, depending on what i actually send
       // #######################
@@ -119,16 +116,16 @@ router.post("/googlelogin", async (req, res, next) => {
         password: req.body.password,
         email: req.body.email,
         firstName: req.body.firstName,
-        lastName: req.body.lastName,
-      }
+        lastName: req.body.lastName
+      };
 
       await User.create(userToBeCreated);
-      console.log("no user found")
-      return res.status(201).json({success: true, token: req.body.accessToken})
+      console.log("no user found");
+      return res.status(201).json({ success: true, token: req.body.token });
     }
   } catch (err) {
     next(err);
   }
-})
+});
 
 export default router;

@@ -17,9 +17,9 @@ import {
 import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
 
-const responseGoogleGood = async (response) => {
+const responseGoogleGood = async response => {
   // Send user info to backend
-  let tokenStr = response.Zi.id_token;
+  const tokenStr = response.Zi.id_token;
   // not sure if password should stay as access token
   const user = {
     email: response.profileObj.email,
@@ -28,13 +28,13 @@ const responseGoogleGood = async (response) => {
     firstName: response.profileObj.givenName,
     lastName: response.profileObj.familyName,
     token: tokenStr
-  }
+  };
 
   try {
     // might also want to push history
-    const response = await loginUserGoogle(user);
+    return await loginUserGoogle(user);
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 };
 
@@ -92,6 +92,17 @@ class Login extends Component {
     }
   };
 
+  handleGoogleLogin = async response => {
+    try {
+      const userInfo = await responseGoogleGood(response);
+      this.setState({ auth: userInfo });
+      this.props.getAuth(userInfo);
+      if (userInfo.authenticated) this.props.history.push("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   render() {
     return (
       <Container>
@@ -143,7 +154,7 @@ class Login extends Component {
               )}
               buttonText="Login"
               className="google-login"
-              onSuccess={responseGoogleGood}
+              onSuccess={this.handleGoogleLogin}
               onFailure={responseGoogleBad}
               cookiePolicy={"single_host_origin"}
             />
