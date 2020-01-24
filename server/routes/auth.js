@@ -28,7 +28,6 @@ router.post("/register", async (req, res, next) => {
 
     const userWithSameUsername = await User.findOne({ username: req.body.username });
 
-
     if (userWithSameUsername)
       return res.status(409).json({ error: "Username already exists!" });
 
@@ -110,8 +109,7 @@ router.post("/googlelogin", async (req, res, next) => {
       // send back success and token
       return res.status(200).json({ success: true, token: req.body.token });
     } else {
-      // some of these probably need to be changed, depending on what i actually send
-      // #######################
+      // create user and send to save in database
       const userToBeCreated = {
         username: req.body.email,
         password: req.body.password,
@@ -121,7 +119,6 @@ router.post("/googlelogin", async (req, res, next) => {
       };
 
       await User.create(userToBeCreated);
-      console.log("no user found");
       return res.status(201).json({ success: true, token: req.body.token });
     }
   } catch (err) {
