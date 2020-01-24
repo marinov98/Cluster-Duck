@@ -1,0 +1,12 @@
+.google-login {
+   display: flex;
+   justify-content: center;
+}
+
+.form-button {
+    text-align: center;
+}
+
+.login-button {
+    width: 34%;
+}

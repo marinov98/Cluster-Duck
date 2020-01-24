@@ -2,9 +2,9 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import { User } from "../../db/models";
 import config from "./config";
 
-// show the strategy the token and how to decode it
+// show from what header to extract the jwt and what secret to use to decode it
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwtToken"),
+  jwtFromRequest: ExtractJwt.fromHeader("Authorization"),
   secretOrKey: config.jwt_secret
 };
 
