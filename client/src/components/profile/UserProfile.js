@@ -57,7 +57,12 @@ export default class UserProfile extends Component {
             {/* Profile image 
 						input: image object retrieved from remote file storage into image tag
 						output: image */}
-            <img src={sampleImage} alt={"DuckImg"} height={"75px"} width={"100px"} />
+            <img
+              src={sampleImage}
+              alt={"DuckImg"}
+              height={"75px"}
+              width={"100px"}
+            />
             <div
               style={{
                 color: "black"
@@ -77,7 +82,10 @@ export default class UserProfile extends Component {
               {/* Current Classes 
 						input: object
 						output: column + row with bulleted points */}
-              <ProfileClasses classType={"Current"} classes={sample_current_data} />
+              <ProfileClasses
+                classType={"Current"}
+                classes={sample_current_data}
+              />
             </div>
 
             <div
