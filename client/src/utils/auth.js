@@ -20,7 +20,7 @@ export function setToken(token) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post("http://localhost:3006/api/auth/register", user);
+    const { status } = await axios.post("http://localhost:3999/api/auth/register", user);
     // if the status is 201, it means user was successfully registered
     if (status === 201) history.push("/login"); // redirect to login upon successful registration
   } catch (err) {
@@ -37,16 +37,39 @@ export async function registerUser(user, history) {
  */
 export async function loginUser(user) {
   try {
-    const { data } = await axios.post("http://localhost:3006/api/auth/login", user);
+    const { data } = await axios.post("http://localhost:3999/api/auth/login", user);
 
     // set in Local storage, then in headers
-    localStorage.setItem("jwtToken", data.token);
+    localStorage.setItem("accessToken", data.token);
 
     setToken(data.token);
 
     // decode to get user data
     const userInfo = jwt_decode(data.token);
     return { authenticated: true, user: userInfo };
+  } catch (err) {
+    if (err.response) {
+      return err.response.data;
+    } else console.error(err);
+  }
+}
+
+/**
+ * @desc Login the user with google
+ * @return User object
+ * @param {*} user
+ */
+export async function loginUserGoogle(user) {
+  try {
+    let webApiUrl = `http://localhost:3999/api/auth/googlelogin`;
+    const { data } = await axios.post(webApiUrl, user);
+
+    // set in Local storage
+    localStorage.setItem("accessToken", data.token);
+
+    setToken(data.token);
+
+    return { authenticated: true, user: user };
   } catch (err) {
     if (err.response) {
       return err.response.data;
@@ -64,7 +87,7 @@ export function logoutUser() {
     throw new Error("Browser does not support local storage!");
 
   // remove item token from local storage
-  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("accessToken");
 
   // remove from headers
   setToken(false);
@@ -80,8 +103,8 @@ export function authenticate() {
 
   let res = { authenticated: false };
 
-  if (localStorage["jwtToken"]) {
-    const token = localStorage["jwtToken"];
+  if (localStorage["accessToken"]) {
+    const token = localStorage["accessToken"];
 
     // set token in headers
     setToken(token);

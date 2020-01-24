@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
-import { loginUser } from "./../../utils/auth";
+import { loginUser, loginUserGoogle } from "./../../utils/auth";
 import "../../App.css";
 import "./Login.css";
 import {
@@ -17,25 +17,25 @@ import {
 import { Link, withRouter } from "react-router-dom";
 const axios = require("axios").default;
 
-const responseGoogleGood = response => {
-  // Send web token to backend
-  console.log("Successful login!", response);
-  let tokenStr = response.Zi.id_token;
-  let webApiUrl = "??";
-  axios
-    .get(webApiUrl, {
-      headers: {
-        Authorization: `Bearer ${tokenStr}`
-      }
-    })
-    .then(
-      response => {
-        var response = response.data;
-      },
-      error => {
-        var status = error.response.status;
-      }
-    );
+const responseGoogleGood = async response => {
+  // Send user info to backend
+  const tokenStr = response.Zi.id_token;
+  // not sure if password should stay as access token
+  const user = {
+    email: response.profileObj.email,
+    password: response.accessToken,
+    username: response.profileObj.email,
+    firstName: response.profileObj.givenName,
+    lastName: response.profileObj.familyName,
+    token: tokenStr
+  };
+
+  try {
+    // might also want to push history
+    return await loginUserGoogle(user);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 const responseGoogleBad = response => {
@@ -92,6 +92,17 @@ class Login extends Component {
     }
   };
 
+  handleGoogleLogin = async response => {
+    try {
+      const userInfo = await responseGoogleGood(response);
+      this.setState({ auth: userInfo });
+      this.props.getAuth(userInfo);
+      if (userInfo.authenticated) this.props.history.push("/");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   render() {
     return (
       <Container>
@@ -143,7 +154,7 @@ class Login extends Component {
               )}
               buttonText="Login"
               className="google-login"
-              onSuccess={responseGoogleGood}
+              onSuccess={this.handleGoogleLogin}
               onFailure={responseGoogleBad}
               cookiePolicy={"single_host_origin"}
             />
