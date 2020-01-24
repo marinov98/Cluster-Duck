@@ -3,8 +3,14 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import config from "./../utils/config/config";
 import { User } from "./../db/models";
-import { validateLogin, validateRegister } from "./../utils/validation/validate";
-import { hashPasswordAndSave, comparePasswords } from "./../utils/validation/bcrypt";
+import {
+  validateLogin,
+  validateRegister
+} from "./../utils/validation/validate";
+import {
+  hashPasswordAndSave,
+  comparePasswords
+} from "./../utils/validation/bcrypt";
 const router = express.Router();
 
 /**
@@ -26,7 +32,9 @@ router.post("/register", async (req, res, next) => {
     if (userWithSameEmail)
       return res.status(409).json({ error: "Email already exists!" });
 
-    const userWithSameUsername = await User.findOne({ username: req.body.username });
+    const userWithSameUsername = await User.findOne({
+      username: req.body.username
+    });
 
     if (userWithSameUsername)
       return res.status(409).json({ error: "Username already exists!" });
@@ -105,22 +113,20 @@ router.post("/googlelogin", async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     // if user in db...
-    if (user) {
-      // send back success and token
+    // send back success and token
+    if (user)
       return res.status(200).json({ success: true, token: req.body.token });
-    } else {
-      // create user and send to save in database
-      const userToBeCreated = {
-        username: req.body.email,
-        password: req.body.password,
-        email: req.body.email,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
-      };
+    // create user and send to save in database
+    const userToBeCreated = {
+      username: req.body.email,
+      password: req.body.password,
+      email: req.body.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName
+    };
 
-      await User.create(userToBeCreated);
-      return res.status(201).json({ success: true, token: req.body.token });
-    }
+    await User.create(userToBeCreated);
+    return res.status(201).json({ success: true, token: req.body.token });
   } catch (err) {
     next(err);
   }

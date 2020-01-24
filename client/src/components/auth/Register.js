@@ -1,7 +1,15 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Input, FormText, Alert, Label } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  FormText,
+  Alert,
+  Label
+} from "reactstrap";
 import { registerUser } from "./../../utils/auth";
 import "./Register.css";
 
@@ -147,7 +155,9 @@ class Register extends Component {
                 <option value="No">No</option>
               </select>
             </FormGroup>
-            <FormText className="form-box-error">{this.displayErrors()}</FormText>
+            <FormText className="form-box-error">
+              {this.displayErrors()}
+            </FormText>
             <Button
               className="submit form-box"
               size="lg"

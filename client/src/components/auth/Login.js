@@ -15,7 +15,6 @@ import {
   Alert
 } from "reactstrap";
 import { Link, withRouter } from "react-router-dom";
-const axios = require("axios").default;
 
 const responseGoogleGood = async response => {
   // Send user info to backend
@@ -63,7 +62,6 @@ class Login extends Component {
   displayErrors = () => {
     if (this.state.errors !== "")
       return <Alert color="danger">{this.state.errors}</Alert>;
-    else return <h3></h3>;
   };
 
   handleChange = event => {
