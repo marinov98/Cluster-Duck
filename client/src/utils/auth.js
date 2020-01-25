@@ -6,10 +6,20 @@ import jwt_decode from "jwt-decode";
  * @param {*} token
  * @return none
  */
-export function setAuthHeader(token) {
+function setAuthHeader(token) {
   // set all requests to have the jwt in the Authorization header if the jwt is valid
   if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   else delete axios.defaults.headers.common["Authorization"]; // remove token from all requests if invalid
+}
+
+/**
+ * @desc take in boolean variable and applies admin header to every request
+ * @param {*} isAdmin
+ * @return none
+ */
+function setAdminHeader(isAdmin) {
+  if (isAdmin) axios.defaults.headers.common["Admin"] = true;
+  else delete axios.defaults.headers.common["Admin"];
 }
 
 /**
@@ -55,6 +65,8 @@ export async function loginUser(user) {
 
     // decode to get user data
     const userInfo = jwt_decode(token);
+
+    if (userInfo.isAdmin) setAdminHeader(true);
 
     return { authenticated: true, user: userInfo };
   } catch (err) {
@@ -109,6 +121,7 @@ export function logoutUser() {
 
   // remove from headers
   setAuthHeader(false);
+  setAdminHeader(false);
 }
 
 /**
