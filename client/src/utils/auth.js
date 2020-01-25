@@ -21,7 +21,7 @@ export function setToken(token) {
 export async function registerUser(user, history) {
   try {
     const { status } = await axios.post(
-      "http://localhost:3999/api/auth/register",
+      "https://cluster-duck-server.herokuapp.com/api/auth/register",
       user
     );
     // if the status is 201, it means user was successfully registered
@@ -41,7 +41,7 @@ export async function registerUser(user, history) {
 export async function loginUser(user) {
   try {
     const { data } = await axios.post(
-      "http://localhost:3999/api/auth/login",
+      "https://cluster-duck-server.herokuapp.com/api/auth/login",
       user
     );
 
@@ -67,7 +67,7 @@ export async function loginUser(user) {
  */
 export async function loginUserGoogle(user) {
   try {
-    let webApiUrl = `http://localhost:3999/api/auth/googlelogin`;
+    let webApiUrl = `https://cluster-duck-server.herokuapp.com/api/auth/googlelogin`;
     const { data } = await axios.post(webApiUrl, user);
 
     // set in Local storage
