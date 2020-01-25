@@ -49,25 +49,18 @@ router.get("/:id", async (req, res, next) => {
 });
 
 // passport check example for reference
-router.get("/authUser", (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, (err, user, info) => {
-    if (err) console.error(err);
-
-    if (info) {
-      res.json({ error: info.message });
-    } else {
-      return res.status(200).json({
-        authenticated: true,
-        user: {
-          firstName: user.firstName,
-          lastName: user.lastName,
-          password: user.password,
-          email: user.email,
-          username: user.username
-        }
-      });
-    }
-  })(req, res, next);
-});
+/**
+ * Get user after using jwt strategy
+ * @route GET /api/users/authUser
+ * @desc get user
+ * @access Protected
+ */
+router.get(
+  "/authUser",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    return res.status(200).json({ authenticated: true, user: req.user });
+  }
+);
 
 export default router;
