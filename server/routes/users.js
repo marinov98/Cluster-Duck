@@ -65,7 +65,7 @@ router.get("user/:email", async (req, res, next) => {
 
 /**
  * Get user after using jwt strategy
- * @route GET /api/users/authUser
+ * @route GET /api/users/auth/user
  * @desc get user
  * @access Protected
  */
