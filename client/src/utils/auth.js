@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
  * @param {*} token
  * @return none
  */
-export function setToken(token) {
+export function setAuthHeader(token) {
   // set all requests to have the jwt in the Authorization header if the jwt is valid
   if (token) axios.defaults.headers.common["Authorization"] = token;
   else delete axios.defaults.headers.common["Authorization"]; // remove token from all requests if invalid
@@ -40,18 +40,22 @@ export async function registerUser(user, history) {
  */
 export async function loginUser(user) {
   try {
-    const { data } = await axios.post(
+    const {
+      data: { token }
+    } = await axios.post(
       "https://cluster-duck-server.herokuapp.com/api/auth/login",
       user
     );
 
     // set in Local storage, then in headers
-    localStorage.setItem("accessToken", data.token);
+    localStorage.setItem("accessToken", token);
 
-    setToken(data.token);
+    // set requests to use token in the Authorization header
+    setAuthHeader(token);
 
     // decode to get user data
-    const userInfo = jwt_decode(data.token);
+    const userInfo = jwt_decode(token);
+
     return { authenticated: true, user: userInfo };
   } catch (err) {
     if (err.response) {
@@ -67,15 +71,23 @@ export async function loginUser(user) {
  */
 export async function loginUserGoogle(user) {
   try {
-    let webApiUrl = `https://cluster-duck-server.herokuapp.com/api/auth/googlelogin`;
-    const { data } = await axios.post(webApiUrl, user);
+    const {
+      data: { token }
+    } = await axios.post(
+      `https://cluster-duck-server.herokuapp.com/api/auth/googlelogin`,
+      user
+    );
 
     // set in Local storage
-    localStorage.setItem("accessToken", data.token);
+    localStorage.setItem("accessToken", token);
 
-    setToken(data.token);
+    // set authorization headers to use the token in requests
+    setAuthHeader(token);
 
-    return { authenticated: true, user: user };
+    // get the user information from the token
+    const userInfo = jwt_decode(token);
+
+    return { authenticated: true, user: userInfo };
   } catch (err) {
     if (err.response) {
       return err.response.data;
@@ -96,7 +108,7 @@ export function logoutUser() {
   localStorage.removeItem("accessToken");
 
   // remove from headers
-  setToken(false);
+  setAuthHeader(false);
 }
 
 /**
@@ -113,13 +125,13 @@ export function authenticate() {
     const token = localStorage["accessToken"];
 
     // set token in headers
-    setToken(token);
+    setAuthHeader(token);
 
     const userInfo = jwt_decode(token);
 
     const currentTime = Date.now() / 1000; // curr time in miliseconds
 
-    // check if token has not expired
+    // check if token has expired
     if (userInfo.exp < currentTime) logoutUser();
     else {
       res.user = userInfo;
