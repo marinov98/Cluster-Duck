@@ -17,19 +17,17 @@ import {
 import { Link, withRouter } from "react-router-dom";
 
 const responseGoogleGood = async response => {
-  // Send user info to backend
-  const tokenStr = response.Zi.id_token;
-  // not sure if password should stay as access token
-  const user = {
-    email: response.profileObj.email,
-    password: response.accessToken,
-    username: response.profileObj.email,
-    firstName: response.profileObj.givenName,
-    lastName: response.profileObj.familyName,
-    token: tokenStr
-  };
-
   try {
+    // Send user info to backend
+    const user = {
+      email: response.profileObj.email,
+      password: response.accessToken,
+      username: response.profileObj.email,
+      firstName: response.profileObj.givenName,
+      lastName: response.profileObj.familyName,
+      token: response.Zi.id_token
+    };
+
     // might also want to push history
     return await loginUserGoogle(user);
   } catch (err) {
