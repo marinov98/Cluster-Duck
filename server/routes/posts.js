@@ -1,8 +1,8 @@
 // posts routes
-import express from "express";
+import { Router } from "express";
 import mongoose from "mongoose";
 import { User, Post } from "./../db/models";
-const router = express.Router();
+const router = Router();
 
 /**
  *
