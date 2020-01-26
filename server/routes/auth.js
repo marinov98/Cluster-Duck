@@ -94,9 +94,71 @@ router.post("/login", async (req, res, next) => {
     };
 
     const accessToken = jwt.sign(payload, config.jwt_secret, {
-      expiresIn: 31556926 // 1 year
+      expiresIn: "10m"
     });
-    return res.status(200).json({ authenticated: true, token: accessToken });
+
+    const refreshToken = jwt.sign(payload, config.refresh_secret);
+
+    // update User's refresh token in db
+    await User.findOneAndUpdate(
+      { email: user.email },
+      { refreshToken: refreshToken }
+    );
+
+    return res.status(200).json({
+      authenticated: true,
+      token: accessToken,
+      refreshToken: refreshToken
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * Token endpoint
+ * @route POST api/auth/token
+ * @desc Refresh a user's token
+ * @access Public
+ */
+router.post("/token", async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body.refreshToken;
+    if (!refreshToken || refreshToken === "") return res.sendStatus(401);
+
+    const user = await User.findOne({ refreshToken: refreshToken });
+    if (!user) return res.sendStatus(403);
+
+    // verify refresh token
+    jwt.verify(refreshToken, config.refresh_secret, (err, user) => {
+      if (err) return res.sendStatus(403);
+      const accessToken = jwt.sign(user, config.jwt_secret, {
+        expiresIn: "10m"
+      });
+      // send newly made token to user
+      return res.status(200).json({ newToken: accessToken });
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * Reject token endpoint
+ * @route POST api/auth/token/reject
+ * @desc remove a user's refresh token
+ * @access Public
+ */
+router.put("/token/reject", async (req, res, next) => {
+  try {
+    await User.findOneAndUpdate(
+      { email: req.body.email },
+      { refreshToken: "" }
+    );
+
+    return res
+      .status(200)
+      .json({ message: "refresh token successfully removed!" });
   } catch (err) {
     next(err);
   }
