@@ -1,0 +1,33 @@
+.PostContainer {
+  padding: 2px;
+  border: 1px;
+}
+
+.Poster {
+  position: relative;
+  display: flex;
+}
+
+.TimeStamp {
+
+}
+
+.Topic {
+
+}
+
+.Title {
+
+}
+
+.PostText {
+  
+}
+
+.Rating {
+
+}
+
+.Replies {
+
+}
