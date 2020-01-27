@@ -1,33 +1,31 @@
-.PostContainer {
-  padding: 2px;
-  border: 1px;
+.postContainer {
+  padding: 5px;
+  height: 150px;
+  width: 400px;
+  background-color: red;
+  border: 1px solid blue;
+  border-radius: 10px;
 }
 
-.Poster {
+.poster, .topic, .rating, .timeStamp, .replies {
+  display: inline-block;
+}
+
+.topic, .replies {
+  float: right;
+}
+
+.rating, .poster {
+  float: left;
+}
+
+.title {
+  text-align: center;
+}
+
+.heading {
   position: relative;
-  display: flex;
+  text-align: center;
 }
 
-.TimeStamp {
 
-}
-
-.Topic {
-
-}
-
-.Title {
-
-}
-
-.PostText {
-  
-}
-
-.Rating {
-
-}
-
-.Replies {
-
-}

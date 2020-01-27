@@ -2,13 +2,14 @@
 
 import React from 'react';
 // import { Button } from 'reactstrap';
-import FeedPost from './feedPost'
+import FeedPost from './feedPost';
 // import axios from 'axios'
+import './FeedContainer.css';
 
-const POST_URL = "https://cluster-duck-server.herokuapp.com/api/posts";
+// const POST_URL = "https://cluster-duck-server.herokuapp.com/api/posts";
 
 
-export default function ProfileContainer(props) {
+export default function FeedContainer(props) {
   // useEffect(() => {
   //   async function fetchPosts() {
   //     try {
@@ -30,11 +31,13 @@ export default function ProfileContainer(props) {
       <div className="header">
         Your Posts
       </div>
-      {
-        props.posts.map(p => {
-          return (<FeedPost post={p} />);
-        })
-      }
+      <div className="posts">  
+        {
+          props.posts.map(p => {
+            return (<FeedPost post={p} />);
+          })
+        }
+      </div>
     </div>
   );
 }
