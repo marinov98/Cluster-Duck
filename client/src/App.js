@@ -63,7 +63,7 @@ class App extends Component {
         );
 
         // check if token has expired
-        if (userInfo.exp < currentTime && response.data.refreshToken) {
+        if (userInfo.exp < currentTime && response.data.refreshToken !== "") {
           const refreshToken = response.data.refreshToken;
           const {
             data: { newToken }
