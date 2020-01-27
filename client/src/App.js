@@ -15,6 +15,7 @@ import UserProfile from "./components/profile/UserProfile";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
+import Leaderboard from "./components/Leaderboard";
 
 class App extends Component {
   constructor(props) {
@@ -72,6 +73,12 @@ class App extends Component {
           path="/profile/:email"
           auth={isAuth}
           component={UserProfile}
+        />
+        <ProtectedRoute
+          exact
+          path="/leaderboard"
+          auth={isAuth}
+          component={Leaderboard}
         />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
