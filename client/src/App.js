@@ -55,21 +55,24 @@ class App extends Component {
 
         const userInfo = jwt_decode(token);
 
-        const currentTime = Date.now() / 1000; // curr time in miliseconds
+        const currentTime = Date.now() / 1000 - 60; // current time in seconds minue 1 minute
 
         // pull user from db
         const response = await axios.get(
           `https://cluster-duck-server.herokuapp.com/api/users/${userInfo.id}`
         );
 
-        // check if token has expired
-        if (userInfo.exp < currentTime && response.data.refreshToken !== "") {
-          const refreshToken = response.data.refreshToken;
+        // check if token has expired and if a user contains a refresh token
+        if (
+          userInfo.exp < currentTime &&
+          response.data.refreshToken &&
+          response.data.refreshToken !== ""
+        ) {
           const {
             data: { newToken }
           } = await axios.post(
             "https://cluster-duck-server.herokuapp.com/api/auth/token",
-            { refreshToken }
+            { refreshToken: response.data.refreshToken }
           );
 
           // remove old token and replace with new one
@@ -87,7 +90,7 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    // check if token needs to be refreshed every 5 minutes
+    // check if token needs to be refreshed every 15 minutes
     this.interval = setInterval(() => this.refreshToken(), 900000);
   };
 
