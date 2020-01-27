@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ProfileInfo from "./containers/ProfileInfo.js";
 // import ProfileClasses from "./containers/ProfileClasses.js";
-// import RecentPosts from "./RecentPosts.js";
-import sampleImage from "./sampleImage.jpg";
+import RecentPosts from "./RecentPosts.js";
+import { Spinner } from "reactstrap";
 import axios from "axios";
 
 export default class UserProfile extends Component {
@@ -30,48 +30,23 @@ export default class UserProfile extends Component {
     }
   };
 
-  displayInfo = () => {
+  displayUserInfo = () => {
     if (this.state.user !== null && this.state.user.email)
       return <ProfileInfo data={this.state.user} />;
+    else return <Spinner color="dark" />;
+  };
+
+  displayPostsInfo = () => {
+    if (this.state.user !== null && this.state.user.posts)
+      return <RecentPosts data={this.state.user.posts} />;
+    else return <Spinner type="grow" color="primary" />;
   };
 
   render() {
     return (
       <div>
-        <div
-          style={{
-            textAlign: "center"
-          }}
-        >
-          {/* Profile image 
-						input: image object retrieved from remote file storage into image tag
-						output: image */}
-          <img
-            src={sampleImage}
-            alt={"DuckImg"}
-            height={"75px"}
-            width={"100px"}
-          />
-          <div
-            style={{
-              color: "black"
-            }}
-          >
-            {this.displayInfo()}
-          </div>
-
-          <div
-            style={{
-              color: "black"
-            }}
-          ></div>
-
-          <div
-            style={{
-              color: "black"
-            }}
-          ></div>
-        </div>
+        <div className="user-info">{this.displayUserInfo()}</div>
+        <div className="user-posts">{this.displayPostsInfo()}</div>
       </div>
     );
   }

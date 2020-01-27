@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import "./ProfileInfo.css";
+import sampleImage from "./../sampleImage.jpg";
+import { Media, Badge } from "reactstrap";
 
 export default class ProfileInfo extends Component {
   constructor(props) {
@@ -9,8 +12,8 @@ export default class ProfileInfo extends Component {
   }
 
   displayAdminStatus = () => {
-    if (!this.state.isAdmin) return <h3>This User is not an Admin</h3>;
-    else return <h3>This user is an admin</h3>;
+    if (!this.state.isAdmin) return " Non-Admin";
+    else return " Admin";
   };
 
   render() {
@@ -21,22 +24,31 @@ export default class ProfileInfo extends Component {
       // username = "",
       //posts = []
     } = this.props.data;
-
     return (
-      <div className="user-info">
-        <div className="row names">
-          <div className="col">
-            <h1>{firstName}</h1>
-          </div>
-          <div className="col">
-            <h1>{lastName}</h1>
-          </div>
-        </div>
-        <div className="row user-email">
-          <h2>{email}</h2>
-        </div>
-        <div className="row">{this.displayAdminStatus()}</div>
-      </div>
+      <Media className="profile-info">
+        <Media body>
+          <Media heading>
+            <img
+              src={sampleImage}
+              alt={"DuckImg"}
+              height={"75px"}
+              width={"100px"}
+            />
+          </Media>
+          <Media heading>
+            <Badge color="primary">
+              {firstName} {lastName}
+            </Badge>
+          </Media>
+          <Media heading>
+            <Badge color="success">Email:</Badge> {email}
+          </Media>
+          <Media heading>
+            <Badge color="danger">Admin Status: </Badge>
+            {this.displayAdminStatus()}
+          </Media>
+        </Media>
+      </Media>
     );
   }
 }
