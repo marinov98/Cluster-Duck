@@ -33,20 +33,30 @@ export default class UserProfile extends Component {
   displayUserInfo = () => {
     if (this.state.user !== null && this.state.user.email)
       return <ProfileInfo data={this.state.user} />;
-    else return <Spinner color="dark" />;
+    else
+      return (
+        <Spinner
+          color="primary"
+          style={{ width: "10rem", height: "10rem" }}
+          type="grow"
+        />
+      );
   };
 
   displayPostsInfo = () => {
     if (this.state.user !== null && this.state.user.posts)
       return <RecentPosts data={this.state.user.posts} />;
-    else return <Spinner type="grow" color="primary" />;
+    else
+      return <Spinner style={{ width: "6rem", height: "6rem" }} color="info" />;
   };
 
   render() {
     return (
       <div>
         <div className="user-info">{this.displayUserInfo()}</div>
-        <div className="user-posts">{this.displayPostsInfo()}</div>
+        <div className="user-posts" style={{ textAlign: "center" }}>
+          {this.displayPostsInfo()}
+        </div>
       </div>
     );
   }
