@@ -87,8 +87,8 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    // check if token needs to be refreshed every 15 minutes
-    this.interval = setInterval(() => this.refreshToken(), 900000);
+    // check if token needs to be refreshed every 5 minutes
+    this.interval = setInterval(() => this.refreshToken(), 300000);
   };
 
   getAuth = authInfo => {
