@@ -122,6 +122,9 @@ export function logoutUser() {
   // remove from headers
   setAuthHeader(false);
   setAdminHeader(false);
+
+  // remove any refresh tokens
+  axios.put("https://cluster-duck-server.herokuapp.com/api/auth/token/reject");
 }
 
 /**

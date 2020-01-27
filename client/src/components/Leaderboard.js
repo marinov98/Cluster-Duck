@@ -12,7 +12,7 @@ export default class Leaderboard extends Component {
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     try {
       const { data } = await axios.get(
         "https://cluster-duck-server.herokuapp.com/api/users/"

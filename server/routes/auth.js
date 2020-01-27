@@ -93,7 +93,7 @@ router.post("/login", async (req, res, next) => {
     };
 
     const accessToken = jwt.sign(payload, config.jwt_secret, {
-      expiresIn: "10m"
+      expiresIn: "15s"
     });
 
     const refreshToken = jwt.sign(payload, config.refresh_secret);
@@ -122,7 +122,7 @@ router.post("/login", async (req, res, next) => {
  */
 router.post("/token", async (req, res, next) => {
   try {
-    const { refreshToken } = req.body.refreshToken;
+    const { refreshToken } = req.body;
     if (!refreshToken || refreshToken === "") return res.sendStatus(401);
 
     const user = await User.findOne({ refreshToken: refreshToken });
@@ -132,7 +132,7 @@ router.post("/token", async (req, res, next) => {
     jwt.verify(refreshToken, config.refresh_secret, (err, user) => {
       if (err) return res.sendStatus(403);
       const accessToken = jwt.sign(user, config.jwt_secret, {
-        expiresIn: "10m"
+        expiresIn: "15s"
       });
       // send newly made token to user
       return res.status(200).json({ newToken: accessToken });
