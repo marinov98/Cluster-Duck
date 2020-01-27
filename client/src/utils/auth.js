@@ -145,7 +145,7 @@ export function authenticate() {
 
     const userInfo = jwt_decode(token);
 
-    const currentTime = Date.now() / 1000; // curr time in miliseconds
+    const currentTime = Date.now() / 1000 + 6000; // curr time in seconds, add 1 minute to give token refresh a chance
 
     // check if token has expired
     if (userInfo.exp < currentTime) logoutUser();
