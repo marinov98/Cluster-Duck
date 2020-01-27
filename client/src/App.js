@@ -11,6 +11,7 @@ import Login from "./components/auth/Login.js";
 import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
+import Leaderboard from "./components/Leaderboard.js";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -28,10 +29,14 @@ class App extends Component {
   fecthData = async () => {
     try {
       // get all users and posts to pass down to other components
-      const usersResponse = await axios.get("https://cluster-duck-server.herokuapp.com/api/users/");
+      const usersResponse = await axios.get(
+        "https://cluster-duck-server.herokuapp.com/api/users/"
+      );
       this.setState({ users: usersResponse.data });
 
-      const postsResponse = await axios.get("https://cluster-duck-server.herokuapp.com/api/posts/");
+      const postsResponse = await axios.get(
+        "https://cluster-duck-server.herokuapp.com/api/posts/"
+      );
       this.setState({ posts: postsResponse.data });
     } catch (err) {
       console.error(err);
@@ -67,6 +72,9 @@ class App extends Component {
         </Route>
         <Route exact path="/register">
           <Register auth={isAuth} />
+        </Route>
+        <Route>
+          <Leaderboard />
         </Route>
       </Router>
     );
