@@ -1,7 +1,7 @@
-// posts routes
 import { Router } from "express";
 import mongoose from "mongoose";
 import { User, Post } from "./../db/models";
+
 const router = Router();
 
 /**
@@ -96,6 +96,20 @@ router.get("/user/:userId", async (req, res, next) => {
 });
 
 /**
+ * @desc Get user who made post
+ * @route GET api/posts/:id/user
+ * @access Public
+ */
+router.get("/:id/user", async (req, res, next) => {
+  try {
+    const userByPost = await Post.findById(req.params.id).populate("userId");
+    return res.status(200).json(userByPost);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
  * DeletePost endpoint
  * @route DELETE api/posts/:id
  * @desc Delete a post
@@ -140,7 +154,7 @@ router.post("/:id/:userId/like", async (req, res, next) => {
         return !(element.toString() === user_id.toString());
       });
     }
-    post.save();
+    await post.save();
     return res.status(200).json(post);
   } catch (err) {
     next(err);
@@ -171,7 +185,7 @@ router.post("/:id/:userId/dislike", async (req, res, next) => {
         return !(element.toString() === user_id.toString());
       });
     }
-    post.save();
+    await post.save();
     return res.status(200).json(post);
   } catch (err) {
     next(err);
