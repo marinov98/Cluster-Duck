@@ -8,10 +8,7 @@ export default class RecentPosts extends Component {
     };
   }
 
-  // data as rows and columns
   render() {
-    console.log(this.state.posts);
-
     return (
       <div>
         <div>Recent Posts</div>

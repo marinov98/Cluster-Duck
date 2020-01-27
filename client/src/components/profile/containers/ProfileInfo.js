@@ -4,32 +4,38 @@ export default class ProfileInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: this.props.data.name,
-      lastname: this.props.data.lastname,
-      year: this.props.data.year,
-      major: this.props.data.major
+      isAdmin: this.props.data.isAdmin
     };
   }
+
+  displayAdminStatus = () => {
+    if (!this.state.isAdmin) return <h3>This User is not an Admin</h3>;
+    else return <h3>This user is an admin</h3>;
+  };
+
   render() {
-    console.log("pInfo");
+    const {
+      firstName = "",
+      lastName = "",
+      email = ""
+      // username = "",
+      //posts = []
+    } = this.props.data;
 
     return (
-      <div
-        style={{
-          marginLeft: "50px"
-        }}
-      >
-        <div
-          style={{
-            fontSize: "14px",
-            textAlign: "left"
-          }}
-        >
-          <div>Name: {this.state.name} </div>
-          <div>Lastname: {this.state.lastname} </div>
-          <div>Year: {this.state.year} </div>
-          <div>Major: {this.state.major} </div>
+      <div className="user-info">
+        <div className="row names">
+          <div className="col">
+            <h1>{firstName}</h1>
+          </div>
+          <div className="col">
+            <h1>{lastName}</h1>
+          </div>
         </div>
+        <div className="row user-email">
+          <h2>{email}</h2>
+        </div>
+        <div className="row">{this.displayAdminStatus()}</div>
       </div>
     );
   }
