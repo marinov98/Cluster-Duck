@@ -51,15 +51,16 @@ class App extends Component {
 
     try {
       if (localStorage["accessToken"]) {
+        console.log("a refresh is being attempted...");
         const token = localStorage["accessToken"];
 
-        const userInfo = jwt_decode(token);
+        const { email } = jwt_decode(token);
 
         const currentTime = Date.now() / 1000 - 60; // current time in seconds minue 1 minute
 
         // pull user from db
         const response = await axios.get(
-          `https://cluster-duck-server.herokuapp.com/api/users/${userInfo.id}`
+          `https://cluster-duck-server.herokuapp.com/api/users/user/${email}`
         );
 
         // check if token has expired and if a user contains a refresh token
@@ -76,12 +77,14 @@ class App extends Component {
           );
 
           // remove old token and replace with new one
-          localStorage.removeItem("accessToken");
-          localStorage.setItem("accessToken", newToken);
+          if (newToken) {
+            localStorage.removeItem("accessToken");
+            localStorage.setItem("accessToken", newToken);
 
-          // set axios headers
-          if (newToken)
+            // set axios headers
             axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+            console.log("a refresh just occured...");
+          }
         }
       }
     } catch (err) {
