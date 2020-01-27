@@ -29,7 +29,12 @@ export const UserSchema = new Schema({
   /** Array of the user's posted messages */
   posts: {
     type: Array,
-    default: []
+    default: [{ type: Schema.Types.ObjectId, ref: "Post" }]
+  },
+  /** User's refresh token for authorization */
+  refreshToken: {
+    type: String,
+    default: ""
   },
   /** User is treated as an administrator if true */
   isAdmin: {

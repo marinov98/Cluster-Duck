@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import { User } from "./../db/models";
 import passport from "passport";
-const router = express.Router();
+const router = Router();
 
 /**
  * Get all admins endpoint

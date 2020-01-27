@@ -1,8 +1,8 @@
 // posts routes
-import express from "express";
+import { Router } from "express";
 import mongoose from "mongoose";
 import { User, Post } from "./../db/models";
-const router = express.Router();
+const router = Router();
 
 /**
  *
@@ -21,7 +21,16 @@ const router = express.Router();
  */
 router.post("/", async (req, res, next) => {
   try {
+    // create new post
     const newPost = await Post.create(req.body);
+    await newPost.save();
+
+    // grab owner of post and update them
+    const userWhoPosted = await User.findById(req.body.userId);
+
+    userWhoPosted.posts.push(newPost);
+    await userWhoPosted.save();
+
     return res.status(201).json(newPost);
   } catch (err) {
     next(err);
@@ -45,11 +54,11 @@ router.get("/", async (req, res, next) => {
 
 /**
  * FindAllPosts with related CS topic endpoint
- * @route GET api/posts/:topic
+ * @route GET api/posts/topics/:topic
  * Find all posts
  * @access Public
  */
-router.get("/:topic", async (req, res, next) => {
+router.get("/topics/:topic", async (req, res, next) => {
   try {
     const targetPosts = await Post.find({ csTopic: req.params.topic });
     return res.status(200).json(targetPosts);
@@ -66,9 +75,20 @@ router.get("/:topic", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const post = await Post.findById(req.params.id);
+    return res.status(200).json(post);
+  } catch (err) {
+    next(err);
+  }
+});
 
-    if (!post) return res.sendStatus(401);
-
+/**
+ * Get Single Post endpoint by the user id
+ * @route GET api/posts/user/:userId
+ * @access Public
+ */
+router.get("/user/:userId", async (req, res, next) => {
+  try {
+    const post = await Post.findOne({ poster: req.params.userId });
     return res.status(200).json(post);
   } catch (err) {
     next(err);
