@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { User } from "./../db/models";
 import passport from "passport";
+
 const router = Router();
 
 /**
@@ -49,12 +50,12 @@ router.get("/:id", async (req, res, next) => {
 });
 
 /**
- * Get specific User by email endpoint
+ * Get specific User by email
  * @route GET /api/users/user/:email
  * @desc get user
  * @access Public
  */
-router.get("user/:email", async (req, res, next) => {
+router.get("/user/:email", async (req, res, next) => {
   try {
     const targetUser = await User.findOne({ email: req.params.email });
     return res.status(200).json(targetUser);
@@ -64,6 +65,21 @@ router.get("user/:email", async (req, res, next) => {
 });
 
 /**
+ * @desc Get all the posts of a single user
+ * @route GET /api/users/:id/posts
+ * @access Public
+ */
+router.get("/:id/posts", async (req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id).populate("posts");
+    return res.status(200).json(user.posts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+/**
+ * ** CAUTION ONLY WORKS WITH PEOPLE WHO LOGGED IN WITHOUT GOOGLE
  * Get user after using jwt strategy
  * @route GET /api/users/auth/user
  * @desc get user
