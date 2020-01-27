@@ -11,9 +11,11 @@ import Login from "./components/auth/Login.js";
 import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
+import UserProfile from "./components/profile/UserProfile";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
+import Leaderboard from "./components/Leaderboard";
 
 class App extends Component {
   constructor(props) {
@@ -65,6 +67,18 @@ class App extends Component {
           getAuth={this.getAuth}
           component={DuckNavbar}
           auth={isAuth}
+        />
+        <ProtectedRoute
+          exact
+          path="/profile/:email"
+          auth={isAuth}
+          component={UserProfile}
+        />
+        <ProtectedRoute
+          exact
+          path="/leaderboard"
+          auth={isAuth}
+          component={Leaderboard}
         />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
