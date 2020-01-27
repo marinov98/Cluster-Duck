@@ -10,8 +10,8 @@ export default class RecentPosts extends Component {
   }
 
   render() {
-    const posts = this.state.posts.map(post => (
-      <Post data={post} id={post._id} />
+    const posts = this.state.posts.map((post, rank) => (
+      <Post data={post} key={rank + 1} />
     ));
     return (
       <div>
