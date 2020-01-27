@@ -1,7 +1,10 @@
-# Heroku link :
+# Heroku link : to be made in the future 
 
 # Getting Started
 - run  `npm run app-install` to install all dependencies
+
+# Running the Project:
+- for now, simplye type `npm run client` after installing dependencies in your terminal to view the current state of the project
 
 # Contributing to DEVELOPMENT
 - To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`    
@@ -18,5 +21,3 @@
 
 # PRODUCTION
 - Any scripts containing `build` or `clean` in their name are for PRODUCTION only and will therefore be used by Heroku and not by us. Use only the above scripts mentioned while developing.
-# Current Status:
-- type `npm run client` in your terminal to view the current state of the project
