@@ -18,3 +18,5 @@
 
 # PRODUCTION
 - Any scripts containing `build` or `clean` in their name are for PRODUCTION only and will therefore be used by Heroku and not by us. Use only the above scripts mentioned while developing.
+# Current Status:
+- type `npm run client` in your terminal to view the current state of the project
