@@ -12,6 +12,7 @@ import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
 import UserProfile from "./components/profile/UserProfile";
+import UserChat from "./components/chat/UserChat";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -79,6 +80,12 @@ class App extends Component {
           path="/leaderboard"
           auth={isAuth}
           component={Leaderboard}
+        />
+        <ProtectedRoute
+          exact
+          path="/chat"
+          auth={isAuth}
+          component={UserChat}
         />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
