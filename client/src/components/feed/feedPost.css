@@ -1,13 +1,10 @@
 .postContainer {
   padding: 5px;
-  height: 150px;
+  min-height: 150px;
   width: 400px;
-  background-color: red;
-  border: 1px solid blue;
-  border-radius: 10px;
+  margin: 3px;
 }
-
-.poster, .topic, .rating, .timeStamp, .replies {
+ .topic, .rating, .timeStamp, .replies {
   display: inline-block;
 }
 
@@ -15,7 +12,7 @@
   float: right;
 }
 
-.rating, .poster {
+.rating, .timeStamp {
   float: left;
 }
 
@@ -28,4 +25,12 @@
   text-align: center;
 }
 
+.postText {
+  margin: 10px;
+}
+
+.poster {
+  /* display: block; */
+  /* color: red; */
+}
 

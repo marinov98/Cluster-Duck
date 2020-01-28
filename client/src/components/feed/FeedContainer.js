@@ -1,7 +1,7 @@
 //Layout of feed container!!!
 
 import React from 'react';
-// import { Button } from 'reactstrap';
+import { Button, Jumbotron } from 'reactstrap';
 import FeedPost from './feedPost';
 // import axios from 'axios'
 import './FeedContainer.css';
@@ -10,27 +10,14 @@ import './FeedContainer.css';
 
 
 export default function FeedContainer(props) {
-  // useEffect(() => {
-  //   async function fetchPosts() {
-  //     try {
-  //       const { data } = await axios.get(POST_URL);
-
-  //     } catch (err){
-  //       console.error(err);
-  //     }
-  //   }
-  // })
-  
-  // const refreshFeed = () => {
-
-  // }
 
   return (
     <div className="feedContainer">
       {/* { list of shits from user state} */}
-      <div className="header">
-        Your Posts
-      </div>
+      <Jumbotron>
+        <h1>Welcome to your feed!</h1>
+      </Jumbotron>
+      <Button>New Post</Button>
       <div className="posts">  
         {
           props.posts.map(p => {
