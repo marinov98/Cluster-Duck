@@ -12,10 +12,11 @@ import Register from "./components/auth/Register.js";
 import DuckNavbar from "./components/Navbar.js";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
 import UserProfile from "./components/profile/UserProfile";
+import Leaderboard from "./components/Leaderboard";
+import Feed from "./components/feed/Feed";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
-import Leaderboard from "./components/Leaderboard";
 
 class App extends Component {
   constructor(props) {
@@ -79,6 +80,12 @@ class App extends Component {
           path="/leaderboard"
           auth={isAuth}
           component={Leaderboard}
+        />
+        <ProtectedRoute
+          exact
+          path="/feed"
+          auth={isAuth}
+          component={Feed}
         />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
