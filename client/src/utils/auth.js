@@ -153,7 +153,6 @@ export function authenticate() {
 
     const currentTime = Date.now() / 1000; // curr time in miliseconds
     // check if token has expired
-    console.log("curr token expiration", userInfo.exp);
     if (userInfo.exp < currentTime) logoutUser();
     else {
       res.user = userInfo;
