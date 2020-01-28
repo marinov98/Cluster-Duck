@@ -1,0 +1,36 @@
+.postContainer {
+  padding: 5px;
+  min-height: 150px;
+  width: 400px;
+  margin: 3px;
+}
+ .topic, .rating, .timeStamp, .replies {
+  display: inline-block;
+}
+
+.topic, .replies {
+  float: right;
+}
+
+.rating, .timeStamp {
+  float: left;
+}
+
+.title {
+  text-align: center;
+}
+
+.heading {
+  position: relative;
+  text-align: center;
+}
+
+.postText {
+  margin: 10px;
+}
+
+.poster {
+  /* display: block; */
+  /* color: red; */
+}
+
