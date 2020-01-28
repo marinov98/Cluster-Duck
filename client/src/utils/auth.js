@@ -115,13 +115,24 @@ export function logoutUser() {
   // ensure local storage is supported
   if (typeof Storage === "undefined")
     throw new Error("Browser does not support local storage!");
+  if (localStorage["accessToken"]) {
+    const token = localStorage["accessToken"];
 
-  // remove item token from local storage
-  localStorage.removeItem("accessToken");
+    const { email } = jwt_decode(token);
 
-  // remove from headers
-  setAuthHeader(false);
-  setAdminHeader(false);
+    // remove item token from local storage
+    localStorage.removeItem("accessToken");
+
+    // remove from headers
+    setAuthHeader(false);
+    setAdminHeader(false);
+
+    // remove any refresh tokens
+    axios.put(
+      "https://cluster-duck-server.herokuapp.com/api/auth/token/reject",
+      { email }
+    );
+  }
 }
 
 /**
@@ -143,10 +154,10 @@ export function authenticate() {
     const userInfo = jwt_decode(token);
 
     const currentTime = Date.now() / 1000; // curr time in miliseconds
-
     // check if token has expired
-    if (userInfo.exp < currentTime) logoutUser();
-    else {
+    if (userInfo.exp < currentTime) {
+      logoutUser();
+    } else {
       res.user = userInfo;
       res.authenticated = true;
     }

@@ -1,6 +1,7 @@
 // Libraries
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import axios from "axios";
 
 // Utility
@@ -40,6 +41,56 @@ class App extends Component {
         "https://cluster-duck-server.herokuapp.com/api/posts/"
       );
       this.setState({ posts: postsResponse.data });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  refreshToken = async () => {
+    if (typeof Storage === "undefined")
+      throw new Error("Browser does not support local storage!");
+
+    try {
+      if (localStorage["accessToken"]) {
+        const token = localStorage["accessToken"];
+
+        const { email } = jwt_decode(token);
+
+        // pull user from db
+        const response = await axios.get(
+          `https://cluster-duck-server.herokuapp.com/api/users/user/${email}`
+        );
+
+        // check if token has expired and if a user contains a refresh token
+        if (response.data.refreshToken) {
+          const {
+            data: { newToken }
+          } = await axios.post(
+            "https://cluster-duck-server.herokuapp.com/api/auth/token",
+            { refreshToken: response.data.refreshToken }
+          );
+
+          // remove old token and replace with new one
+          if (newToken) {
+            localStorage.setItem("accessToken", newToken);
+            // set axios headers
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${newToken}`;
+          }
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  componentDidMount = async () => {
+    // check if token needs to be refreshed every 3 minutes
+    try {
+      setInterval(async () => {
+        await this.refreshToken();
+      }, 180000);
     } catch (err) {
       console.error(err);
     }

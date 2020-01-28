@@ -50,7 +50,7 @@ const loginSchema = Joi.object({
       minDomainSegments: 2,
       tlds: { allow: ["com", "net", "edu"] }
     })
-    .message("Could not find a password and email that match")
+    .message("Password and email do not match")
     .required(),
   password: Joi.string()
     .pattern(
@@ -58,7 +58,7 @@ const loginSchema = Joi.object({
         `^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{7,25}$`
       )
     )
-    .message("Password and Email do not match")
+    .message("Password and email do not match")
     .required()
 });
 
