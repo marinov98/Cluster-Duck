@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const posts = [{
+=======
+const post = {
+>>>>>>> dd7522bb846b197fde57df345a26b35cd620efce
   poster: "Ajani",
   text: "This is a test post.",
   title: "Test",
@@ -9,6 +13,7 @@ const posts = [{
   upVotes: ["Randy", "Peter"],
   downVotes: ["Karen"],
   created: new Date('July 27, 1998 03:24:00')
+<<<<<<< HEAD
 },
 {
   poster: "Stewart",
@@ -23,3 +28,8 @@ const posts = [{
   created: new Date('July 27, 2006 03:24:00')}];
 
 export default posts;
+=======
+};
+
+export default post;
+>>>>>>> dd7522bb846b197fde57df345a26b35cd620efce
