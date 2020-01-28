@@ -62,7 +62,7 @@ class App extends Component {
         );
 
         // check if token has expired and if a user contains a refresh token
-        if (response.data.refreshToken) {
+        if (response.data.refreshToken && response.data.refreshToken !== "") {
           const {
             data: { newToken }
           } = await axios.post(
@@ -86,11 +86,11 @@ class App extends Component {
   };
 
   componentDidMount = async () => {
-    // check if token needs to be refreshed every 3 minutes
+    // check if token needs to be refreshed every 2 minutes
     try {
       setInterval(async () => {
         await this.refreshToken();
-      }, 180000);
+      }, 120000);
     } catch (err) {
       console.error(err);
     }
@@ -132,12 +132,7 @@ class App extends Component {
           auth={isAuth}
           component={Leaderboard}
         />
-        <ProtectedRoute
-          exact
-          path="/feed"
-          auth={isAuth}
-          component={Feed}
-        />
+        <ProtectedRoute exact path="/feed" auth={isAuth} component={Feed} />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
         </Route>

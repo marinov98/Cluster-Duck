@@ -116,7 +116,7 @@ export function logoutUser() {
   if (typeof Storage === "undefined")
     throw new Error("Browser does not support local storage!");
   if (localStorage["accessToken"]) {
-    const token = localStorage["accessToken"];
+    const token = localStorage.getItem("accessToken");
 
     const { email } = jwt_decode(token);
 
@@ -144,10 +144,8 @@ export function authenticate() {
     throw new Error("Browser does not support local storage!");
 
   let res = { authenticated: false };
-
   if (localStorage["accessToken"]) {
-    const token = localStorage["accessToken"];
-
+    const token = localStorage.getItem("accessToken");
     // set token in headers
     setAuthHeader(token);
 
@@ -155,9 +153,9 @@ export function authenticate() {
 
     const currentTime = Date.now() / 1000; // curr time in miliseconds
     // check if token has expired
-    if (userInfo.exp < currentTime) {
-      logoutUser();
-    } else {
+    console.log("curr token expiration", userInfo.exp);
+    if (userInfo.exp < currentTime) logoutUser();
+    else {
       res.user = userInfo;
       res.authenticated = true;
     }
