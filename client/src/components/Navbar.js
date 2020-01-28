@@ -43,6 +43,9 @@ export default function DuckNavbar({
         <NavItem>
           <NavLink href="/chat">Chat</NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink href="/feed">Feed</NavLink>
+        </NavItem>
         <LogOut getAuth={getAuth} logoutUser={logoutUser} />
       </Navbar>
     </Nav>
