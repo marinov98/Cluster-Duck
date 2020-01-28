@@ -79,7 +79,8 @@ router.post("/login", async (req, res, next) => {
 
     const isMatch = await comparePasswords(req.body.password, user.password);
 
-    if (!isMatch) return res.status(404).json({ error: "Invalid password!" });
+    if (!isMatch)
+      return res.status(404).json({ error: "Password and email do not match" });
 
     // if passwords match, create payload and sign JWT token
     const payload = {
@@ -93,7 +94,7 @@ router.post("/login", async (req, res, next) => {
     };
 
     const accessToken = jwt.sign(payload, config.jwt_secret, {
-      expiresIn: "15s"
+      expiresIn: "15m"
     });
 
     const refreshToken = jwt.sign(payload, config.refresh_secret);
@@ -132,7 +133,7 @@ router.post("/token", async (req, res, next) => {
     jwt.verify(refreshToken, config.refresh_secret, (err, user) => {
       if (err) return res.sendStatus(403);
       const accessToken = jwt.sign(user, config.jwt_secret, {
-        expiresIn: "15s"
+        expiresIn: "15m"
       });
       // send newly made token to user
       return res.status(200).json({ newToken: accessToken });

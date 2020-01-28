@@ -153,11 +153,11 @@ export function authenticate() {
 
     const userInfo = jwt_decode(token);
 
-    const currentTime = Date.now() / 1000 + 60; // curr time in seconds, add 1 minute to give token refresh a chance
-
+    const currentTime = Date.now() / 1000; // curr time in miliseconds
     // check if token has expired
-    if (userInfo.exp < currentTime) logoutUser();
-    else {
+    if (userInfo.exp < currentTime) {
+      logoutUser();
+    } else {
       res.user = userInfo;
       res.authenticated = true;
     }

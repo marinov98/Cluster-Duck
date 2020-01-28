@@ -51,12 +51,9 @@ class App extends Component {
 
     try {
       if (localStorage["accessToken"]) {
-        console.log("a refresh is being attempted...");
         const token = localStorage["accessToken"];
 
         const { email } = jwt_decode(token);
-
-        const currentTime = Date.now() / 1000 - 60; // current time in seconds minue 1 minute
 
         // pull user from db
         const response = await axios.get(
@@ -64,11 +61,7 @@ class App extends Component {
         );
 
         // check if token has expired and if a user contains a refresh token
-        if (
-          userInfo.exp < currentTime &&
-          response.data.refreshToken &&
-          response.data.refreshToken !== ""
-        ) {
+        if (response.data.refreshToken) {
           const {
             data: { newToken }
           } = await axios.post(
@@ -78,12 +71,11 @@ class App extends Component {
 
           // remove old token and replace with new one
           if (newToken) {
-            localStorage.removeItem("accessToken");
             localStorage.setItem("accessToken", newToken);
-
             // set axios headers
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-            console.log("a refresh just occured...");
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${newToken}`;
           }
         }
       }
@@ -92,9 +84,15 @@ class App extends Component {
     }
   };
 
-  componentDidMount = () => {
-    // check if token needs to be refreshed every 15 minutes
-    this.interval = setInterval(() => this.refreshToken(), 900000);
+  componentDidMount = async () => {
+    // check if token needs to be refreshed every 3 minutes
+    try {
+      setInterval(async () => {
+        await this.refreshToken();
+      }, 180000);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   getAuth = authInfo => {
