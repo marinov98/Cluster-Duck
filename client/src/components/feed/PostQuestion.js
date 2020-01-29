@@ -56,10 +56,8 @@ export default class PostQuestion extends Component {
   render() {
     return (
       <div>
-        <h1 style={{ marginLeft: "15" }} className="title">
-          Ask a Question
-        </h1>
-        <h3 style={{ marginLeft: "15px" }} className="title">
+        <h1 className="title">Ask a Question</h1>
+        <h3 className="title">
           Our cs community will try to answer as best we can
         </h3>
         <Form className="form" onSubmit={this.handleSubmit}>
@@ -106,14 +104,16 @@ export default class PostQuestion extends Component {
               <option>CSCI-Electives</option>
             </select>
           </FormGroup>
-          <Button
-            className="submit form-box"
-            size="lg"
-            style={{ align: "center" }}
-            type="submit"
-          >
-            Submit Question
-          </Button>
+          <div style={{ textAlign: "center" }}>
+            <Button
+              className="submit form-box"
+              size="lg"
+              style={{ align: "center" }}
+              type="submit"
+            >
+              Submit Question
+            </Button>
+          </div>
         </Form>
       </div>
     );

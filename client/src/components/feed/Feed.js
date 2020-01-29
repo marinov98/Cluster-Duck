@@ -22,7 +22,13 @@ const Feed = ({ auth }) => {
   }, []);
 
   return posts.length === 0 ? (
-    <Spinner type="grow" color="primary" />
+    <div style={{ textAlign: "center" }}>
+      <Spinner
+        type="grow"
+        style={{ marginTop: "50px", width: "15rem", height: "15rem" }}
+        color="primary"
+      />
+    </div>
   ) : (
     <FeedContainer posts={posts} auth={auth} />
   );
