@@ -10,10 +10,6 @@
     border-radius: 50%;
 }
 
-.user-names h4 {
-    font-size: 40px;
-}
-
 .details {
-    display: inline block;
+    vertical-align: middle;
 }

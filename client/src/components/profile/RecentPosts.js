@@ -31,7 +31,7 @@ export default class RecentPosts extends Component {
     return (
       <div>
         <h3>
-          <span className="badge badge-primary">Recent Posts:</span>
+          <span className="badge badge-secondary">Recent Posts:</span>
         </h3>
         <ul style={{ padding: 0, listStyleType: "none" }}>{posts}</ul>
       </div>
