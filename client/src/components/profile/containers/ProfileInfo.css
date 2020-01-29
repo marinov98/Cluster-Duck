@@ -1,3 +1,12 @@
+.profile-info {
+    background-color: rgb(223, 223, 223);
+    padding-top: 20px;
+    margin-top: 15px;
+    border-bottom: 2px solid rgb(155, 155, 155);
+    border-top: 2px solid rgb(155, 155, 155);
+}
+
+
 .image-body img {
     border: 5px solid rgb(241, 241, 241);
     box-shadow: rgb(153, 153, 153) 0px 0px 2px 1px;
@@ -5,5 +14,9 @@
 }
 
 .user-names h4 {
-    font-size: 50px;
+    font-size: 40px;
+}
+
+.details {
+    display: inline block;
 }

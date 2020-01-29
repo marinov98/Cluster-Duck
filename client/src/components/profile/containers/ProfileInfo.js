@@ -25,9 +25,9 @@ export default class ProfileInfo extends Component {
       //posts = []
     } = this.props.data;
     return (
-      <Media className="profile-info">
-        <Media body className="image-body row">
-          <div className="col-6">
+      <Media className="profile-info row">
+        <Media body className="image-body col-lg-3">
+          <div>
             <Media heading>
               <img
                 src={sampleImage}
@@ -36,26 +36,22 @@ export default class ProfileInfo extends Component {
                 width={"175px"}
               />
             </Media>
-          </div>
-          <div className="col user-names">
-            <Media heading>
+            <Media heading style={{ fontSize: "45px" }}>
               <Badge color="primary">
                 {firstName} {lastName}
               </Badge>
             </Media>
           </div>
         </Media>
-        <Media body className="row">
-          <div className="col details">
-            <Media heading>
-              <Badge color="success">Email:</Badge> {email}
-            </Media>
-            <Media heading>
-              <Badge color="danger">Admin Status: </Badge>
-              {this.displayAdminStatus()}
-            </Media>
-          </div>
-        </Media>
+        <div className="col-sm-6 details">
+          <Media heading style={{ fontSize: "35px" }}>
+            <Badge color="success">Email:</Badge> {email}
+          </Media>
+          <Media heading style={{ fontSize: "35px" }}>
+            <Badge color="danger">Admin Status: </Badge>
+            {this.displayAdminStatus()}
+          </Media>
+        </div>
       </Media>
     );
   }
