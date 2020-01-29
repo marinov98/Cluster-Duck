@@ -26,28 +26,30 @@ export default function DuckNavbar({
   }
 }) {
   return (
-    <Nav>
-      <Navbar light expand="md">
+    <div>
+      <Navbar color="light" light expand="md">
         <NavbarBrand href="/">
           ClusterDuck
           <span role="img" aria-label="duck">
             🦆
           </span>
         </NavbarBrand>
-        <NavItem>
-          <NavLink href={`/profile/${email}`}>Profile</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/leaderboard">Leaderboard</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/chat">Chat</NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink href="/feed">Feed</NavLink>
-        </NavItem>
-        <LogOut getAuth={getAuth} logoutUser={logoutUser} />
+        <Nav>
+          <NavItem>
+            <NavLink href={`/profile/${email}`}>Profile</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/leaderboard">Leaderboard</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/chat">Chat</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/feed">Feed</NavLink>
+          </NavItem>
+          <LogOut getAuth={getAuth} logoutUser={logoutUser} />
+        </Nav>
       </Navbar>
-    </Nav>
+    </div>
   );
 }
