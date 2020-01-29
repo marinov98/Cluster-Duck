@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Post from "./Post";
+import "./RecentPosts.css";
 
 export default class RecentPosts extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ export default class RecentPosts extends Component {
     ));
     return (
       <div>
-        <div>Recent Posts:</div>
+        <h3>Recent Posts:</h3>
         <ul>{posts}</ul>
       </div>
     );

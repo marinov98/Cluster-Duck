@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Nav, Navbar, NavbarBrand, NavItem, NavLink, Button } from "reactstrap";
-import { logoutUser } from "./../utils/auth";
+import { logoutUser } from "./../../utils/auth";
 
 class LogOut extends Component {
   handleLogout = () => {

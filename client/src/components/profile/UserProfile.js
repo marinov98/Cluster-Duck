@@ -4,6 +4,7 @@ import ProfileInfo from "./containers/ProfileInfo.js";
 import RecentPosts from "./RecentPosts.js";
 import { Spinner } from "reactstrap";
 import axios from "axios";
+import "./UserProfile.css";
 
 export default class UserProfile extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ export default class UserProfile extends Component {
 
   displayPostsInfo = () => {
     if (this.state.user !== null && this.state.user.posts)
-      return <RecentPosts data={this.state.user.posts} />;
+      return <RecentPosts className="user-info" data={this.state.user.posts} />;
     else
       return <Spinner style={{ width: "6rem", height: "6rem" }} color="info" />;
   };
