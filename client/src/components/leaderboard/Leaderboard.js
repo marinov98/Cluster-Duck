@@ -39,7 +39,7 @@ export default class Leaderboard extends Component {
 
   render() {
     return (
-      <Container style={{ textAlign: "center" }}>
+      <Container style={{ textAlign: "center", paddingTop: "20px" }}>
         <Jumbotron>
           <h1>Leaderboard</h1>
           <h4>Top Contributors to ClusterDuck This Week!</h4>

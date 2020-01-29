@@ -27,7 +27,17 @@ export default function DuckNavbar({
 }) {
   return (
     <div>
-      <Navbar color="light" light expand="md">
+      <Navbar
+        style={{
+          zIndex: "999999",
+          width: "100%",
+          position: "fixed",
+          borderBottom: "2px solid lightgrey"
+        }}
+        color="light"
+        light
+        expand="md"
+      >
         <NavbarBrand href="/">
           ClusterDuck
           <span role="img" aria-label="duck">
