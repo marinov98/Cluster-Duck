@@ -12,8 +12,19 @@ export default class ProfileInfo extends Component {
   }
 
   displayAdminStatus = () => {
-    if (!this.state.isAdmin) return " Non-Admin";
-    else return " Admin";
+    // if (!this.state.isAdmin) return " Non-Admin";
+    // else return " Admin";
+    if(!this.state.admin){
+      return (
+        <div className="row">
+          <Media heading style={{ fontSize: "35px" }}>
+            <Badge color="danger">Admin</Badge>
+          </Media>
+        </div>
+      );
+    } else {
+      return ("");
+    }
   };
 
   displayUsername = () => {
@@ -22,9 +33,9 @@ export default class ProfileInfo extends Component {
         <div className="row">
           <Media heading style={{ fontSize: "35px" }}>
             <Badge style={{ marginRight: "4px" }} color="warning">
-              Username:{" "}
+              Username{" "}
             </Badge>
-            {this.props.data.username}
+            {` ${this.props.data.username}`}
           </Media>
         </div>
       );
@@ -53,16 +64,11 @@ export default class ProfileInfo extends Component {
         <div className="col-sm-6 details">
           <div className="row">
             <Media heading style={{ fontSize: "35px" }}>
-              <Badge color="success">Email:</Badge> {email}
-            </Media>
-          </div>
-          <div className="row">
-            <Media heading style={{ fontSize: "35px" }}>
-              <Badge color="danger">Admin Status: </Badge>
-              {this.displayAdminStatus()}
+              <Badge color="success">Email</Badge> {email}
             </Media>
           </div>
           {this.displayUsername()}
+          {this.displayAdminStatus()}
         </div>
       </Media>
     );
