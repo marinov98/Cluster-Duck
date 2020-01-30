@@ -47,7 +47,11 @@ export default class FeedPost extends Component {
       <li className="feed-post">
         <Card className="postContainer">
           <div className="heading">
-            <h1 className="title">{this.props.post.title}</h1>
+            <h1 className="title">
+              <Link to={`/post/${this.props.post._id}`}>
+                {this.props.post.title}
+              </Link>
+            </h1>
             <div className="poster" style={{ marginBottom: "10px" }}>
               By {this.displayLink()}
             </div>
