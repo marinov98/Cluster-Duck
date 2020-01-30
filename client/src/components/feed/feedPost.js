@@ -1,37 +1,65 @@
 //layout of an individual post
 
-import React from "react";
+import React, { Component } from "react";
 import { Badge, Card } from "reactstrap";
 import moment from "moment";
 // import t from "./testfeeds";
 import "./feedPost.css";
+import axios from "axios";
 
-// const b = t.body;
+export default class FeedPost extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: ""
+    };
+  }
 
-export default function FeedPost({ post }) {
-  return (
-    <li>
-      <Card className="postContainer">
-        <div className="heading">
-          <h1 className="title">{post.title}</h1>
-          <div className="poster">
-            {post.anonymity ? post.poster : "Anonymous"}
+  componentDidMount = async () => {
+    try {
+      const {
+        data: { username }
+      } = await axios.get(
+        `https://cluster-duck-server.herokuapp.com/api/users/${this.props.userId}`
+      );
+
+      this.setState({ username: username });
+    } catch (err) {}
+  };
+
+  render() {
+    return (
+      <li className="feed-post">
+        <Card className="postContainer">
+          <div className="heading">
+            <h1 className="title">{this.props.post.title}</h1>
+            <div className="poster" style={{ marginBottom: "10px" }}>
+              {this.props.post.anonymity
+                ? "Anonymous"
+                : "By " + this.state.username}
+            </div>
+            <div className="timeStamp">
+              <small>
+                {"Posted " + moment(this.props.post.createdAt).fromNow()}
+              </small>
+            </div>
+            <div className="topic">
+              <Badge color="secondary">{this.props.post.csTopic}</Badge>
+            </div>
           </div>
-          <div className="timeStamp">
-            <small>{"Posted " + moment(post.createdAt).fromNow()}</small>
+          <div className="postText">{this.props.post.text}</div>
+          <div className="footing">
+            <div className="rating">
+              {"Rating: " +
+                (this.props.post.upVotes.length -
+                  this.props.post.downVotes.length)}
+            </div>
+            <div className="replies">
+              {this.props.post.replies.length + " replies"}
+            </div>
           </div>
-          <div className="topic">
-            <Badge color="secondary">{post.csTopic}</Badge>
-          </div>
-        </div>
-        <div className="postText">{post.text}</div>
-        <div className="footing">
-          <div className="rating">
-            {"Rating: " + (post.upVotes.length - post.downVotes.length)}
-          </div>
-          <div className="replies">{post.replies.length + " replies"}</div>
-        </div>
-      </Card>
-    </li>
-  );
+        </Card>
+      </li>
+    );
+  }
 }

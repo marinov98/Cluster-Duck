@@ -19,19 +19,17 @@ export default class FeedContainer extends Component {
     this.setState(prevState => ({ toggle: !prevState.toggle }));
   };
 
-  // displayForm = () => {
-  //   if (this.state.toggle)
-  //     return <PostQuestion toggle={this.toggle} auth={this.props.auth} />;
-  // };
-
   render() {
     const allPosts = this.props.posts.map((p, rank) => (
-      <FeedPost post={p} key={rank + 1} />
+      <FeedPost post={p} userId={p.userId} key={rank + 1} />
     ));
     return (
       <div className="feedContainer">
         <Jumbotron>
-          <h1>Welcome to your feed!</h1>
+          <h1>
+            Welcome! You can ask questions, and see other people's questions
+            below
+          </h1>
         </Jumbotron>
         <div style={{ textAlign: "center", marginBottom: "20px" }}>
           <Button style={{ margin: "10px" }} size="lg" onClick={this.toggle}>

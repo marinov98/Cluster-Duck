@@ -13,7 +13,6 @@ export default class Post extends Component {
 
   toggle = () => {
     this.setState(prevState => ({ isOpen: !prevState.isOpen }));
-    console.log(this.state.isOpen);
   };
 
   render() {

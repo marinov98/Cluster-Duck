@@ -133,7 +133,7 @@ class App extends Component {
           auth={isAuth}
           component={Leaderboard}
         />
-        <ProtectedRoute exact path="/feed" auth={isAuth} component={Feed} />
+        <ProtectedRoute exact path="/" auth={isAuth} component={Feed} />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
         </Route>

@@ -10,7 +10,8 @@ export default class PostQuestion extends Component {
       csTopic: "General",
       text: "",
       auth: this.props.auth,
-      userId: ""
+      userId: "",
+      anonymity: false
     };
   }
 
@@ -22,6 +23,8 @@ export default class PostQuestion extends Component {
         );
 
         this.setState({ userId: data._id });
+      } else {
+        this.setState({ userId: this.state.auth.user.id });
       }
     } catch (err) {
       console.error(err);
@@ -32,6 +35,11 @@ export default class PostQuestion extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+  };
+
+  handleAnonymity = event => {
+    if (event.target.value === "Yes") this.setState({ anonymity: true });
+    else this.setState({ anonymity: false });
   };
 
   handleSubmit = async event => {
@@ -102,6 +110,19 @@ export default class PostQuestion extends Component {
               <option>CSCI-335</option>
               <option>CSCI-340</option>
               <option>CSCI-Electives</option>
+            </select>
+          </FormGroup>
+          <FormGroup className="form-box">
+            <Label for="Anonymity">Anonymous?</Label>
+            <select
+              type="select"
+              name="anonymity"
+              defaultValue="No"
+              style={{ margin: "5px" }}
+              onChange={this.handleAnonymity}
+            >
+              <option>Yes</option>
+              <option>No</option>
             </select>
           </FormGroup>
           <div style={{ textAlign: "center" }}>

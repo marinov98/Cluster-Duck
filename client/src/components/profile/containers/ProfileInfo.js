@@ -16,14 +16,23 @@ export default class ProfileInfo extends Component {
     else return " Admin";
   };
 
+  displayUsername = () => {
+    if (this.props.data.username !== this.props.data.email) {
+      return (
+        <div className="row">
+          <Media heading style={{ fontSize: "35px" }}>
+            <Badge style={{ marginRight: "4px" }} color="warning">
+              Username:{" "}
+            </Badge>
+            {this.props.data.username}
+          </Media>
+        </div>
+      );
+    }
+  };
+
   render() {
-    const {
-      firstName = "",
-      lastName = "",
-      email = ""
-      // username = "",
-      //posts = []
-    } = this.props.data;
+    const { firstName = "", lastName = "", email = "" } = this.props.data;
     return (
       <Media className="profile-info row">
         <Media body className="image-body col-lg-3">
@@ -53,6 +62,7 @@ export default class ProfileInfo extends Component {
               {this.displayAdminStatus()}
             </Media>
           </div>
+          {this.displayUsername()}
         </div>
       </Media>
     );

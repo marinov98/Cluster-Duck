@@ -27,9 +27,11 @@ export default class Leaderboard extends Component {
 
   displayUsers = () => {
     if (this.state.users !== null && this.state.users[0]) {
-      const users = this.state.users.map((user, rank) => (
-        <LeaderboardCard user={user} rank={rank + 1} key={rank + 1} />
-      ));
+      const users = this.state.users
+        .slice(0, 10)
+        .map((user, rank) => (
+          <LeaderboardCard user={user} rank={rank + 1} key={rank + 1} />
+        ));
       return users;
     } else
       return (

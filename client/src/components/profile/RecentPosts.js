@@ -8,7 +8,7 @@ export default class RecentPosts extends Component {
     super(props);
     this.state = {
       user: this.props.data,
-      posts: []
+      posts: null
     };
   }
 
@@ -23,17 +23,26 @@ export default class RecentPosts extends Component {
     }
   };
 
+  displayPosts = () => {
+    if (this.state.posts !== null && this.state.posts.length === 0)
+      return <h4>This user has no posts</h4>;
+    else if (this.state.posts !== null) {
+      // get first 5 posts
+      const posts = this.state.posts
+        .slice(0, 5)
+        .map((post, rank) => <Post data={post} key={rank + 1} />);
+
+      return <ul style={{ padding: 0, listStyleType: "none" }}>{posts}</ul>;
+    }
+  };
+
   render() {
-    // get first 5 posts
-    const posts = this.state.posts
-      .slice(0, 5)
-      .map((post, rank) => <Post data={post} key={rank + 1} />);
     return (
       <div>
         <h3>
           <span className="badge badge-secondary">Recent Posts:</span>
         </h3>
-        <ul style={{ padding: 0, listStyleType: "none" }}>{posts}</ul>
+        {this.displayPosts()}
       </div>
     );
   }
