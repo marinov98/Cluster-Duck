@@ -12,8 +12,6 @@ export default class ProfileInfo extends Component {
   }
 
   displayAdminStatus = () => {
-    // if (!this.state.isAdmin) return " Non-Admin";
-    // else return " Admin";
     if(!this.state.admin){
       return (
         <div className="row">
