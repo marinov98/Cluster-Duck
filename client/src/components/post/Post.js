@@ -52,9 +52,14 @@ class Post extends Component {
       await axios.post(
         `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/like`
       );
+      this.refreshWindow();
     } catch (err) {
       console.error(err);
     }
+  };
+
+  refreshWindow = () => {
+    window.location.reload();
   };
 
   handleDislike = async () => {
@@ -62,6 +67,7 @@ class Post extends Component {
       await axios.post(
         `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/dislike`
       );
+      this.refreshWindow();
     } catch (err) {
       console.error(err);
     }
