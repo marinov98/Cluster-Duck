@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import { Badge, Card } from "reactstrap";
+import { Link } from "react-router-dom";
 import moment from "moment";
 // import t from "./testfeeds";
 import "./feedPost.css";
@@ -11,20 +12,34 @@ export default class FeedPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      username: "",
+      email: ""
     };
   }
 
   componentDidMount = async () => {
     try {
-      const {
-        data: { username }
-      } = await axios.get(
-        `https://cluster-duck-server.herokuapp.com/api/users/${this.props.userId}`
-      );
+      if (!this.props.post.anonymity) {
+        const {
+          data: { username, email }
+        } = await axios.get(
+          `https://cluster-duck-server.herokuapp.com/api/users/${this.props.userId}`
+        );
 
-      this.setState({ username: username });
+        this.setState({ username: username, email: email });
+      }
     } catch (err) {}
+  };
+
+  displayLink = () => {
+    if (this.props.post.anonymity) {
+      return "Anonymous";
+    } else
+      return (
+        <Link to={`/profile/${this.state.email}`}>
+          {this.props.post.anonymity ? "Anonymous" : this.state.username}
+        </Link>
+      );
   };
 
   render() {
@@ -34,9 +49,7 @@ export default class FeedPost extends Component {
           <div className="heading">
             <h1 className="title">{this.props.post.title}</h1>
             <div className="poster" style={{ marginBottom: "10px" }}>
-              {this.props.post.anonymity
-                ? "Anonymous"
-                : "By " + this.state.username}
+              By {this.displayLink()}
             </div>
             <div className="timeStamp">
               <small>
