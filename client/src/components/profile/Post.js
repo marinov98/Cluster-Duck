@@ -20,8 +20,8 @@ export default class Post extends Component {
 
     return (
       <li className={`post  ${_id}`}>
-        <h2>Title: {title}</h2>
-        <h3>Class/Topic: {csTopic}</h3>
+        <h4>{title}</h4>
+        <p>{csTopic}</p>
         <Button
           color="primary"
           onClick={this.toggle}
