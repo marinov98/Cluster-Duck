@@ -18,13 +18,15 @@ export default class RecentPosts extends Component {
         `https://cluster-duck-server.herokuapp.com/api/users/${this.state.user._id}/posts`
       );
 
-      data.sort(
+      // make sure no anonymouse posts are shown and  make sure posts are recent
+      const noAnonymous = data.filter(post => post.anonymity !== true);
+      noAnonymous.sort(
         (post1, post2) =>
           new Date(post2.createdAt).getTime() -
           new Date(post1.createdAt).getTime()
       );
 
-      this.setState({ posts: data });
+      this.setState({ posts: noAnonymous });
     } catch (err) {
       console.error(err);
     }
