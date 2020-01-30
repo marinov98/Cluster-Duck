@@ -22,7 +22,7 @@ const responseGoogleGood = async response => {
     const user = {
       email: response.profileObj.email,
       password: response.accessToken,
-      username: response.profileObj.email,
+      username: response.profileObj.name,
       firstName: response.profileObj.givenName,
       lastName: response.profileObj.familyName,
       token: response.Zi.id_token
