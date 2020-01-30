@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Collapse, Button, Card, CardBody } from "reactstrap";
 import "./Post.css";
 
-export default class Post extends Component {
+export default class ProfilePost extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,7 @@ export default class Post extends Component {
           onClick={this.toggle}
           style={{ margin: "10px" }}
         >
-          View Post
+          View description
         </Button>
         <Collapse isOpen={this.state.isOpen}>
           <Card>

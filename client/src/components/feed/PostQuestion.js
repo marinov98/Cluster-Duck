@@ -31,6 +31,10 @@ export default class PostQuestion extends Component {
     }
   };
 
+  refreshPage = () => {
+    window.location.reload();
+  };
+
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
@@ -53,8 +57,9 @@ export default class PostQuestion extends Component {
           "https://cluster-duck-server.herokuapp.com/api/posts/",
           postToBeCreated
         );
-
         this.props.toggle();
+        this.setState({ title: "", text: "" });
+        this.refreshPage();
       } else window.alert("Description cannot be empty!");
     } catch (err) {
       console.error(err);

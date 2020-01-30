@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import Post from "./Post";
+import ProfilePost from "./ProfilePost";
 import "./RecentPosts.css";
 
 export default class RecentPosts extends Component {
@@ -30,7 +30,7 @@ export default class RecentPosts extends Component {
       // get first 5 posts
       const posts = this.state.posts
         .slice(0, 5)
-        .map((post, rank) => <Post data={post} key={rank + 1} />);
+        .map((post, rank) => <ProfilePost data={post} key={rank + 1} />);
 
       return <ul style={{ padding: 0, listStyleType: "none" }}>{posts}</ul>;
     }
