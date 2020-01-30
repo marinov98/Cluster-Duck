@@ -1,7 +1,14 @@
-.user-info {
-    text-align: center;
+.profile-info {
+    padding-top:15px;
 }
 
-.profile-info {
-    background-color: rgb(204, 204, 204);
+
+.image-body img {
+    border: 5px solid rgb(241, 241, 241);
+    box-shadow: rgb(153, 153, 153) 0px 0px 2px 1px;
+    border-radius: 50%;
+}
+
+.details {
+    vertical-align: middle;
 }

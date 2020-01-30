@@ -1,26 +1,48 @@
 //Layout of feed container!!!
 
-import React from "react";
-import { Button, Jumbotron } from "reactstrap";
+import React, { Component } from "react";
+import { Button, Jumbotron, Collapse } from "reactstrap";
 import FeedPost from "./feedPost";
-// import axios from 'axios'
+import PostQuestion from "./PostQuestion";
 import "./FeedContainer.css";
 
-// const POST_URL = "https://cluster-duck-server.herokuapp.com/api/posts";
+export default class FeedContainer extends Component {
+  constructor(props) {
+    super(props);
 
-export default function FeedContainer(props) {
-  return (
-    <div className="feedContainer">
-      {/* { list of shits from user state} */}
-      <Jumbotron>
-        <h1>Welcome to your feed!</h1>
-      </Jumbotron>
-      <Button>New Post</Button>
-      <div className="posts">
-        {props.posts.map((p, rank) => {
-          return <FeedPost post={p} key={rank + 1} />;
-        })}
+    this.state = {
+      toggle: false
+    };
+  }
+
+  toggle = () => {
+    this.setState(prevState => ({ toggle: !prevState.toggle }));
+  };
+
+  render() {
+    const allPosts = this.props.posts.map((p, rank) => (
+      <FeedPost post={p} userId={p.userId} key={rank + 1} />
+    ));
+    return (
+      <div className="feedContainer">
+        <Jumbotron>
+          <h1>
+            Welcome! You can ask questions, and see other people's questions
+            below
+          </h1>
+        </Jumbotron>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <Button style={{ margin: "10px" }} size="lg" onClick={this.toggle}>
+            Post a question
+          </Button>
+        </div>
+        <Collapse isOpen={this.state.toggle}>
+          <PostQuestion toggle={this.toggle} auth={this.props.auth} />;
+        </Collapse>
+        <ul style={{ listStyleType: "none" }} className="posts">
+          {allPosts}
+        </ul>
       </div>
-    </div>
-  );
+    );
+  }
 }

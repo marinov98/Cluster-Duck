@@ -29,8 +29,9 @@
   margin: 10px;
 }
 
-.poster {
-  /* display: block; */
-  /* color: red; */
+.feed-post {
+  border: 1px solid grey;
+  margin: 5px;
+  
 }
 

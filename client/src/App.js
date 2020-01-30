@@ -10,14 +10,15 @@ import { authenticate } from "./utils/auth";
 // Components
 import Login from "./components/auth/Login.js";
 import Register from "./components/auth/Register.js";
-import DuckNavbar from "./components/Navbar.js";
+import DuckNavbar from "./components/navbar/Navbar.js";
 import ProtectedRoute from "./components/protected/ProtectedRoute";
 import UserProfile from "./components/profile/UserProfile";
-import Leaderboard from "./components/Leaderboard";
+import Leaderboard from "./components/leaderboard/Leaderboard";
 import Feed from "./components/feed/Feed";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
@@ -132,7 +133,7 @@ class App extends Component {
           auth={isAuth}
           component={Leaderboard}
         />
-        <ProtectedRoute exact path="/feed" auth={isAuth} component={Feed} />
+        <ProtectedRoute exact path="/" auth={isAuth} component={Feed} />
         <Route exact path="/login">
           <Login getAuth={this.getAuth} auth={isAuth} />
         </Route>
