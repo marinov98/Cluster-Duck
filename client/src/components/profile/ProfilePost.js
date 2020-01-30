@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Button, Card, CardBody } from "reactstrap";
-import "./Post.css";
+import "./ProfilePost.css";
 
 export default class ProfilePost extends Component {
   constructor(props) {

@@ -17,7 +17,8 @@ export default class Leaderboard extends Component {
       const { data } = await axios.get(
         "https://cluster-duck-server.herokuapp.com/api/users/"
       );
-
+      // sort by who made the most posts
+      data.sort((user, user2) => user2.posts.length - user.posts.length);
       if (data !== null) this.setState({ users: data });
       else this.props.history.push("/");
     } catch (err) {
