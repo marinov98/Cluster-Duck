@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/protected/ProtectedRoute";
 import UserProfile from "./components/profile/UserProfile";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import Feed from "./components/feed/Feed";
+import Post from "./components/post/Post";
 
 // CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -126,6 +127,12 @@ class App extends Component {
           path="/profile/:email"
           auth={isAuth}
           component={UserProfile}
+        />
+        <ProtectedRoute
+          exact
+          path="/post/:postid"
+          auth={isAuth}
+          component={Post}
         />
         <ProtectedRoute
           exact
