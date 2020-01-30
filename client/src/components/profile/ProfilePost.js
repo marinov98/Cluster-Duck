@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Collapse, Button, Card, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 import "./ProfilePost.css";
 
 export default class ProfilePost extends Component {
@@ -20,7 +21,9 @@ export default class ProfilePost extends Component {
 
     return (
       <li className={`post  ${_id}`}>
-        <h4>{title}</h4>
+        <h4>
+          <Link to={`/post/${_id}`}>{title}</Link>
+        </h4>
         <p>{csTopic}</p>
         <Button
           color="primary"
