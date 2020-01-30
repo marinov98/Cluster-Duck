@@ -12,7 +12,7 @@ export default class ProfileInfo extends Component {
   }
 
   displayAdminStatus = () => {
-    if(!this.state.admin){
+    if (!this.state.admin) {
       return (
         <div className="row">
           <Media heading style={{ fontSize: "35px" }}>
@@ -21,7 +21,7 @@ export default class ProfileInfo extends Component {
         </div>
       );
     } else {
-      return ("");
+      return "";
     }
   };
 

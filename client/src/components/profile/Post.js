@@ -20,6 +20,8 @@ export default class Post extends Component {
 
     return (
       <li className={`post  ${_id}`}>
+        <h2>Title: {title}</h2>
+        <h3>Class/Topic: {csTopic}</h3>
         <Button
           color="primary"
           onClick={this.toggle}
@@ -28,8 +30,6 @@ export default class Post extends Component {
           View Post
         </Button>
         <Collapse isOpen={this.state.isOpen}>
-          <p>Title: {title}</p>
-          <p>Class/Topic: {csTopic}</p>
           <Card>
             <CardBody className="description">Description: {text}</CardBody>
           </Card>
