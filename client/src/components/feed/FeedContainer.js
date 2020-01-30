@@ -20,15 +20,15 @@ export default class FeedContainer extends Component {
   };
 
   render() {
-    const allPosts = this.props.posts.map((p, rank) => (
-      <FeedPost post={p} userId={p.userId} key={rank + 1} />
-    ));
+    const allPosts = this.props.posts
+      .slice(0, 16)
+      .map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />);
     return (
       <div className="feedContainer">
         <Jumbotron>
           <h1>
-            Welcome! You can ask questions, and see other people's questions
-            below
+            Welcome! You can ask questions, post advice, and see other people's
+            questions and advice below
           </h1>
         </Jumbotron>
         <div style={{ textAlign: "center", marginBottom: "20px" }}>

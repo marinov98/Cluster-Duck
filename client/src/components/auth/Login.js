@@ -104,7 +104,10 @@ class Login extends Component {
       <Container>
         <Jumbotron>
           <h1 className="display-3">Welcome to ClusterDuck!</h1>
-          <p>This is literally the coolest website in existence atm.</p>
+          <p>
+            A webstite aimed to better the computer science community at Hunter
+            College and allow computer science students to help each other{" "}
+          </p>
         </Jumbotron>
         <Form className="form" onSubmit={this.handleSubmit}>
           <FormGroup className="form-box">
