@@ -4,6 +4,7 @@ import Reply from "./Reply";
 import axios from "axios";
 import { Container, Jumbotron, Media, Collapse, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import "./Post.css";
 
 class Post extends Component {
@@ -89,7 +90,7 @@ class Post extends Component {
   };
 
   render() {
-    const dateString = new Date(this.state.post.createdAt).toLocaleString();
+    // const dateString = new Date(this.state.post.createdAt).toLocaleString();
     const points =
       this.state.post.upVotes.length - this.state.post.downVotes.length;
 
@@ -119,7 +120,7 @@ class Post extends Component {
               👎
             </span>
           </Button>
-          <p style={{ fontSize: "20px" }}>{dateString}</p>
+          <p style={{ fontSize: "20px" }}>{moment(this.state.post.createdAt).fromNow()}</p>
           <p style={{ fontSize: "20px" }}>{`${points} points`}</p>
           <Media middle body>
             <p style={{ fontSize: "35px" }}>{this.state.post.text}</p>
@@ -136,9 +137,11 @@ class Post extends Component {
               postId={this.state.postId}
             />
           </Collapse>
-          <ul className="replies" style={{ listStyleType: "none" }}>
-            {replies}
-          </ul>
+          <div className="replies">
+            <ul className="list" style={{ listStyleType: "none" }}>
+              {replies}
+            </ul>
+          </div>
         </Container>
       </div>
     );

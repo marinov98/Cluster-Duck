@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from 'react-router-dom';
 
 export default class Reply extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ export default class Reply extends Component {
           width: "100%"
         }}
       >
-        <p style={{ color: "blue" }}>{this.props.data.userEmail}</p>
+        <Link to={`/profile/${this.props.data.userEmail}`} style={{ color: "blue" }}>{this.props.data.userEmail}</Link>
         <p>{this.props.data.text}</p>
       </li>
     );
