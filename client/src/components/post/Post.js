@@ -3,6 +3,7 @@ import AddComment from "./AddComment";
 import Reply from "./Reply";
 import axios from "axios";
 import { Container, Jumbotron, Media, Collapse, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import "./Post.css";
 
 class Post extends Component {
@@ -14,7 +15,8 @@ class Post extends Component {
       post: { upVotes: [], downVotes: [] },
       replies: [],
       toggle: false,
-      userId: ""
+      userId: "",
+      email: ""
     };
   }
 
@@ -36,11 +38,24 @@ class Post extends Component {
         const userResponse = await axios.get(
           `https://cluster-duck-server.herokuapp.com/api/users/user/${this.props.auth.user.email}`
         );
-        this.setState({ userId: userResponse.data._id });
+        this.setState({
+          userId: userResponse.data._id,
+          email: userResponse.data.email
+        });
       }
     } catch (err) {
       console.error(err);
     }
+  };
+
+  displayEmail = () => {
+    if (!this.state.post.anonymity)
+      return (
+        <h3>
+          <Link to={`/profile/${this.state.email}`}>{this.state.email}</Link>
+        </h3>
+      );
+    else return <h3>Anonymous</h3>;
   };
 
   toggle = () => {
@@ -88,6 +103,7 @@ class Post extends Component {
           <Jumbotron>
             <h1>{this.state.post.title}</h1>
             <h5>{this.state.post.csTopic}</h5>
+            {this.displayEmail()}
           </Jumbotron>
           <Button
             color="primary"
