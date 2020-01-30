@@ -17,6 +17,13 @@ export default class RecentPosts extends Component {
       const { data } = await axios.get(
         `https://cluster-duck-server.herokuapp.com/api/users/${this.state.user._id}/posts`
       );
+
+      data.sort(
+        (post1, post2) =>
+          new Date(post2.createdAt).getTime() -
+          new Date(post1.createdAt).getTime()
+      );
+
       this.setState({ posts: data });
     } catch (err) {
       console.error(err);
