@@ -43,7 +43,6 @@ class Post extends Component {
       const authResponse = await axios.get(
         `https://cluster-duck-server.herokuapp.com/api/users/user/${this.props.auth.user.email}`
       );
-
       this.setState({
         userId: authResponse.data._id,
         email: userResponse.data.email
