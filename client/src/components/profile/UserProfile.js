@@ -19,9 +19,7 @@ export default class UserProfile extends Component {
   componentDidMount = async () => {
     try {
       const { email } = this.props.match.params;
-      const { data } = await axios.get(
-        `https://cluster-duck-server.herokuapp.com/api/users/user/${email}`
-      );
+      const { data } = await axios.get(`/api/users/user/${email}`);
 
       // redirect to homepage if email is invalid
       if (data === null) this.props.history.push("/");

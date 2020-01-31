@@ -9,9 +9,7 @@ const Feed = ({ auth }) => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data } = await axios.get(
-          "https://cluster-duck-server.herokuapp.com/api/posts/"
-        );
+        const { data } = await axios.get("/api/posts/");
         setPosts(data);
       } catch (err) {
         console.error(err);

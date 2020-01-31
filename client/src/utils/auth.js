@@ -30,10 +30,7 @@ function setAdminHeader(isAdmin) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post(
-      "https://cluster-duck-server.herokuapp.com/api/auth/register",
-      user
-    );
+    const { status } = await axios.post("/api/auth/register", user);
     // if the status is 201, it means user was successfully registered
     if (status === 201) history.push("/login"); // redirect to login upon successful registration
   } catch (err) {
@@ -52,10 +49,7 @@ export async function loginUser(user) {
   try {
     const {
       data: { token }
-    } = await axios.post(
-      "https://cluster-duck-server.herokuapp.com/api/auth/login",
-      user
-    );
+    } = await axios.post("/api/auth/login", user);
 
     // set in Local storage, then in headers
     localStorage.setItem("accessToken", token);
@@ -85,10 +79,7 @@ export async function loginUserGoogle(user) {
   try {
     const {
       data: { token }
-    } = await axios.post(
-      `https://cluster-duck-server.herokuapp.com/api/auth/googlelogin`,
-      user
-    );
+    } = await axios.post(`/api/auth/googlelogin`, user);
 
     // set in Local storage
     localStorage.setItem("accessToken", token);
@@ -128,10 +119,7 @@ export function logoutUser() {
     setAdminHeader(false);
 
     // remove any refresh tokens
-    axios.put(
-      "https://cluster-duck-server.herokuapp.com/api/auth/token/reject",
-      { email }
-    );
+    axios.put("/api/auth/token/reject", { email });
   }
 }
 

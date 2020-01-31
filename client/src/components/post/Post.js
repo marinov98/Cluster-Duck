@@ -22,28 +22,23 @@ class Post extends Component {
   }
 
   componentDidMount = async () => {
-    const postUrl = `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}`;
     try {
-      const { data } = await axios.get(postUrl);
+      const { data } = await axios.get(`/api/posts/${this.state.postId}`);
 
       if (data !== null) this.setState({ post: data });
       else this.props.history.push("/");
 
       // fetch all replies
-      const replies = await axios.get(
-        `https://cluster-duck-server.herokuapp.com/api/replies/${this.state.postId}`
-      );
+      const replies = await axios.get(`/api/replies/${this.state.postId}`);
       this.setState({ replies: replies.data });
 
-      if (!this.props.auth.user.id) {
-        const userResponse = await axios.get(
-          `https://cluster-duck-server.herokuapp.com/api/users/user/${this.props.auth.user.email}`
-        );
-        this.setState({
-          userId: userResponse.data._id,
-          email: userResponse.data.email
-        });
-      }
+      const userResponse = await axios.get(
+        `/api/users/user/${this.props.auth.user.email}`
+      );
+      this.setState({
+        userId: userResponse.data._id,
+        email: userResponse.data.email
+      });
     } catch (err) {
       console.error(err);
     }
@@ -66,7 +61,7 @@ class Post extends Component {
   handleLike = async () => {
     try {
       await axios.post(
-        `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/like`
+        `/api/posts/${this.state.postId}/${this.state.userId}/like`
       );
       this.refreshWindow();
     } catch (err) {
@@ -81,7 +76,7 @@ class Post extends Component {
   handleDislike = async () => {
     try {
       await axios.post(
-        `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/dislike`
+        `/api/posts/${this.state.postId}/${this.state.userId}/dislike`
       );
       this.refreshWindow();
     } catch (err) {
@@ -120,7 +115,9 @@ class Post extends Component {
               👎
             </span>
           </Button>
-          <p style={{ fontSize: "20px" }}>{moment(this.state.post.createdAt).fromNow()}</p>
+          <p style={{ fontSize: "20px" }}>
+            {moment(this.state.post.createdAt).fromNow()}
+          </p>
           <p style={{ fontSize: "20px" }}>{`${points} points`}</p>
           <Media middle body>
             <p style={{ fontSize: "35px" }}>{this.state.post.text}</p>
