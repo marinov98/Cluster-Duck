@@ -44,7 +44,7 @@ export default class FeedPost extends Component {
 
   render() {
     return (
-      <li className="feed-post">
+      <li className="feed-post item">
         <Card className="postContainer">
           <div className="heading">
             <h1 className="title">
