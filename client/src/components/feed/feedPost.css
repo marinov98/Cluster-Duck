@@ -1,7 +1,7 @@
 .postContainer {
   padding: 5px;
   min-height: 400px;
-  width: 400px;
+  width: 500px;
   margin: 3px;
 }
  .topic, .rating, .timeStamp, .replies {
