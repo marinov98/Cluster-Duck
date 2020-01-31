@@ -43,7 +43,6 @@ export default class FeedContainer extends Component {
 
 
   render() {
-    
     let allPosts; 
     if (this.state.tag === null || this.state.tag === 'All')  {
       allPosts = this.props.posts
