@@ -1,17 +1,19 @@
 //Layout of feed container!!!
 
 import React, { Component } from "react";
-import { Button, 
-         Jumbotron, 
-         Collapse, 
-         Dropdown, 
-         DropdownItem, 
-         DropdownToggle, 
-         DropdownMenu,
-         Input,
-         InputGroup,
-         InputGroupAddon,
-         InputGroupText } from "reactstrap";
+import {
+  Button,
+  Jumbotron,
+  Collapse,
+  Dropdown,
+  DropdownItem,
+  DropdownToggle,
+  DropdownMenu,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText
+} from "reactstrap";
 import FeedPost from "./feedPost";
 import PostQuestion from "./PostQuestion";
 import "./FeedContainer.css";
@@ -41,7 +43,8 @@ export default class FeedContainer extends Component {
     "CSCI-340",
     "CSCI-Electives",
     "General",
-    "All"];
+    "All"
+  ];
 
   toggle = () => {
     this.setState(prevState => ({ toggle: !prevState.toggle }));
@@ -53,23 +56,25 @@ export default class FeedContainer extends Component {
 
   handleQueryChange = event => {
     this.setState({ query: event.target.value });
-  }
-
-
+  };
 
   render() {
     let allPosts = this.props.posts;
 
-
     //NOT SCALABLE
-    if (this.state.tag !== null && this.state.tag !== 'All')  {
+    if (this.state.tag !== null && this.state.tag !== "All") {
       allPosts = allPosts.filter(p => p.csTopic === this.state.tag);
     }
 
     if (this.state.query !== "") {
-      allPosts = allPosts.filter(p => p.title.toLocaleLowerCase().indexOf(this.state.query.toLocaleLowerCase()) !== -1);
+      allPosts = allPosts.filter(
+        p =>
+          p.title
+            .toLocaleLowerCase()
+            .indexOf(this.state.query.toLocaleLowerCase()) !== -1
+      );
     }
-    
+
     return (
       <div className="feedContainer">
         <Jumbotron>
@@ -78,32 +83,61 @@ export default class FeedContainer extends Component {
             questions and advice below
           </h1>
         </Jumbotron>
-        <div style={{ textAlign: "center", marginBottom: "20px",display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
           <Button style={{ margin: "10px" }} size="lg" onClick={this.toggle}>
-            Post a question
+            Make a Post
           </Button>
-          <InputGroup style={{width: "50%", margin: "10px"}}>
+          <InputGroup style={{ width: "50%", margin: "10px" }}>
             <InputGroupAddon addonType="append">
               <InputGroupText>Search for Posts!</InputGroupText>
             </InputGroupAddon>
             <Input onChange={e => this.handleQueryChange(e)} />
           </InputGroup>
-          <Dropdown isOpen={this.state.showDropdown} toggle={this.toggleDropdown}>
-            <DropdownToggle caret>{ this.state.tag === null ? "Filter By Tags" : this.state.tag }</DropdownToggle>
+          <Dropdown
+            isOpen={this.state.showDropdown}
+            toggle={this.toggleDropdown}
+          >
+            <DropdownToggle caret>
+              {this.state.tag === null ? "Filter By Tags" : this.state.tag}
+            </DropdownToggle>
             <DropdownMenu>
-            <DropdownItem header>Tags</DropdownItem>
-              { this.allTags.map(tag => {
-                return (<DropdownItem onClick={() => this.setState({ tag })}>{ tag }</DropdownItem>);
-              }) }
+              <DropdownItem header>Tags</DropdownItem>
+              {this.allTags.map((tag, rank) => {
+                return (
+                  <DropdownItem
+                    key={rank + 1}
+                    onClick={() => this.setState({ tag })}
+                  >
+                    {tag}
+                  </DropdownItem>
+                );
+              })}
             </DropdownMenu>
           </Dropdown>
-
         </div>
         <Collapse isOpen={this.state.toggle}>
           <PostQuestion toggle={this.toggle} auth={this.props.auth} />;
         </Collapse>
-        <ul style={{ listStyleType: "none", display: "flex", alignItems: "center", justifyContent: "center" }} className="posts">
-          {allPosts.map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />)}
+        <ul
+          style={{
+            listStyleType: "none",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+          className="posts"
+        >
+          {allPosts.map((p, rank) => (
+            <FeedPost post={p} userId={p.userId} key={rank + 1} />
+          ))}
         </ul>
       </div>
     );
