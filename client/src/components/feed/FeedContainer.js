@@ -29,7 +29,8 @@ export default class FeedContainer extends Component {
     "CSCI-265",
     "CSCI-340",
     "CSCI-Electives",
-    "General"];
+    "General",
+    "All"];
 
   toggle = () => {
     this.setState(prevState => ({ toggle: !prevState.toggle }));
@@ -44,7 +45,7 @@ export default class FeedContainer extends Component {
   render() {
     
     let allPosts; 
-    if (this.state.tag === null)  {
+    if (this.state.tag === null || this.state.tag === 'All')  {
       allPosts = this.props.posts
         .map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />);
     } else {
@@ -65,7 +66,7 @@ export default class FeedContainer extends Component {
             Post a question
           </Button>
           <Dropdown isOpen={this.state.showDropdown} toggle={this.toggleDropdown}>
-            <DropdownToggle caret>Filter By Tags </DropdownToggle>
+            <DropdownToggle caret>{this.state.tag === null ? "Filter By Tags" : this.state.tag}</DropdownToggle>
             <DropdownMenu>
             <DropdownItem header>Tags</DropdownItem>
               {this.allTags.map(tag => {
