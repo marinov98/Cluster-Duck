@@ -6,7 +6,7 @@ import path from "path";
 import passport from "passport";
 import config from "./utils/config/config";
 import "./utils/config/passport-jwt";
-import { users, posts, auth } from "./routes/index";
+import { users, posts, auth, replies } from "./routes/index";
 
 /**
  *
@@ -75,6 +75,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use("/api/users", users);
 app.use("/api/posts", posts);
 app.use("/api/auth", auth);
+app.use("/api/replies", replies);
 
 /**
  *

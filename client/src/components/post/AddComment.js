@@ -29,10 +29,7 @@ export default class AddComment extends Component {
       else {
         const replyToBeCreated = this.state;
 
-        await axios.post(
-          `https://cluster-duck-server.herokuapp.com/api/replies/`,
-          replyToBeCreated
-        );
+        await axios.post(`/api/replies/`, replyToBeCreated);
 
         this.props.toggle();
         // clear text area and refresh page

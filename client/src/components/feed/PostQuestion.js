@@ -19,7 +19,7 @@ export default class PostQuestion extends Component {
     try {
       if (!this.state.auth.user.id) {
         const { data } = await axios.get(
-          `https://cluster-duck-server.herokuapp.com/api/users/user/${this.props.auth.user.email}`
+          `/api/users/user/${this.props.auth.user.email}`
         );
 
         this.setState({ userId: data._id });

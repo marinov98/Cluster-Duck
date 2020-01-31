@@ -15,7 +15,7 @@ export default class RecentPosts extends Component {
   componentDidMount = async () => {
     try {
       const { data } = await axios.get(
-        `https://cluster-duck-server.herokuapp.com/api/users/${this.state.user._id}/posts`
+        `/api/users/${this.state.user._id}/posts`
       );
 
       // make sure no anonymouse posts are shown and  make sure posts are recent
