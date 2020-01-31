@@ -3,13 +3,10 @@
   align-items: center;
   justify-content: center;
   padding-top: 50px
-  /* background-color: red; */
 }
 
 .posts {
   display: flex;
-  /* max-height: 200px; */
   justify-content: space-between;
-  /* min-width: 1000px; */
   flex-wrap: wrap;
 }
