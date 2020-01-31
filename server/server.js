@@ -55,7 +55,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 
 // allow this server to access React while in development
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", `http://localhost:3000`);
     res.header(
@@ -83,7 +83,7 @@ app.use("/api/replies", replies);
  *
  */
 
-if (process.env.NODE_ENV !== "production") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
     res.sendFile(
