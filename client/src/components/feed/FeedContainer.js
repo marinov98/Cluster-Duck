@@ -1,7 +1,7 @@
 //Layout of feed container!!!
 
 import React, { Component } from "react";
-import { Button, Jumbotron, Collapse } from "reactstrap";
+import { Button, Jumbotron, Collapse, Dropdown, DropdownItem, DropdownToggle, DropdownMenu, } from "reactstrap";
 import FeedPost from "./feedPost";
 import PostQuestion from "./PostQuestion";
 import "./FeedContainer.css";
@@ -11,18 +11,47 @@ export default class FeedContainer extends Component {
     super(props);
 
     this.state = {
-      toggle: false
+      toggle: false,
+      tag: null,
+      showDropdown: false
     };
   }
+
+  allTags = [
+    "CSCI-127",
+    "CSCI-135",
+    "CSCI-136",
+    "CSCI-150",
+    "CSCI-235",
+    "CSCI-160",
+    "CSCI-335",
+    "CSCI-260",
+    "CSCI-265",
+    "CSCI-340",
+    "CSCI-Electives",
+    "General"];
 
   toggle = () => {
     this.setState(prevState => ({ toggle: !prevState.toggle }));
   };
 
+  toggleDropdown = () => {
+    this.setState({showDropdown: !this.state.showDropdown});
+  };
+
+
+
   render() {
-    const allPosts = this.props.posts
-      .slice(0, 16)
-      .map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />);
+    
+    let allPosts; 
+    if (this.state.tag === null)  {
+      allPosts = this.props.posts
+        .map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />);
+    } else {
+      allPosts = this.props.posts
+        .filter(p => p.csTopic === this.state.tag)
+        .map((p, rank) => <FeedPost post={p} userId={p.userId} key={rank + 1} />);
+    }
     return (
       <div className="feedContainer">
         <Jumbotron>
@@ -35,6 +64,16 @@ export default class FeedContainer extends Component {
           <Button style={{ margin: "10px" }} size="lg" onClick={this.toggle}>
             Post a question
           </Button>
+          <Dropdown isOpen={this.state.showDropdown} toggle={this.toggleDropdown}>
+            <DropdownToggle caret>Filter By Tags </DropdownToggle>
+            <DropdownMenu>
+            <DropdownItem header>Tags</DropdownItem>
+              {this.allTags.map(tag => {
+                return (<DropdownItem onClick={() => this.setState({tag: tag})}>{tag}</DropdownItem>);
+              })}
+            </DropdownMenu>
+          </Dropdown>
+
         </div>
         <Collapse isOpen={this.state.toggle}>
           <PostQuestion toggle={this.toggle} auth={this.props.auth} />;
