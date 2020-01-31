@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import { Form, Input, FormGroup, Label, Button } from 'reactstrap';
-import axios from 'axios';
+import React, { Component } from "react";
+import { Form, Input, FormGroup, Label, Button } from "reactstrap";
+import axios from "axios";
 
 export default class PostQuestion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '(No title)',
-      csTopic: 'General',
-      text: '',
+      title: "(No title)",
+      csTopic: "General",
+      text: "",
       auth: this.props.auth,
-      userId: '',
+      userId: "",
       anonymity: false
     };
   }
@@ -42,7 +42,7 @@ export default class PostQuestion extends Component {
   };
 
   handleAnonymity = event => {
-    if (event.target.value === 'Yes') this.setState({ anonymity: true });
+    if (event.target.value === "Yes") this.setState({ anonymity: true });
     else this.setState({ anonymity: false });
   };
 
@@ -50,14 +50,17 @@ export default class PostQuestion extends Component {
     event.preventDefault();
 
     try {
-      if (this.state.text !== '') {
+      if (this.state.text !== "") {
         const postToBeCreated = this.state;
 
-        await axios.post('https://cluster-duck-server.herokuapp.com/api/posts/', postToBeCreated);
+        await axios.post(
+          "https://cluster-duck-server.herokuapp.com/api/posts/",
+          postToBeCreated
+        );
         this.props.toggle();
-        this.setState({ title: '', text: '' });
+        this.setState({ title: "", text: "" });
         this.refreshPage();
-      } else window.alert('Description cannot be empty!');
+      } else window.alert("Description cannot be empty!");
     } catch (err) {
       console.error(err);
     }
@@ -67,7 +70,9 @@ export default class PostQuestion extends Component {
     return (
       <div>
         <h1 className="title">Ask a Question</h1>
-        <h3 className="title">Our cs community will try to answer as best we can</h3>
+        <h3 className="title">
+          Our cs community will try to answer as best we can
+        </h3>
         <Form className="form" onSubmit={this.handleSubmit}>
           <FormGroup className="form-box">
             <Label for="title">Title</Label>
@@ -95,7 +100,7 @@ export default class PostQuestion extends Component {
               type="select"
               name="csTopic"
               defaultValue="General"
-              style={{ margin: '5px' }}
+              style={{ margin: "5px" }}
               onChange={this.handleChange}
             >
               <option>General</option>
@@ -118,16 +123,21 @@ export default class PostQuestion extends Component {
               type="select"
               name="anonymity"
               defaultValue="No"
-              style={{ margin: '5px' }}
+              style={{ margin: "5px" }}
               onChange={this.handleAnonymity}
             >
               <option>Yes</option>
               <option>No</option>
             </select>
           </FormGroup>
-          <div style={{ textAlign: 'center' }}>
-            <Button className="submit form-box" size="lg" style={{ align: 'center' }} type="submit">
-              Submit Question
+          <div style={{ textAlign: "center" }}>
+            <Button
+              className="submit form-box"
+              size="lg"
+              style={{ align: "center" }}
+              type="submit"
+            >
+              Submit Post
             </Button>
           </div>
         </Form>
