@@ -4,7 +4,7 @@
 - run  `npm run app-install` to install all dependencies
 
 # Running the Project:
-- for now, simply type `npm run client` after installing dependencies in your terminal to view the current state of the project
+- After installing dependencies, please run ```npm run client-build && npm run server-build && npm run start```
 
 # Contributing to DEVELOPMENT
 - To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`    
