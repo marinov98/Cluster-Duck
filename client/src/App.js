@@ -31,19 +31,6 @@ class App extends Component {
     };
   }
 
-  fecthData = async () => {
-    try {
-      // get all users and posts to pass down to other components
-      const usersResponse = await axios.get("/api/users/");
-      this.setState({ users: usersResponse.data });
-
-      const postsResponse = await axios.get("/api/posts/");
-      this.setState({ posts: postsResponse.data });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   refreshToken = async () => {
     if (typeof Storage === "undefined")
       throw new Error("Browser does not support local storage!");

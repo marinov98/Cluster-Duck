@@ -33,10 +33,15 @@ class Post extends Component {
       this.setState({ replies: replies.data });
 
       const userResponse = await axios.get(
+        `/api/users/${this.state.post.userId}`
+      );
+
+      const authResponse = await axios.get(
         `/api/users/user/${this.props.auth.user.email}`
       );
+
       this.setState({
-        userId: userResponse.data._id,
+        userId: authResponse.data._id,
         email: userResponse.data.email
       });
     } catch (err) {
