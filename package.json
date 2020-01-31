@@ -1,63 +1,48 @@
 {
-  "name": "winter-2020-codefest-submissions-hunterscript",
-  "version": "1.0.0",
-  "description": "Codefest project",
-  "main": "server.js",
-  "scripts": {
-    "app-install": "npm i && cd client && npm i && cd ..",
-    "lint": "eslint ./server --fix",
-    "format": "prettier --write \"./**/*.{js,jsx}\"",
-    "server": "nodemon server/server.js --exec babel-node",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "clean": "rimraf dist",
-    "server-build": "npm run clean && babel server -d dist",
-    "client-build": "npm run build --prefix client",
-    "heroku-postbuild": "npm run app-install && npm run client-build && npm run server-build",
-    "start": "node dist/server.js"
+  "name": "cluster-duck",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=12.0.0",
+    "npm": "6.x"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hunter-classes/winter-2020-codefest-submissions-hunterscript.git"
-  },
-  "author": "Hunstript++",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hunter-classes/winter-2020-codefest-submissions-hunterscript/issues"
-  },
-  "homepage": "https://github.com/hunter-classes/winter-2020-codefest-submissions-hunterscript#readme",
   "dependencies": {
-    "@babel/cli": "^7.7.7",
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/runtime": "^7.8.3",
-    "@hapi/joi": "^16.1.0",
-    "axios": "^0.19.2",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
+    "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
+    "email-validator": "^2.0.4",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.8.7",
-    "morgan": "^1.9.1",
-    "passport": "^0.4.1",
-    "passport-jwt": "^4.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "react-google-login": "^5.0.7",
+    "react-moment": "^0.9.7",
     "react-router-dom": "^5.1.2",
-    "reactstrap": "^8.2.0",
-    "rimraf": "^3.0.0",
-    "socket.io": "^2.3.0"
+    "react-scripts": "3.3.0",
+    "reactstrap": "^8.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@babel/node": "^7.7.7",
-    "concurrently": "^5.0.2",
     "eslint": "^6.8.0",
-    "eslint-plugin-react": "^7.17.0",
-    "nodemon": "^2.0.2",
     "prettier": "^1.19.1"
   }
 }

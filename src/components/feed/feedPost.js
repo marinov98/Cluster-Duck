@@ -1,19 +1,19 @@
 //layout of an individual post
 
-import React, { Component } from "react";
-import { Badge, Card } from "reactstrap";
-import { Link } from "react-router-dom";
-import moment from "moment";
+import React, { Component } from 'react';
+import { Badge, Card } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 // import t from "./testfeeds";
-import "./feedPost.css";
-import axios from "axios";
+import './feedPost.css';
+import axios from 'axios';
 
 export default class FeedPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
-      email: ""
+      username: '',
+      email: ''
     };
   }
 
@@ -22,7 +22,9 @@ export default class FeedPost extends Component {
       if (!this.props.post.anonymity) {
         const {
           data: { username, email }
-        } = await axios.get(`/api/users/${this.props.userId}`);
+        } = await axios.get(
+          `https://cluster-duck-server.herokuapp.com/api/users/${this.props.userId}`
+        );
 
         this.setState({ username: username, email: email });
       }
@@ -31,11 +33,11 @@ export default class FeedPost extends Component {
 
   displayLink = () => {
     if (this.props.post.anonymity) {
-      return "Anonymous";
+      return 'Anonymous';
     } else
       return (
         <Link to={`/profile/${this.state.email}`}>
-          {this.props.post.anonymity ? "Anonymous" : this.state.username}
+          {this.props.post.anonymity ? 'Anonymous' : this.state.username}
         </Link>
       );
   };
@@ -46,17 +48,13 @@ export default class FeedPost extends Component {
         <Card className="postContainer">
           <div className="heading">
             <h1 className="title">
-              <Link to={`/post/${this.props.post._id}`}>
-                {this.props.post.title}
-              </Link>
+              <Link to={`/post/${this.props.post._id}`}>{this.props.post.title}</Link>
             </h1>
-            <div className="poster" style={{ marginBottom: "10px" }}>
+            <div className="poster" style={{ marginBottom: '10px' }}>
               By {this.displayLink()}
             </div>
             <div className="timeStamp">
-              <small>
-                {"Posted " + moment(this.props.post.createdAt).fromNow()}
-              </small>
+              <small>{'Posted ' + moment(this.props.post.createdAt).fromNow()}</small>
             </div>
             <div className="topic">
               <Badge color="secondary">{this.props.post.csTopic}</Badge>
@@ -65,13 +63,9 @@ export default class FeedPost extends Component {
           <div className="postText">{this.props.post.text}</div>
           <div className="footing">
             <div className="rating">
-              {"Rating: " +
-                (this.props.post.upVotes.length -
-                  this.props.post.downVotes.length)}
+              {'Rating: ' + (this.props.post.upVotes.length - this.props.post.downVotes.length)}
             </div>
-            <div className="replies">
-              {this.props.post.replies.length + " replies"}
-            </div>
+            <div className="replies">{this.props.post.replies.length + ' replies'}</div>
           </div>
         </Card>
       </li>

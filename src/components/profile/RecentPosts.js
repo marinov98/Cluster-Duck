@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import axios from "axios";
-import ProfilePost from "./ProfilePost";
-import "./RecentPosts.css";
+import React, { Component } from 'react';
+import axios from 'axios';
+import ProfilePost from './ProfilePost';
+import './RecentPosts.css';
 
 export default class RecentPosts extends Component {
   constructor(props) {
@@ -15,15 +15,13 @@ export default class RecentPosts extends Component {
   componentDidMount = async () => {
     try {
       const { data } = await axios.get(
-        `/api/users/${this.state.user._id}/posts`
+        `https://cluster-duck-server.herokuapp.com/api/users/${this.state.user._id}/posts`
       );
 
       // make sure no anonymouse posts are shown and  make sure posts are recent
       const noAnonymous = data.filter(post => post.anonymity !== true);
       noAnonymous.sort(
-        (post1, post2) =>
-          new Date(post2.createdAt).getTime() -
-          new Date(post1.createdAt).getTime()
+        (post1, post2) => new Date(post2.createdAt).getTime() - new Date(post1.createdAt).getTime()
       );
 
       this.setState({ posts: noAnonymous });
@@ -41,7 +39,7 @@ export default class RecentPosts extends Component {
         .slice(0, 5)
         .map((post, rank) => <ProfilePost data={post} key={rank + 1} />);
 
-      return <ul style={{ padding: 0, listStyleType: "none" }}>{posts}</ul>;
+      return <ul style={{ padding: 0, listStyleType: 'none' }}>{posts}</ul>;
     }
   };
 

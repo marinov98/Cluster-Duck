@@ -1,5 +1,5 @@
-import axios from "axios";
-import jwt_decode from "jwt-decode";
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 /**
  * @desc takes in token, if its valid, apply token to every request
@@ -8,8 +8,8 @@ import jwt_decode from "jwt-decode";
  */
 function setAuthHeader(token) {
   // set all requests to have the jwt in the Authorization header if the jwt is valid
-  if (token) axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  else delete axios.defaults.headers.common["Authorization"]; // remove token from all requests if invalid
+  if (token) axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  else delete axios.defaults.headers.common['Authorization']; // remove token from all requests if invalid
 }
 
 /**
@@ -18,8 +18,8 @@ function setAuthHeader(token) {
  * @return none
  */
 function setAdminHeader(isAdmin) {
-  if (isAdmin) axios.defaults.headers.common["Admin"] = true;
-  else delete axios.defaults.headers.common["Admin"];
+  if (isAdmin) axios.defaults.headers.common['Admin'] = true;
+  else delete axios.defaults.headers.common['Admin'];
 }
 
 /**
@@ -30,9 +30,12 @@ function setAdminHeader(isAdmin) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post("/api/auth/register", user);
+    const { status } = await axios.post(
+      'https://cluster-duck-server.herokuapp.com/api/auth/register',
+      user
+    );
     // if the status is 201, it means user was successfully registered
-    if (status === 201) history.push("/login"); // redirect to login upon successful registration
+    if (status === 201) history.push('/login'); // redirect to login upon successful registration
   } catch (err) {
     if (err.response) {
       return err.response.data;
@@ -49,10 +52,10 @@ export async function loginUser(user) {
   try {
     const {
       data: { token }
-    } = await axios.post("/api/auth/login", user);
+    } = await axios.post('https://cluster-duck-server.herokuapp.com/api/auth/login', user);
 
     // set in Local storage, then in headers
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem('accessToken', token);
 
     // set requests to use token in the Authorization header
     setAuthHeader(token);
@@ -79,10 +82,10 @@ export async function loginUserGoogle(user) {
   try {
     const {
       data: { token }
-    } = await axios.post(`/api/auth/googlelogin`, user);
+    } = await axios.post(`https://cluster-duck-server.herokuapp.com/api/auth/googlelogin`, user);
 
     // set in Local storage
-    localStorage.setItem("accessToken", token);
+    localStorage.setItem('accessToken', token);
 
     // set authorization headers to use the token in requests
     setAuthHeader(token);
@@ -104,22 +107,21 @@ export async function loginUserGoogle(user) {
  */
 export function logoutUser() {
   // ensure local storage is supported
-  if (typeof Storage === "undefined")
-    throw new Error("Browser does not support local storage!");
-  if (localStorage["accessToken"]) {
-    const token = localStorage.getItem("accessToken");
+  if (typeof Storage === 'undefined') throw new Error('Browser does not support local storage!');
+  if (localStorage['accessToken']) {
+    const token = localStorage.getItem('accessToken');
 
     const { email } = jwt_decode(token);
 
     // remove item token from local storage
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem('accessToken');
 
     // remove from headers
     setAuthHeader(false);
     setAdminHeader(false);
 
     // remove any refresh tokens
-    axios.put("/api/auth/token/reject", { email });
+    axios.put('https://cluster-duck-server.herokuapp.com/api/auth/token/reject', { email });
   }
 }
 
@@ -128,12 +130,11 @@ export function logoutUser() {
  * @return boolean
  */
 export function authenticate() {
-  if (typeof Storage === "undefined")
-    throw new Error("Browser does not support local storage!");
+  if (typeof Storage === 'undefined') throw new Error('Browser does not support local storage!');
 
   let res = { authenticated: false };
-  if (localStorage["accessToken"]) {
-    const token = localStorage.getItem("accessToken");
+  if (localStorage['accessToken']) {
+    const token = localStorage.getItem('accessToken');
     // set token in headers
     setAuthHeader(token);
 

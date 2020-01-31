@@ -23,17 +23,21 @@ class Post extends Component {
 
   componentDidMount = async () => {
     try {
-      const { data } = await axios.get(`/api/posts/${this.state.postId}`);
+      const { data } = await axios.get(
+        `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}`
+      );
 
       if (data !== null) this.setState({ post: data });
       else this.props.history.push("/");
 
       // fetch all replies
-      const replies = await axios.get(`/api/replies/${this.state.postId}`);
+      const replies = await axios.get(
+        `https://cluster-duck-server.herokuapp.com/api/replies/${this.state.postId}`
+      );
       this.setState({ replies: replies.data });
 
       const userResponse = await axios.get(
-        `/api/users/user/${this.props.auth.user.email}`
+        `https://cluster-duck-server.herokuapp.com/api/users/${this.state.post.userId}`
       );
       this.setState({
         userId: userResponse.data._id,
@@ -61,7 +65,7 @@ class Post extends Component {
   handleLike = async () => {
     try {
       await axios.post(
-        `/api/posts/${this.state.postId}/${this.state.userId}/like`
+        `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/like`
       );
       this.refreshWindow();
     } catch (err) {
@@ -76,7 +80,7 @@ class Post extends Component {
   handleDislike = async () => {
     try {
       await axios.post(
-        `/api/posts/${this.state.postId}/${this.state.userId}/dislike`
+        `https://cluster-duck-server.herokuapp.com/api/posts/${this.state.postId}/${this.state.userId}/dislike`
       );
       this.refreshWindow();
     } catch (err) {

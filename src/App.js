@@ -25,24 +25,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      auth: {},
-      users: [],
-      posts: []
+      auth: {}
     };
   }
-
-  fecthData = async () => {
-    try {
-      // get all users and posts to pass down to other components
-      const usersResponse = await axios.get("/api/users/");
-      this.setState({ users: usersResponse.data });
-
-      const postsResponse = await axios.get("/api/posts/");
-      this.setState({ posts: postsResponse.data });
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   refreshToken = async () => {
     if (typeof Storage === "undefined")
@@ -55,15 +40,20 @@ class App extends Component {
         const { email } = jwt_decode(token);
 
         // pull user from db
-        const response = await axios.get(`/api/users/user/${email}`);
+        const response = await axios.get(
+          `https://cluster-duck-server.herokuapp.com/api/users/user/${email}`
+        );
 
         // check if token has expired and if a user contains a refresh token
         if (response.data.refreshToken && response.data.refreshToken !== "") {
           const {
             data: { newToken }
-          } = await axios.post("/api/auth/token", {
-            refreshToken: response.data.refreshToken
-          });
+          } = await axios.post(
+            "https://cluster-duck-server.herokuapp.com/api/auth/token",
+            {
+              refreshToken: response.data.refreshToken
+            }
+          );
 
           // remove old token and replace with new one
           if (newToken) {
