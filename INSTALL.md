@@ -1,4 +1,4 @@
-# Heroku link : to be made in the future 
+# Heroku link : https://cluster-duck.herokuapp.com/
 
 # Getting Started
 - run  `npm run app-install` to install all dependencies
