@@ -6,7 +6,7 @@
 
 ## Contributing to DEVELOPMENT
 
-- To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`    
+- To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`
 
 ## Front-End only
 
@@ -23,7 +23,7 @@
 
 ## Environment Variables
 
-- the  `.env.sample` file is there to show you what to put in your `.env ` which you will create yourselves. The value of certain variables is not put in for security reasons. The `.env` is also ignored just like the `node_modules` for security reasons. 
+- the  `.env.sample` file is there to show you what to put in your `.env` which you will create yourselves. The value of certain variables is not put in for security reasons. The `.env` is also ignored just like the `node_modules` for security reasons.
 - The uses of the `.env` will become more apparent as we figure how to set up our database.
 
 ## PRODUCTION
