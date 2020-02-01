@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import { loginUser, loginUserGoogle } from "./../../utils/auth";
-import config from "./../../index";
 import "../../App.css";
 import "./Login.css";
 import {
@@ -140,7 +139,7 @@ class Login extends Component {
           </div>
           <div className="google-login">
             <GoogleLogin
-              clientId={config.clientId}
+              clientId={process.env.REACT_APP_CLIENT_ID}
               render={renderProps => (
                 <Button
                   className="login-button"

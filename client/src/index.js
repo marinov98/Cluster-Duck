@@ -11,10 +11,6 @@ if (process.env.REACT_APP_STAGE !== "production") {
   if (error) throw error;
 }
 
-export default {
-  clientId: process.env.REACT_APP_CLIENT_ID
-};
-
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
