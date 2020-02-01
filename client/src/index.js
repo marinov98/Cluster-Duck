@@ -3,6 +3,17 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { config } from "dotenv";
+
+if (process.env.REACT_APP_STAGE !== "production") {
+  const { error } = config();
+
+  if (error) throw error;
+}
+
+export default {
+  clientId: process.env.REACT_APP_CLIENT_ID
+};
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
