@@ -22,7 +22,9 @@ export default class FeedPost extends Component {
       if (!this.props.post.anonymity) {
         const {
           data: { username, email }
-        } = await axios.get(`/api/users/${this.props.userId}`);
+        } = await axios.get(
+          `http://localhost:4004/api/users/${this.props.userId}`
+        );
 
         this.setState({ username: username, email: email });
       }

@@ -29,7 +29,10 @@ export default class AddComment extends Component {
       else {
         const replyToBeCreated = this.state;
 
-        await axios.post(`/api/replies/`, replyToBeCreated);
+        await axios.post(
+          `http://localhost:4004/api/replies/`,
+          replyToBeCreated
+        );
 
         this.props.toggle();
         // clear text area and refresh page

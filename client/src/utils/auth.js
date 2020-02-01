@@ -30,7 +30,10 @@ function setAdminHeader(isAdmin) {
  */
 export async function registerUser(user, history) {
   try {
-    const { status } = await axios.post("/api/auth/register", user);
+    const { status } = await axios.post(
+      "http://localhost:4004/api/auth/register",
+      user
+    );
     // if the status is 201, it means user was successfully registered
     if (status === 201) history.push("/login"); // redirect to login upon successful registration
   } catch (err) {
@@ -49,7 +52,7 @@ export async function loginUser(user) {
   try {
     const {
       data: { token }
-    } = await axios.post("/api/auth/login", user);
+    } = await axios.post("http://localhost:4004/api/auth/login", user);
 
     // set in Local storage, then in headers
     localStorage.setItem("accessToken", token);
@@ -79,7 +82,7 @@ export async function loginUserGoogle(user) {
   try {
     const {
       data: { token }
-    } = await axios.post(`/api/auth/googlelogin`, user);
+    } = await axios.post(`http://localhost:4004/api/auth/googlelogin`, user);
 
     // set in Local storage
     localStorage.setItem("accessToken", token);
@@ -119,7 +122,7 @@ export function logoutUser() {
     setAdminHeader(false);
 
     // remove any refresh tokens
-    axios.put("/api/auth/token/reject", { email });
+    axios.put("http://localhost:4004/api/auth/token/reject", { email });
   }
 }
 

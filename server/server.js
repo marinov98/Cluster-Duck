@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import passport from "passport";
 import config from "./utils/config/config";
+import cors from "cors";
 import "./utils/config/passport-jwt";
 import { users, posts, auth, replies } from "./routes/index";
 
@@ -54,8 +55,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-// allow this server to access React while in development
 if (process.env.NODE_ENV !== "production" && process.env.DOCKER !== "enabled") {
+  // allow this server to access React while in development
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", `http://localhost:3000`);
     res.header(
@@ -64,6 +65,8 @@ if (process.env.NODE_ENV !== "production" && process.env.DOCKER !== "enabled") {
     );
     next();
   });
+
+  app.use(cors());
 }
 
 /**

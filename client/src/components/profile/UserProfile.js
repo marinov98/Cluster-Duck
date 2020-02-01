@@ -19,7 +19,9 @@ export default class UserProfile extends Component {
   componentDidMount = async () => {
     try {
       const { email } = this.props.match.params;
-      const { data } = await axios.get(`/api/users/user/${email}`);
+      const { data } = await axios.get(
+        `http://localhost:4004/api/users/user/${email}`
+      );
 
       // redirect to homepage if email is invalid
       if (data === null) this.props.history.push("/");

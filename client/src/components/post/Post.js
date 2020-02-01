@@ -23,21 +23,25 @@ class Post extends Component {
 
   componentDidMount = async () => {
     try {
-      const { data } = await axios.get(`/api/posts/${this.state.postId}`);
+      const { data } = await axios.get(
+        `http://localhost:4004/api/posts/${this.state.postId}`
+      );
 
       if (data !== null) this.setState({ post: data });
       else this.props.history.push("/");
 
       // fetch all replies
-      const replies = await axios.get(`/api/replies/${this.state.postId}`);
+      const replies = await axios.get(
+        `http://localhost:4004/api/replies/${this.state.postId}`
+      );
       this.setState({ replies: replies.data });
 
       const userResponse = await axios.get(
-        `/api/users/user/${this.props.auth.user.email}`
+        `http://localhost:4004/api/users/user/${this.props.auth.user.email}`
       );
 
       const authResponse = await axios.get(
-        `/api/users/${this.state.post.userId}`
+        `http://localhost:4004/api/users/${this.state.post.userId}`
       );
 
       this.setState({
@@ -81,7 +85,7 @@ class Post extends Component {
   handleDislike = async () => {
     try {
       await axios.post(
-        `/api/posts/${this.state.postId}/${this.state.userId}/dislike`
+        `http://localhost:4004/api/posts/${this.state.postId}/${this.state.userId}/dislike`
       );
       this.refreshWindow();
     } catch (err) {

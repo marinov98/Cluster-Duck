@@ -14,7 +14,7 @@ export default class Leaderboard extends Component {
 
   componentDidMount = async () => {
     try {
-      const { data } = await axios.get("/api/users/");
+      const { data } = await axios.get("http://localhost:4004/api/users/");
       // sort by who made the most posts
       data.sort((user, user2) => user2.posts.length - user.posts.length);
       if (data !== null) this.setState({ users: data });

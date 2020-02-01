@@ -19,7 +19,7 @@ export default class PostQuestion extends Component {
     try {
       if (!this.state.auth.user.id) {
         const { data } = await axios.get(
-          `/api/users/user/${this.props.auth.user.email}`
+          `http://localhost:4004/api/users/user/${this.props.auth.user.email}`
         );
 
         this.setState({ userId: data._id });
@@ -53,7 +53,7 @@ export default class PostQuestion extends Component {
       if (this.state.text !== "") {
         const postToBeCreated = this.state;
 
-        await axios.post("/api/posts/", postToBeCreated);
+        await axios.post("http://localhost:4004/api/posts/", postToBeCreated);
         this.props.toggle();
         this.setState({ title: "", text: "" });
         this.refreshPage();

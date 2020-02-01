@@ -48,7 +48,7 @@ class App extends Component {
         if (response.data.refreshToken && response.data.refreshToken !== "") {
           const {
             data: { newToken }
-          } = await axios.post("/api/auth/token", {
+          } = await axios.post("http://localhost:4004/api/auth/token", {
             refreshToken: response.data.refreshToken
           });
 
