@@ -137,7 +137,7 @@ export default class PostQuestion extends Component {
               style={{ align: "center" }}
               type="submit"
             >
-              Submit Question
+              Submit Post
             </Button>
           </div>
         </Form>

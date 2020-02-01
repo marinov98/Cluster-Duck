@@ -13,7 +13,7 @@
     "clean": "rimraf dist",
     "server-build": "npm run clean && babel server -d dist",
     "client-build": "npm run build --prefix client",
-    "heroku-postbuild": "npm run app-install && npm run client-build && npm run server-build",
+    "build": "npm run app-install && npm run client-build && npm run server-build",
     "start": "node dist/server.js"
   },
   "repository": {

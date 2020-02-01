@@ -35,9 +35,14 @@ class Post extends Component {
       const userResponse = await axios.get(
         `/api/users/user/${this.props.auth.user.email}`
       );
+
+      const authResponse = await axios.get(
+        `/api/users/${this.state.post.userId}`
+      );
+
       this.setState({
         userId: userResponse.data._id,
-        email: userResponse.data.email
+        email: authResponse.data.email
       });
     } catch (err) {
       console.error(err);
@@ -85,7 +90,6 @@ class Post extends Component {
   };
 
   render() {
-    // const dateString = new Date(this.state.post.createdAt).toLocaleString();
     const points =
       this.state.post.upVotes.length - this.state.post.downVotes.length;
 
