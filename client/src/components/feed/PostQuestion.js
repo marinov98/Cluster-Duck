@@ -53,10 +53,7 @@ export default class PostQuestion extends Component {
       if (this.state.text !== "") {
         const postToBeCreated = this.state;
 
-        await axios.post(
-          "https://cluster-duck-server.herokuapp.com/api/posts/",
-          postToBeCreated
-        );
+        await axios.post("/api/posts/", postToBeCreated);
         this.props.toggle();
         this.setState({ title: "", text: "" });
         this.refreshPage();
