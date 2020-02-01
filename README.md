@@ -1,6 +1,7 @@
 # ClusterDuck
 
 - A website aimed at improving the Computer Science Community at Hunter College (and potential many more communities in the future)
+- This project began development during the **Hunter CS Winter 2019 CodeFest**
 - [Check it out!](https://cluster-duck.herokuapp.com)
 
 ## Problem
