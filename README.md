@@ -36,8 +36,8 @@ combined with the fact that Hunter College is a commuter school, having a commun
 
 ### Authentication & Authorization
 
-- This app allows users to either register and make their own accounts or use google-login and login with their google emails and credentials.
-- If they decide to make an account through the app, we use json web tokens (and have implemented refresh token logic) to authorize users.
+- This app allows users to either register and make their own accounts or use **google-login** and login with their google emails and credentials.
+- If they decide to make an account through the app, we use **json web tokens (and have implemented refresh token logic)** to authorize users.
 
 ## Team Info
 
