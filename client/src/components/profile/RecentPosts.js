@@ -15,7 +15,7 @@ export default class RecentPosts extends Component {
   componentDidMount = async () => {
     try {
       const { data } = await axios.get(
-        `/api/users/${this.state.user._id}/posts`
+        `http://localhost:4004/api/users/${this.state.user._id}/posts`
       );
 
       // make sure no anonymouse posts are shown and  make sure posts are recent
