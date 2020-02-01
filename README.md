@@ -1,11 +1,15 @@
 # ClusterDuck
 
 - A website aimed at improving the Computer Science Community at Hunter College (and potential many more communities in the future)
+- [Check it out!](https://cluster-duck.herokuapp.com)
+
+## Problem
+
+- Hunter College has honors computer science programs but majority of students are not enrolled in them and
+combined with the fact that Hunter College is a commuter school, having a community can be difficult to come around
 
 ## Description
 
-- **Problem**: Hunter College has honors computer science programs but majority of students are not enrolled in them and
-combined with the fact that Hunter College is a commuter school, having a community can be difficult to come around
 - We wanted to make something that will allow computer science majors to seemlessly communicate with another.
 - We wanted this app to be the better version of piazza, stack overflow, and facebook all combined
 - This app allows users to make an account and post questions/advice to other computer science majors
@@ -24,9 +28,9 @@ combined with the fact that Hunter College is a commuter school, having a commun
 - Express.js
 - DBMS: MongoDB
 
-### Other
+### Cloud Platform and Docker
 
-- This application is hosted on **Heroku** and can be found at this link: <https://cluster-duck.herokuapp.com/>
+- This application is hosted on **Heroku**  
 - We are using **Docker** but we are planning to improve the configurations
 
 ### Authentication & Authorization
@@ -36,9 +40,9 @@ combined with the fact that Hunter College is a commuter school, having a commun
 
 ## Team Info
 
-### Team name: HunserScript
+### Team name: HunterScript++
 
-### Team members (format: GitHub username, last name, first name):
+### Team members (format: GitHub username, last name, first name)
 
 - `marinov98`, Marinov, Marin
 - `AjaniStewart`, Stewart, Ajani
