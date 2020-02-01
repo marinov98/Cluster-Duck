@@ -21,7 +21,7 @@ combined with the fact that Hunter College is a commuter school, having a commun
 ### Front-end
 
 - React.js
-- bootstrap
+- Bootstrap
 
 ### Backend-end
 
