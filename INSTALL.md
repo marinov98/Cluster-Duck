@@ -1,23 +1,31 @@
-# Heroku link : https://cluster-duck.herokuapp.com/
+# Heroku link : <https://cluster-duck.herokuapp.com/>
 
-# Getting Started
+## Getting Started
+
 - run  `npm run app-install` to install all dependencies
 
-# Running the Project:
-- for now, simply type `npm run client` after installing dependencies in your terminal to view the current state of the project
+## Contributing to DEVELOPMENT
 
-# Contributing to DEVELOPMENT
 - To simultaneously run backend and front end, execute this script in your terminal: `npm run dev`    
-## Front-End only 
+
+## Front-End only
+
 - run `npm run client` in your terminal to start the React server without the backend
-## Back-End only 
+
+## Back-End only
+
 - run `npm run server` in your terminal to only start up the server without the front-end React server launching
+
 ## Other useful scripts
+
 - `npm run format` to format code and ensure the same style is maintained
--  `npm run lint` to lint your code in case your syntax checker is not working or you just want to double check your code.
+- `npm run lint` to lint your code in case your syntax checker is not working or you just want to double check your code.
+
 ## Environment Variables
+
 - the  `.env.sample` file is there to show you what to put in your `.env ` which you will create yourselves. The value of certain variables is not put in for security reasons. The `.env` is also ignored just like the `node_modules` for security reasons. 
 - The uses of the `.env` will become more apparent as we figure how to set up our database.
 
-# PRODUCTION
+## PRODUCTION
+
 - Any scripts containing `build` or `clean` in their name are for PRODUCTION only and will therefore be used by Heroku and not by us. Use only the above scripts mentioned while developing.

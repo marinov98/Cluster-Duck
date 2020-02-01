@@ -26,7 +26,7 @@ combined with the fact that Hunter College is a commuter school, having a commun
 
 ### Other
 
-- This application is hosted on **Heroku** and can be found at this link: <https://cluster-duck.herokuapp.com>
+- This application is hosted on **Heroku** and can be found at this link: <https://cluster-duck.herokuapp.com/>
 - We are using **Docker** but we are planning to improve the configurations
 
 ### Authentication & Authorization
