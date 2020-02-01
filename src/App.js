@@ -41,7 +41,7 @@ class App extends Component {
 
         // pull user from db
         const response = await axios.get(
-          `https://cluster-duck-server.herokuapp.com/api/users/user/${email}`
+          `/api/users/user/${email}`
         );
 
         // check if token has expired and if a user contains a refresh token
@@ -49,7 +49,7 @@ class App extends Component {
           const {
             data: { newToken }
           } = await axios.post(
-            "https://cluster-duck-server.herokuapp.com/api/auth/token",
+            "/api/auth/token",
             {
               refreshToken: response.data.refreshToken
             }

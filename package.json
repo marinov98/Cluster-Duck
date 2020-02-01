@@ -1,10 +1,33 @@
 {
+<<<<<<< HEAD
   "name": "cluster-duck",
   "version": "0.1.0",
   "private": true,
   "engines": {
     "node": ">=12.0.0",
     "npm": "6.x"
+=======
+  "name": "winter-2020-codefest-submissions-hunterscript",
+  "version": "1.0.0",
+  "description": "Codefest project",
+  "main": "server.js",
+  "scripts": {
+    "app-install": "npm i && cd client && npm i && cd ..",
+    "lint": "eslint ./server --fix",
+    "format": "prettier --write \"./**/*.{js,jsx}\"",
+    "server": "nodemon server/server.js --exec babel-node",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "clean": "rimraf dist",
+    "server-build": "npm run clean && babel server -d dist",
+    "client-build": "npm run build --prefix client",
+    "build": "npm run app-install && npm run client-build && npm run server-build",
+    "start": "node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hunter-classes/winter-2020-codefest-submissions-hunterscript.git"
+>>>>>>> 14c8c23c9eb29b5a88beaccc85e19bc5078cf747
   },
   "dependencies": {
     "axios": "^0.19.1",
