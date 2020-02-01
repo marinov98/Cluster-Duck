@@ -14,6 +14,7 @@ combined with the fact that Hunter College is a commuter school, having a commun
 - We wanted this app to be the better version of piazza, stack overflow, and facebook all combined
 - This app allows users to make an account and post questions/advice to other computer science majors
 - the more a user contributes, the more points they earn for helping out the community
+- Users can reply to one another, like/dislike the other user's posts and view each other's profiles
 
 ## Tech Stack
 
